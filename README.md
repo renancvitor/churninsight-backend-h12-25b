@@ -6,16 +6,16 @@
 
 <h2 align="center">📑 Sumário</h2>
 
-- [Visão Geral do Projeto](#visao-geral)
-- [Propósito do Backend](#proposito)
-- [Arquitetura e Abordagem Geral](#arquitetura)
-- [Tecnologias Utilizadas](#tecnologias)
-- [Integração com o Time de Data Science](#integracao)
-- [Contrato Inicial de Comunicação](#contrato)
-- [Primeiros Entregáveis do Squad](#entregaveis)
-- [Estrutura do Projeto (proposta inicial)](#estrutura)
-- [Como Executar o Projeto](#como-executar)
-- [Contribuições](#contribuicoes)
+* [Visão Geral do Projeto](#visao-geral)
+* [Propósito do Backend](#proposito)
+* [Arquitetura e Abordagem Geral](#arquitetura)
+* [Tecnologias Utilizadas](#tecnologias)
+* [Integração com o Time de Data Science](#integracao)
+* [Contrato Inicial de Comunicação](#contrato)
+* [Primeiros Entregáveis do Squad](#entregaveis)
+* [Estrutura do Projeto (proposta inicial)](#estrutura)
+* [Como Executar o Projeto](#como-executar)
+* [Contribuições](#contribuicoes)
 
 ---
 
@@ -24,7 +24,7 @@
 O **ChurnInsight** é uma solução criada para prever o risco de **cancelamento (churn)** de clientes em serviços recorrentes.  
 Este repositório contém o código do **Backend**, responsável por expor a previsão do modelo de Data Science através de uma API REST desenvolvida em **Spring Boot**.
 
-O objetivo do backend é fornecer um endpoint capaz de receber informações de um cliente, acionar o modelo preditivo do squad DS e retornar a probabilidade de churn de forma clara e estruturada.
+O objetivo do backend é fornecer um endpoint capaz de receber informações de um cliente, acionar o modelo preditivo do time de Data Science e retornar a probabilidade de churn de forma clara e estruturada.
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
@@ -34,13 +34,13 @@ O objetivo do backend é fornecer um endpoint capaz de receber informações de 
 
 O backend tem como responsabilidades iniciais:
 
-- Implementar uma **API REST** com rotas para previsão de churn.
-- Validar os dados recebidos dos clientes.
-- Enviar os dados ao microserviço Python do time de DS.
-- Interpretar a resposta do modelo e retorná-la ao consumidor final.
-- Garantir tratamento de erros, logs e respostas consistentes.
+* Implementar uma **API REST** com rotas para previsão de churn.
+* Validar os dados recebidos dos clientes.
+* Enviar os dados ao microserviço Python do time de DS.
+* Interpretar a resposta do modelo e retorná-la ao consumidor final.
+* Garantir tratamento de erros, logs e respostas consistentes.
 
-Como este é um projeto de hackathon, a prioridade é entregar **funcionalidade, clareza e integração**, evitando complexidade desnecessária na primeira fase.
+Como este é um projeto de hackathon, a prioridade é entregar **funcionalidade, clareza e integração**, evitando complexidade desnecessária.
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
@@ -50,13 +50,13 @@ Como este é um projeto de hackathon, a prioridade é entregar **funcionalidade,
 
 A arquitetura prevista para o backend é simples e direta:
 
-- Camada de **Controller** para exposição de endpoints.
-- Camada de **Service** para orquestrar validação, chamada ao serviço DS e montagem de respostas.
-- Camada de **DTOs** para padronizar entrada e saída do endpoint.
-- Cliente HTTP interno para comunicação com o microserviço Python.
-- Modelagem orientada a **MVP**, com foco em previsões de churn.
+* Camada de **Controller** para exposição de endpoints.
+* Camada de **Service** para orquestrar validação, chamada ao serviço Data Science e montagem de respostas.
+* Camada de **DTOs** para padronizar entrada e saída do endpoint.
+* Cliente HTTP interno para comunicação com o microserviço Python.
+* Modelagem orientada a **MVP**, com foco em previsões de churn.
 
-Durante o hackathon, o backend pode adicionar funcionalidades extras conforme avanço do projeto (ex.: logs detalhados, persistência, endpoint de estatísticas), mas inicialmente a prioridade é o endpoint `/predict`.
+Poderemos adicionar funcionalidades extras conforme avanço do projeto (ex.: logs detalhados, persistência, endpoint de estatísticas), mas inicialmente a prioridade é o endpoint `/predict`.
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
@@ -64,20 +64,20 @@ Durante o hackathon, o backend pode adicionar funcionalidades extras conforme av
 
 <h2 id="tecnologias" align="center">Tecnologias Utilizadas</h2>
 
-- ☕ **Java 17+**
-- 🌱 **Spring Boot 3**
-- 🌐 Spring Web
-- 📦 Spring Validation (Bean Validation)
-- 🔧 Lombok
-- 📡 OpenFeign ou WebClient (a definir pelo squad)
-- 🧪 JUnit (para testes básicos)
-- 🐳 Docker (opcional para empacotamento futuro)
+* ☕ **Java 17+**
+* 🌱 **Spring Boot 3**
+* 🌐 Spring Web
+* 📦 Spring Validation (Bean Validation)
+* 🔧 Lombok
+* 📖 Documentação automatizada com Swagger (OpenAPI)
+* 🧪 JUnit (para testes básicos)
+* 🐘 PostgreSQL: Banco de dados
 
 Ferramentas auxiliares:
 
-- Visual Studio Code ou IntelliJ IDEA  
-- Insomnia / Postman para testes  
-- GitHub para colaboração  
+* Visual Studio Code e IntelliJ IDEA  
+* Insomnia / Postman para testes  
+* GitHub para colaboração  
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
@@ -91,13 +91,13 @@ Fluxo geral:
 
 1. O cliente envia um JSON ao backend Java.  
 2. O backend valida o payload.  
-3. O backend envia os dados ao serviço DS (`/predict-model`).  
-4. O serviço DS retorna:
+3. O backend envia os dados ao serviço Data Science (`/predict-model`).  
+4. O serviço Data Science retorna:
    - a previsão textual  
    - a probabilidade numérica  
 5. O backend responde ao cliente no mesmo padrão.
 
-Todo o contrato pode evoluir conforme o modelo do DS for sendo ajustado.
+Todo o contrato pode evoluir conforme o modelo do Data Science for sendo ajustado.
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
@@ -121,7 +121,7 @@ Todo o contrato pode evoluir conforme o modelo do DS for sendo ajustado.
   "probabilidade": 0.81
 }
 ```
-O backend retornará exatamente o que o microserviço DS responder, mantendo padrão consistente.
+O backend retornará exatamente o que o microserviço Data Science responder, mantendo padrão consistente.
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
@@ -130,18 +130,18 @@ O backend retornará exatamente o que o microserviço DS responder, mantendo pad
 <h2 id="entregaveis" align="center">Primeiros Entregáveis do Squad</h2>
 
 Rascunho dos entregáveis iniciais do backend:
-- Projeto Spring Boot inicializado
-- Endpoint /predict com DTO de entrada e saída
-- Validações básicas das informações enviadas
-- Comunicação HTTP com microserviço DS
-- Retorno padronizado com previsão e probabilidade
-- README com instruções de execução do projeto
+* Projeto Spring Boot inicializado
+* Endpoint /predict com DTO de entrada e saída
+* Validações básicas das informações enviadas
+* Comunicação HTTP com microserviço Data Science
+* Retorno padronizado com previsão e probabilidade
+* README com instruções de execução do projeto
 
 Posteriormente poderão ser incluídos:
-- Endpoint /stats
-- Logs estruturados
-- Documentação OpenAPI
-- Persistência opcional para previsões
+* Endpoint /stats
+* Logs estruturados
+* Documentação OpenAPI
+* Persistência opcional para previsões
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
@@ -195,7 +195,7 @@ cd churn-backend
 POST http://localhost:8080/predict
 ```
 
-⚠️ É necessário que a API Python do time DS esteja rodando para que o backend consiga retornar previsões reais.
+⚠️ É necessário que a API Python do time Data Science esteja rodando para que o backend consiga retornar previsões reais.
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
@@ -208,7 +208,7 @@ Contribuições do squad - Para colaborar:
 2. Implementar a alteração
 3. Abrir um Pull Request descrevendo o que foi desenvolvido
 
-A comunicação entre os membros do squad será essencial para evitar retrabalho e garantir consistência no contrato com o time DS.
+A comunicação entre os membros do squad será essencial para evitar retrabalho e garantir consistência no contrato com o time Data Science.
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
