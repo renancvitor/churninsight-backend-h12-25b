@@ -158,7 +158,7 @@ src/main/java/
       ├── client/           # Comunicação com o microserviço DS
       ├── dto/              # Objetos de entrada e saída
       ├── config/           # Configurações gerais
-      └── BackendApplication.java
+      └── ChurninsightBackendApplication.java
 
 src/main/resources/
  └── application.properties
