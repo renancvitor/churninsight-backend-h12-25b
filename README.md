@@ -4,6 +4,15 @@
 
 ---
 
+<h2 align="center">🔗 Repositório do Time de Data Science</h2>
+
+Este backend consome o modelo preditivo desenvolvido pelo time de **Data Science**.  
+O código do modelo, experimentos e API em Python estão disponíveis no repositório abaixo:
+
+👉 [**Data Science – Churn Prediction**](https://github.com/LeticiaPaesano/Churn_Hackathon_ONE-Data_Science)
+
+---
+
 <h2 align="center">📑 Sumário</h2>
 
 * [Visão Geral do Projeto](#visao-geral)
@@ -108,17 +117,22 @@ Todo o contrato pode evoluir conforme o modelo do Data Science for sendo ajustad
 📥 **Entrada esperada pelo backend:**
 ```json
 {
-  "tempo_contrato_meses": 12,
-  "atrasos_pagamento": 2,
-  "uso_mensal": 14.5,
-  "plano": "Premium"
+  "CreditScore": 650,
+  "Geography": "France",
+  "Gender": "Male",
+  "Age": 40,
+  "Tenure": 5,
+  "Balance": 60000,
+  "EstimatedSalary": 80000
 }
 ```
 📤 **Saída devolvida pelo backend ao cliente:**
 ```json
 {
-  "previsao": "Vai cancelar",
-  "probabilidade": 0.81
+  "previsao": "Vai continuar",
+  "probabilidade": 0.24,
+  "nivel_risco": "BAIXO",
+  "recomendacao": "Cliente estável - manutenção padrão"
 }
 ```
 O backend retornará exatamente o que o microserviço Data Science responder, mantendo padrão consistente.
