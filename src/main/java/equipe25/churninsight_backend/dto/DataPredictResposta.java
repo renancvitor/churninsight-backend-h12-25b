@@ -1,14 +1,12 @@
 package equipe25.churninsight_backend.dto;
 
-import equipe25.churninsight_backend.enuns.NivelRisco;
-import equipe25.churninsight_backend.enuns.PrevisaoChurn;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import equipe25.churninsight_backend.enuns.NivelRiscoEnum;
+import equipe25.churninsight_backend.enuns.PrevisaoChurnEnum;
 
 public record DataPredictResposta(
-        PrevisaoChurn previsaoChurn,
+        PrevisaoChurnEnum previsaoChurn,
         Float probabilidade,
-        NivelRisco nivelRisco,
+        NivelRiscoEnum nivelRisco,
         String recomendacao
 ){
 
