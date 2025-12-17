@@ -1,4 +1,5 @@
-<h1 id="inicio" align="center">ChurnInsight — API Backend <br>
+<h1 id="inicio" align="center">
+ChurnInsight — Plataforma de Previsão de Churn<br>
 <img src="https://img.shields.io/badge/Status-Em%20desenvolvimento-yellow" width="180" height="30" />
 </h1>
 
@@ -6,66 +7,112 @@
 
 <h2 align="center">🔗 Repositório do Time de Data Science</h2>
 
-Este backend consome o modelo preditivo desenvolvido pelo time de **Data Science**.  
-O código do modelo, experimentos e API em Python estão disponíveis no repositório abaixo:
+O **ChurnInsight** utiliza um modelo preditivo desenvolvido pelo squad de **Data Science**, responsável pela análise dos dados, treinamento do modelo e disponibilização das previsões via API Python.
 
-👉 [**Data Science – Churn Prediction**](https://github.com/LeticiaPaesano/Churn_Hackathon_ONE-Data_Science)
+O código do modelo, experimentos, notebooks e a API de inferência estão disponíveis no repositório abaixo:
+
+👉 [**ChurnInsight — Data Science**](https://github.com/LeticiaPaesano/Churn_Hackathon_ONE-Data_Science)
 
 ---
 
 <h2 align="center">📑 Sumário</h2>
 
-* [Visão Geral do Projeto](#visao-geral)
-* [Propósito do Backend](#proposito)
-* [Arquitetura e Abordagem Geral](#arquitetura)
-* [Tecnologias Utilizadas](#tecnologias)
-* [Integração com o Time de Data Science](#integracao)
-* [Contrato Inicial de Comunicação](#contrato)
-* [Primeiros Entregáveis do Squad](#entregaveis)
-* [Estrutura do Projeto (proposta inicial)](#estrutura)
-* [Como Executar o Projeto](#como-executar)
-* [Contribuições](#contribuicoes)
+- [Visão Geral do Projeto](#visao-geral)
+- [Problema de Negócio](#problema)
+- [Solução Desenvolvida](#solucao)
+- [Arquitetura Geral](#arquitetura)
+- [Abordagem de Data Science](#data-science)
+- [Tecnologias Utilizadas](#tecnologias)
+- [Contrato de Comunicação](#contrato)
+- [Estrutura do Projeto](#estrutura)
+- [Como Executar o Projeto](#como-executar)
+- [Primeiros Entregáveis](#entregaveis)
+- [Próximos Passos](#proximos-passos)
+- [Equipe](#equipe)
+- [Contribuições](#contribuicoes)
 
 ---
 
 <h2 id="visao-geral" align="center">Visão Geral do Projeto</h2>
 
-O **ChurnInsight** é uma solução criada para prever o risco de **cancelamento (churn)** de clientes em serviços recorrentes.  
-Este repositório contém o código do **Backend**, responsável por expor a previsão do modelo de Data Science através de uma API REST desenvolvida em **Spring Boot**.
+O **ChurnInsight** é uma solução desenvolvida durante o **Hackathon da Alura** com o objetivo de prever o risco de **cancelamento de clientes (churn)** em serviços recorrentes, como bancos digitais, plataformas de assinatura e soluções SaaS.
 
-O objetivo do backend é fornecer um endpoint capaz de receber informações de um cliente, acionar o modelo preditivo do time de Data Science e retornar a probabilidade de churn de forma clara e estruturada.
+A plataforma integra **Data Science** e **Backend** para transformar dados de clientes em **insights acionáveis**, permitindo que empresas antecipem riscos de evasão e tomem decisões baseadas em dados.
 
-<p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
-
----
-
-<h2 id="proposito" align="center">Propósito do Backend</h2>
-
-O backend tem como responsabilidades iniciais:
-
-* Implementar uma **API REST** com rotas para previsão de churn.
-* Validar os dados recebidos dos clientes.
-* Enviar os dados ao microserviço Python do time de DS.
-* Interpretar a resposta do modelo e retorná-la ao consumidor final.
-* Garantir tratamento de erros, logs e respostas consistentes.
-
-Como este é um projeto de hackathon, a prioridade é entregar **funcionalidade, clareza e integração**, evitando complexidade desnecessária.
+O projeto foi concebido como um **MVP funcional**, com arquitetura simples, clara e preparada para evolução.
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
 ---
 
-<h2 id="arquitetura" align="center">Arquitetura e Abordagem Geral</h2>
+<h2 id="problema" align="center">Problema de Negócio</h2>
 
-A arquitetura prevista para o backend é simples e direta:
+A perda de clientes impacta diretamente a receita de negócios recorrentes.  
+Identificar clientes com maior probabilidade de churn permite ações preventivas mais eficazes, reduzindo custos de aquisição e aumentando a retenção.
 
-* Camada de **Controller** para exposição de endpoints.
-* Camada de **Service** para orquestrar validação, chamada ao serviço Data Science e montagem de respostas.
-* Camada de **DTOs** para padronizar entrada e saída do endpoint.
-* Cliente HTTP interno para comunicação com o microserviço Python.
-* Modelagem orientada a **MVP**, com foco em previsões de churn.
+O ChurnInsight atua exatamente nesse ponto, oferecendo previsões claras e interpretáveis a partir de dados reais de clientes.
 
-Poderemos adicionar funcionalidades extras conforme avanço do projeto (ex.: logs detalhados, persistência, endpoint de estatísticas), mas inicialmente a prioridade é o endpoint `/predict`.
+<p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
+
+---
+
+<h2 id="solucao" align="center">Solução Desenvolvida</h2>
+
+A solução é composta por dois componentes principais:
+
+- **Microserviço de Data Science (Python)**  
+  Responsável pela análise dos dados, treinamento do modelo e geração das previsões.
+
+- **API Backend (Java / Spring Boot)**  
+  Responsável por expor uma API REST, validar dados, consumir o modelo preditivo e padronizar as respostas ao cliente final.
+
+Essa separação garante baixo acoplamento, clareza de responsabilidades e facilidade de manutenção.
+
+<p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
+
+---
+
+<h2 id="arquitetura" align="center">Arquitetura Geral</h2>
+
+Fluxo de funcionamento da plataforma:
+
+1. O cliente envia os dados do cliente via JSON.
+2. O Backend valida o payload recebido.
+3. O Backend chama a API Python do time de Data Science.
+4. O modelo preditivo executa a inferência.
+5. A previsão e a probabilidade são retornadas ao Backend.
+6. O Backend responde ao cliente de forma padronizada.
+
+Durante o hackathon, os serviços são executados localmente, mas a arquitetura é compatível com deploy em ambientes cloud.
+
+<p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
+
+---
+
+<h2 id="data-science" align="center">Abordagem de Data Science</h2>
+
+A abordagem adotada pelo squad de Data Science para o MVP inclui:
+
+- **Pré-processamento**
+  - Remoção de colunas identificadoras
+  - One-Hot Encoding para variáveis categóricas
+
+- **Engenharia de Features**
+  - `Age_Tenure`
+  - `Balance_Salary_Ratio`
+  - `High_Value_Customer` (calculada a partir das medianas do conjunto de treino)
+
+- **Modelagem**
+  - Random Forest Classifier (`n_estimators=200`)
+  - Tratamento de desbalanceamento com `class_weight={0:1, 1:3}`
+  - Threshold ajustado para maximizar o Recall da classe churn
+
+- **Métricas finais (teste)**
+  - ROC-AUC: **0.7669**
+  - Acurácia: **79%**
+  - Recall churn: **47.91%**
+
+O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
@@ -73,48 +120,31 @@ Poderemos adicionar funcionalidades extras conforme avanço do projeto (ex.: log
 
 <h2 id="tecnologias" align="center">Tecnologias Utilizadas</h2>
 
-* ☕ **Java 17+**
-* 🌱 **Spring Boot 3**
-* 🌐 Spring Web
-* 📦 Spring Validation (Bean Validation)
-* 🔧 Lombok
-* 📖 Documentação automatizada com Swagger (OpenAPI)
-* 🧪 JUnit (para testes básicos)
-* 🐘 PostgreSQL: Banco de dados
+### Backend
+- ☕ Java 17+
+- 🌱 Spring Boot 3
+- 🌐 Spring Web
+- 📦 Bean Validation
+- 🔧 Lombok
+- 📖 Swagger / OpenAPI
+- 🧪 JUnit
+- 🐘 PostgreSQL
 
-Ferramentas auxiliares:
-
-* Visual Studio Code e IntelliJ IDEA  
-* Insomnia / Postman para testes  
-* GitHub para colaboração  
-
-<p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
-
----
-
-<h2 id="integracao" align="center">Integração com o Time de Data Science</h2>
-
-O backend consumirá as previsões do modelo através de um **microserviço Python (FastAPI)** hospedado localmente durante o hackathon.
-
-Fluxo geral:
-
-1. O cliente envia um JSON ao backend Java.  
-2. O backend valida o payload.  
-3. O backend envia os dados ao serviço Data Science (`/predict-model`).  
-4. O serviço Data Science retorna:
-   - a previsão textual  
-   - a probabilidade numérica  
-5. O backend responde ao cliente no mesmo padrão.
-
-Todo o contrato pode evoluir conforme o modelo do Data Science for sendo ajustado.
+### Data Science
+- 🐍 Python 3
+- 📊 Pandas, NumPy, Matplotlib, Seaborn
+- 🤖 Scikit-learn
+- 🌐 FastAPI
+- 🔧 Uvicorn
+- 📓 Jupyter Notebook / Google Colab
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
 ---
 
-<h2 id="contrato" align="center">Contrato Inicial de Comunicação</h2>
+<h2 id="contrato" align="center">Contrato de Comunicação</h2>
 
-📥 **Entrada esperada pelo backend:**
+📥 **Entrada**
 ```json
 {
   "CreditScore": 650,
@@ -126,7 +156,8 @@ Todo o contrato pode evoluir conforme o modelo do Data Science for sendo ajustad
   "EstimatedSalary": 80000
 }
 ```
-📤 **Saída devolvida pelo backend ao cliente:**
+
+📤 **Saída**
 ```json
 {
   "previsao": "Vai continuar",
@@ -135,54 +166,35 @@ Todo o contrato pode evoluir conforme o modelo do Data Science for sendo ajustad
   "recomendacao": "Cliente estável - manutenção padrão"
 }
 ```
-O backend retornará exatamente o que o microserviço Data Science responder, mantendo padrão consistente.
+O contrato pode evoluir conforme ajustes no modelo e nas regras de negócio.
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
 ---
 
-<h2 id="entregaveis" align="center">Primeiros Entregáveis do Squad</h2>
+<h2 id="estrutura" align="center">Estrutura do Projeto</h2>
 
-Rascunho dos entregáveis iniciais do backend:
-* Projeto Spring Boot inicializado
-* Endpoint /predict com DTO de entrada e saída
-* Validações básicas das informações enviadas
-* Comunicação HTTP com microserviço Data Science
-* Retorno padronizado com previsão e probabilidade
-* README com instruções de execução do projeto
+### Backend
 
-Posteriormente poderão ser incluídos:
-* Endpoint /stats
-* Logs estruturados
-* Documentação OpenAPI
-* Persistência opcional para previsões
-
-<p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
-
----
-
-<h2 id="estrutura" align="center">Estrutura do Projeto (proposta inicial)</h2>
-
-A estrutura abaixo representa uma sugestão de organização do código:
 ```plaintext
 src/main/java/
  └── com.churninsight.backend/
-      ├── controller/       # Endpoints REST
-      ├── service/          # Regras de integração e orquestração
-      ├── client/           # Comunicação com o microserviço DS
-      ├── dto/              # Objetos de entrada e saída
-      ├── config/           # Configurações gerais
-      └── ChurninsightBackendApplication.java
-
-src/main/resources/
- └── application.properties
-
-src/test/java/
- └── ... (testes de unidade e integração)
-
-README.md
+      ├── controller/
+      ├── service/
+      ├── client/
+      ├── dto/
+      ├── config/
+      └── ChurnInsightBackendApplication.java
 ```
-A estrutura será expandida conforme o backend evoluir.
+### Data Science
+
+```plaintext
+api/
+ ├── model/
+ │ └── model.joblib
+ ├── main.py
+ ├── requirements.txt
+```
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
@@ -190,39 +202,68 @@ A estrutura será expandida conforme o backend evoluir.
 
 <h2 id="como-executar" align="center">Como Executar o Projeto</h2>
 
-Passos gerais (sujeitos a ajustes):
+### API de Data Science
 
-1. Clonar o repositório
 ```bash
-git clone <url-do-repo>
+pip install -r api/requirements.txt
+uvicorn api.main:app --reload
 ```
-2. Acessar o diretório
+A documentação interativa estará disponível em:
+
 ```bash
-cd churn-backend
+http://localhost:8000/docs
 ```
-3. Executar o projeto
+### Backend
+
 ```bash
 ./mvnw spring-boot:run
 ```
-4. Testar endpoint
+Endpoint principal:
+
 ```bash
 POST http://localhost:8080/predict
 ```
-
-⚠️ É necessário que a API Python do time Data Science esteja rodando para que o backend consiga retornar previsões reais.
+⚠️ A API de Data Science deve estar em execução para previsões reais.
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
 ---
 
-<h2 id="contribuicoes" align="center">Contribuições</h2>
 
-Contribuições do squad - Para colaborar:
-1. Criar uma branch (git checkout -b feature/nova-funcionalidade)
-2. Implementar a alteração
-3. Abrir um Pull Request descrevendo o que foi desenvolvido
+<h2 id="entregaveis" align="center">Primeiros Entregáveis</h2>
 
-A comunicação entre os membros do squad será essencial para evitar retrabalho e garantir consistência no contrato com o time Data Science.
+- Modelo preditivo treinado e validado
+- Pipeline serializado
+- API FastAPI funcional
+- API Backend integrada
+- Contrato JSON definido
+- Documentação unificada do projeto
+
+<p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
+
+---
+
+<h2 id="proximos-passos" align="center">Próximos Passos</h2>
+
+Como evolução natural da plataforma, são considerados os seguintes aprimoramentos:
+
+- Interface frontend para visualização das previsões
+- Persistência do histórico de previsões
+- Monitoramento de métricas do modelo
+- Deploy em ambiente cloud
+- Evolução das regras de recomendação de retenção
+
+<p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
+
+---
+
+<h2 id="equipe" align="center">Equipe</h2>
+
+Projeto desenvolvido durante o Hackathon da Alura, com dois squads integrados:
+
+**Data Science**: análise de dados, modelagem e API Python
+
+**Backend**: API REST, integração e padronização de respostas
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
