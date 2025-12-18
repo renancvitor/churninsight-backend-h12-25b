@@ -3,6 +3,7 @@ package equipe25.churninsight_backend.service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import equipe25.churninsight_backend.dto.DataPredictResposta;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -11,12 +12,12 @@ public class PredictionService {
 
     private final WebClient webClient;
 
-    public PredictionResponse prever(PredictionRequest request) {
+    public DataPredictResposta prever(PredictionRequest request) {
         return webClient.post()
                 .uri("/predict")
                 .bodyValue(request)
                 .retrieve()
-                .bodyToMono(PredictionResponse.class)
+                .bodyToMono(DataPredictResposta.class)
                 .block();
     }
 

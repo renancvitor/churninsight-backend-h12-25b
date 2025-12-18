@@ -1,7 +1,7 @@
 package equipe25.churninsight_backend.enuns;
 
 public enum PrevisaoChurnEnum {
-    VAI_CONTINUAR(1,"Vai continuar"),
+    VAI_CONTINUAR(1, "Vai continuar"),
     VAI_CANCELAR(2, "Vai cancelar");
 
     private final int id;
@@ -11,6 +11,7 @@ public enum PrevisaoChurnEnum {
         this.id = id;
         this.displayName = displayName;
     }
+
     public int getId() {
         return id;
     }

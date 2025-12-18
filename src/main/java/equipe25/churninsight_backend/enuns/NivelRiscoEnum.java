@@ -1,9 +1,10 @@
 package equipe25.churninsight_backend.enuns;
 
 public enum NivelRiscoEnum {
-    BAIXO(1,"Baixo"),
-    MEDIO(2,"Medio"),
-    ALTO(3,"Alto");
+    BAIXO(1, "Baixo"),
+    MEDIO(2, "Medio"),
+    ALTO(3, "Alto");
+
     final int id;
     private final String displayName;
 
@@ -11,6 +12,7 @@ public enum NivelRiscoEnum {
         this.id = id;
         this.displayName = displayName;
     }
+
     public int getId() {
         return id;
     }
