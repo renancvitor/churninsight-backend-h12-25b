@@ -11,7 +11,7 @@ public record EntradaCliente(
 
         @NotNull
         @PositiveOrZero
-        @Max(value = 3,message = "O número máximo de atrasos permitido é 3, acima disso, encerre bloqueio da assinatura")
+        @Max(value = 3,message = "O número máximo de atrasos permitido é 3, acima disso, encerre ou bloqueie assinatura")
         Integer atrasosPagamento,
 
         @NotNull
