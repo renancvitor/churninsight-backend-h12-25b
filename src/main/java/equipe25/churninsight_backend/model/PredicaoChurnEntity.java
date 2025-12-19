@@ -1,5 +1,6 @@
 package equipe25.churninsight_backend.model;
 
+import equipe25.churninsight_backend.enuns.NivelRiscoEnum;
 import equipe25.churninsight_backend.enuns.PrevisaoChurnEnum;
 import jakarta.persistence.*;
 import lombok.*;
@@ -28,6 +29,10 @@ public class PredicaoChurnEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PrevisaoChurnEnum previsao;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private NivelRiscoEnum nivelRisco;
 
     @Column(nullable = false)
     private Double probabilidade;

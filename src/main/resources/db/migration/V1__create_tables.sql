@@ -1,0 +1,13 @@
+CREATE TABLE nivel_risco (
+  id INTEGER PRIMARY KEY,
+  nivel_risco VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE predictions (
+  id INTEGER PRIMARY KEY,
+  previsao VARCHAR(100) NOT NULL,
+  probabilidade DOUBLE PRECISION NOT NULL,
+  nivel_risco VARCHAR(255),
+  recomendacao VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
