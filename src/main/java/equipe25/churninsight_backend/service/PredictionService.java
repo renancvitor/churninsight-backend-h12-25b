@@ -1,6 +1,6 @@
 package equipe25.churninsight_backend.service;
 
-import equipe25.churninsight_backend.model.PredicaoChurnEntity;
+import equipe25.churninsight_backend.model.PredicaoChurnEntidade;
 import equipe25.churninsight_backend.repository.PredictRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,17 +28,17 @@ public class PredictionService {
                 .block();
     }
 
-    public PredicaoChurnEntity salvar(PredicaoChurnEntity prediction){
+    public PredicaoChurnEntidade salvar(PredicaoChurnEntidade prediction) {
         return repository.save(prediction);
     }
 
-    public List<PredicaoChurnEntity> listar(){
+    public List<PredicaoChurnEntidade> listar() {
         return repository.findAll();
     }
 
-    public PredicaoChurnEntity listarPorId(Long id){
+    public PredicaoChurnEntidade listarPorId(Long id) {
         var existe = repository.findById(id);
-        if(existe.isPresent())
+        if (existe.isPresent())
             return existe.get();
         throw new RuntimeException();
     }
