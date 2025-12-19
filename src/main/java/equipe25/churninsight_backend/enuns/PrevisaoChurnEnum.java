@@ -4,7 +4,7 @@ public enum PrevisaoChurnEnum {
     VAI_CONTINUAR(1, "Vai continuar"),
     VAI_CANCELAR(2, "Vai cancelar");
 
-    private final int id;
+    private int id;
     private final String displayName;
 
     PrevisaoChurnEnum(int id, String displayName) {
