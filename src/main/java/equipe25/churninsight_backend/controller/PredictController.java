@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import equipe25.churninsight_backend.dto.DataPredictResposta;
+import equipe25.churninsight_backend.dto.EntradaCliente;
 import equipe25.churninsight_backend.service.PredictionService;
 import lombok.RequiredArgsConstructor;
 
@@ -18,7 +19,7 @@ public class PredictController {
     private final PredictionService predictionService;
 
     @PostMapping
-    public ResponseEntity<DataPredictResposta> prever(@RequestBody PrdictionRequest request) {
+    public ResponseEntity<DataPredictResposta> prever(@RequestBody EntradaCliente request) {
         return ResponseEntity.ok(predictionService.prever(request));
     }
 
