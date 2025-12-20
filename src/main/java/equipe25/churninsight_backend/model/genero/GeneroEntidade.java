@@ -1,6 +1,6 @@
-package equipe25.churninsight_backend.model;
+package equipe25.churninsight_backend.model.genero;
 
-import equipe25.churninsight_backend.enuns.GeneroEnum;
+import equipe25.churninsight_backend.model.genero.enums.GeneroEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

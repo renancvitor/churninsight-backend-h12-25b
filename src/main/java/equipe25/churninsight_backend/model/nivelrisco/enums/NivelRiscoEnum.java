@@ -1,4 +1,4 @@
-package equipe25.churninsight_backend.enuns;
+package equipe25.churninsight_backend.model.nivelrisco.enums;
 
 public enum NivelRiscoEnum {
     BAIXO(1, "Baixo"),

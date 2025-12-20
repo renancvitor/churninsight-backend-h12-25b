@@ -1,6 +1,6 @@
-package equipe25.churninsight_backend.model;
+package equipe25.churninsight_backend.model.TipoPrevisao;
 
-import equipe25.churninsight_backend.enuns.NivelRiscoEnum;
+import equipe25.churninsight_backend.model.TipoPrevisao.enums.TipoPrevisaoEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -12,22 +12,22 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "nivel_risco")
+@Table(name = "tipo_previsao")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class NivelRiscoEntidade {
+public class TipoPrevisaoEntidade {
 
     @Id
     private Integer id;
 
     @Column(nullable = false, unique = true)
-    private String nivelRisco;
+    private String tipoPrevisao;
 
-    public static NivelRiscoEntidade fromEnum(NivelRiscoEnum nivelRiscoEnum) {
-        return new NivelRiscoEntidade(nivelRiscoEnum.getId(), nivelRiscoEnum.name());
+    public static TipoPrevisaoEntidade fromEnum(TipoPrevisaoEnum previsaoChurnEnum) {
+        return new TipoPrevisaoEntidade(previsaoChurnEnum.getId(), previsaoChurnEnum.name());
     }
 
 }
