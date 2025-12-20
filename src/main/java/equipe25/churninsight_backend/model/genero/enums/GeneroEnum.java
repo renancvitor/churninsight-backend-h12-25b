@@ -26,7 +26,7 @@ public enum GeneroEnum {
     }
 
     @JsonCreator
-    public static GeneroEnum fromId(String valor) {
+    public static GeneroEnum fromJson(String valor) {
         for (GeneroEnum genero : values()) {
             if (genero.displayName.equalsIgnoreCase(valor)
                     || genero.name().equalsIgnoreCase(valor)) {
