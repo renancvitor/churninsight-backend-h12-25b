@@ -1,11 +1,11 @@
 CREATE TABLE nivel_risco (
-  id BIGSERIAL PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   nivel_risco VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE predictions ( -- mudar para previsao
+CREATE TABLE previsao ( 
   id BIGSERIAL PRIMARY KEY,
-  previsao VARCHAR(100) NOT NULL, -- mudar para tipo_previsao
+  tipo_previsao VARCHAR(100) NOT NULL, 
   probabilidade DOUBLE PRECISION NOT NULL,
   nivel_risco VARCHAR(255),
   recomendacao VARCHAR(255) NOT NULL,
@@ -13,6 +13,10 @@ CREATE TABLE predictions ( -- mudar para previsao
 );
 
 CREATE TABLE genero (
-  id BIGSERIAL PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   genero VARCHAR(255) NOT NULL
+);
+CREATE TABLE pais (
+  id INTEGER PRIMARY KEY,
+  pais VARCHAR(255) NOT NULL
 );
