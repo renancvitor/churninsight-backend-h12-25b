@@ -5,7 +5,7 @@ public enum NivelRiscoEnum {
     MEDIO(2, "Medio"),
     ALTO(3, "Alto");
 
-    final int id;
+    private final int id;
     private final String displayName;
 
     NivelRiscoEnum(int id, String displayName) {
