@@ -1,25 +1,33 @@
 package equipe25.churninsight_backend.model;
 
-/*
-Verificar o arquivo NivelRiscoEntidade e seguir o mesmo padrão
-*/
+import equipe25.churninsight_backend.enuns.PrevisaoChurnEnum;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-// Annotations:
-// entity
-// table (name = "previsao")
-// getter
-// setter
-// allargsconstructor
-// noargsconstructor
-// equalsandhashcode (of = "id")
+@Entity
+@Table(name = "nivel_risco")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class PrevisaoChrunEntidade {
 
-    // Annotation id
-    // incluir atributo id como Integer
+    @Id
+    private Integer id;
 
-    // Annotation Column com os argumentos: (nullable = false, unique = true)
-    // incluir atributo previsao como String
+    @Column(nullable = false, unique = true)
+    private String previsaoNome;
 
-    // criar método static PrevisaoChrunEntidade chamado fromEnum
+    public static PrevisaoChrunEntidade fromEnum(PrevisaoChurnEnum previsaoChurnEnum) {
+        return new PrevisaoChrunEntidade(previsaoChurnEnum.getId(), previsaoChurnEnum.name());
+    }
 
 }

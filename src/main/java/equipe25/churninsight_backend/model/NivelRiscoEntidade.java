@@ -24,7 +24,7 @@ public class NivelRiscoEntidade {
     private Integer id;
 
     @Column(nullable = false, unique = true)
-    private String nivelRisco;
+    private String nivelRiscoNome;
 
     public static NivelRiscoEntidade fromEnum(NivelRiscoEnum nivelRiscoEnum) {
         return new NivelRiscoEntidade(nivelRiscoEnum.getId(), nivelRiscoEnum.name());
