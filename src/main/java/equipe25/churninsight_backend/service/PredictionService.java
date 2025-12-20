@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import equipe25.churninsight_backend.dto.DataPredictResposta;
+import equipe25.churninsight_backend.dto.EntradaCliente;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class PredictionService {
 
     private final WebClient webClient;
 
-    public DataPredictResposta prever(PredictionRequest request) {
+    public DataPredictResposta prever(EntradaCliente request) {
         return webClient.post()
                 .uri("/predict")
                 .bodyValue(request)
