@@ -1,43 +1,43 @@
-package equipe25.churninsight_backend.service;
+package equipe25.churninsight_backend.application.previsao.service;
 
-import equipe25.churninsight_backend.model.PredicaoChurnEntidade;
-import equipe25.churninsight_backend.repository.PredictRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import equipe25.churninsight_backend.dto.DataPredictResposta;
-import equipe25.churninsight_backend.dto.EntradaCliente;
+import equipe25.churninsight_backend.application.api.dto.ClientRequest;
+import equipe25.churninsight_backend.application.api.dto.ClienteResponse;
+import equipe25.churninsight_backend.application.previsao.repository.PredictRepository;
+import equipe25.churninsight_backend.model.previsao.Previsao;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PredictionService {
+public class PrevisaoService {
     @Autowired
     private PredictRepository repository;
 
     private final WebClient webClient;
 
-    public DataPredictResposta prever(EntradaCliente request) {
+    public ClienteResponse prever(ClientRequest request) {
         return webClient.post()
                 .uri("/predict")
                 .bodyValue(request)
                 .retrieve()
-                .bodyToMono(DataPredictResposta.class)
+                .bodyToMono(ClienteResponse.class)
                 .block();
     }
 
-    public PredicaoChurnEntidade salvar(PredicaoChurnEntidade prediction) {
+    public Previsao salvar(Previsao prediction) {
         return repository.save(prediction);
     }
 
-    public List<PredicaoChurnEntidade> listar() {
+    public List<Previsao> listar() {
         return repository.findAll();
     }
 
-    public PredicaoChurnEntidade listarPorId(Long id) {
+    public Previsao listarPorId(Long id) {
         var existe = repository.findById(id);
         if (existe.isPresent())
             return existe.get();
