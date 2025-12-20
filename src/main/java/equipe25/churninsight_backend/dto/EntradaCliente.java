@@ -1,25 +1,16 @@
 package equipe25.churninsight_backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import equipe25.churninsight_backend.enuns.GeneroEnum;
 import jakarta.validation.constraints.*;
 
 public record EntradaCliente(
-        @NotNull
-        String CreditScore,
-        @NotNull
-        @Size(min = 3, max = 30, message = "Geography deve ter entre 3 e 30 caracteres")
-        String geography,
-        @NotNull
-        GeneroEnum Gender,
-        @Max(value = 120, message = "Idade inválida")
-        @Min(value = 18,message = "idade não pode ser menor que 18")
-        @NotNull
-        Integer Age ,
-        @NotNull
-        String  Tenure,
-        @NotNull
-        String Balance,
-        @NotNull
-        String EstimatedSalary
-) {
+                @NotNull @JsonProperty("CreditScore") Integer creditScore,
+                @NotNull @Size(min = 3, max = 30, message = "Geography deve ter entre 3 e 30 caracteres") @JsonProperty("Geography") String geography,
+                @NotNull @JsonProperty("Gender") GeneroEnum gender,
+                @NotNull @Min(value = 18, message = "Idade não pode ser menor que 18") @Max(value = 120, message = "Idade inválida") @JsonProperty("Age") Integer age,
+                @NotNull @JsonProperty("Tenure") Integer tenure,
+                @NotNull @JsonProperty("Balance") Double balance,
+                @NotNull @JsonProperty("EstimatedSalary") Double estimatedSalary) {
 }

@@ -1,12 +1,14 @@
 package equipe25.churninsight_backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import equipe25.churninsight_backend.enuns.NivelRiscoEnum;
 import equipe25.churninsight_backend.enuns.PrevisaoChurnEnum;
 
 public record DataPredictResposta(
-                PrevisaoChurnEnum previsaoChurn,
-                Float probabilidade,
-                NivelRiscoEnum nivelRisco,
-                String recomendacao) {
 
+        @JsonProperty("previsao") PrevisaoChurnEnum previsaoChurn,
+        @JsonProperty("probabilidade") Float probabilidade,
+        @JsonProperty("nivel_risco") NivelRiscoEnum nivelRisco,
+        @JsonProperty("recomendacao") String recomendacao) {
 }
