@@ -1,25 +1,38 @@
 package equipe25.churninsight_backend.enuns;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-
-import java.util.Arrays;
 
 public enum GeneroEnum {
 
-    MALE("Male"),
-    FEMALE("Female");
+    MALE(1, "Male"),
+    FEMALE(2, "Female");
 
-    private final String valor;
+    private final int id;
+    private final String displayName;
 
-    GeneroEnum(String valor) {
-        this.valor = valor;
+    GeneroEnum(int id, String displayName) {
+        this.id = id;
+        this.displayName = displayName;
+    }
+
+    public int getId() {
+        return id;
     }
 
     @JsonValue
-    public String getValor() { return valor; }
+    public String getDisplayName() {
+        return displayName;
+    }
 
-    public static GeneroEnum fromValor(String valor) {
-        return Arrays.stream(values())
-                .filter(p -> p.valor.equalsIgnoreCase(valor))
-                .findFirst() .orElseThrow(() -> new IllegalArgumentException("Gênero inválido: " + valor) ); }
+    @JsonCreator
+    public static GeneroEnum fromId(String valor) {
+        for (GeneroEnum genero : values()) {
+            if (genero.displayName.equalsIgnoreCase(valor)
+                    || genero.name().equalsIgnoreCase(valor)) {
+                return genero;
+            }
+        }
+        throw new IllegalArgumentException("Gênero inválido: " + valor);
+    }
 }

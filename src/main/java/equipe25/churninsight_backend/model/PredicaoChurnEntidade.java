@@ -1,9 +1,16 @@
 package equipe25.churninsight_backend.model;
 
-import equipe25.churninsight_backend.enuns.NivelRiscoEnum;
-import equipe25.churninsight_backend.enuns.PrevisaoChurnEnum;
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "predictions")
@@ -16,18 +23,13 @@ public class PredicaoChurnEntidade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    // private Long id;
+    private Long id;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private PrevisaoChurnEnum previsao;
-    // private PrevisaoChrunEntidade previsao;
+    private PrevisaoChrunEntidade previsao;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private NivelRiscoEnum nivelRisco;
-    // private NivelRiscoEntidade nivelRisco;
+    @Column(name = "nivel_risco", nullable = false)
+    private NivelRiscoEntidade nivelRisco;
 
     @Column(nullable = false)
     private Double probabilidade;
