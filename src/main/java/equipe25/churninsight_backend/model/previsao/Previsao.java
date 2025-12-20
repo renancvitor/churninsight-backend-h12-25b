@@ -1,5 +1,7 @@
-package equipe25.churninsight_backend.model;
+package equipe25.churninsight_backend.model.previsao;
 
+import equipe25.churninsight_backend.model.TipoPrevisao.TipoPrevisaoEntidade;
+import equipe25.churninsight_backend.model.nivelrisco.NivelRiscoEntidade;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,14 +22,15 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class PredicaoChurnEntidade {
+public class Previsao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private PrevisaoChrunEntidade previsao;
+    @ManyToOne
+    @Column(name = "tipo_previsao", nullable = false)
+    private TipoPrevisaoEntidade previsao;
 
     @ManyToOne
     @Column(name = "nivel_risco", nullable = false)

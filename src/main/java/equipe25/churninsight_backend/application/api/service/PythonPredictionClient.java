@@ -1,4 +1,4 @@
-package equipe25.churninsight_backend.service;
+package equipe25.churninsight_backend.application.api.service;
 
 public class PythonPredictionClient {
 

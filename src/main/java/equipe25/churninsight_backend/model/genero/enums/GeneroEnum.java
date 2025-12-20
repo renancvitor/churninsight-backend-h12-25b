@@ -1,4 +1,4 @@
-package equipe25.churninsight_backend.enuns;
+package equipe25.churninsight_backend.model.genero.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;

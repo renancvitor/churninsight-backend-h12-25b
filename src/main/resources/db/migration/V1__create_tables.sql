@@ -3,9 +3,9 @@ CREATE TABLE nivel_risco (
   nivel_risco VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE predictions (
+CREATE TABLE predictions ( -- mudar para previsao
   id BIGSERIAL PRIMARY KEY,
-  previsao VARCHAR(100) NOT NULL,
+  previsao VARCHAR(100) NOT NULL, -- mudar para tipo_previsao
   probabilidade DOUBLE PRECISION NOT NULL,
   nivel_risco VARCHAR(255),
   recomendacao VARCHAR(255) NOT NULL,
