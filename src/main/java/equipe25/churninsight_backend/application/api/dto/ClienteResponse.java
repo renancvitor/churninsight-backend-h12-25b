@@ -7,8 +7,8 @@ import equipe25.churninsight_backend.model.nivelrisco.enums.NivelRiscoEnum;
 
 public record ClienteResponse(
 
-        @JsonProperty("previsao") TipoPrevisaoEnum tipoPrevisao,
-        @JsonProperty("probabilidade") Double probabilidade,
-        @JsonProperty("nivel_risco") NivelRiscoEnum nivelRisco,
-        @JsonProperty("recomendacao") String recomendacao) {
+                @JsonProperty("previsao") TipoPrevisaoEnum tipoPrevisao,
+                @JsonProperty("probabilidade") Double probabilidade,
+                @JsonProperty("nivel_risco") NivelRiscoEnum nivelRisco,
+                @JsonProperty("recomendacao") String recomendacao) {
 }

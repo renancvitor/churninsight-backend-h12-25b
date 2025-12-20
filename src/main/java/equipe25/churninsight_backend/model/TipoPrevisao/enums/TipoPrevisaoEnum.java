@@ -1,10 +1,14 @@
 package equipe25.churninsight_backend.model.TipoPrevisao.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum TipoPrevisaoEnum {
+
     VAI_CONTINUAR(1, "Vai continuar"),
     VAI_CANCELAR(2, "Vai cancelar");
 
-    private int id;
+    private final int id;
     private final String displayName;
 
     TipoPrevisaoEnum(int id, String displayName) {
@@ -16,17 +20,20 @@ public enum TipoPrevisaoEnum {
         return id;
     }
 
+    @JsonValue
     public String getDisplayName() {
         return displayName;
     }
 
-    public static TipoPrevisaoEnum fromId(int id) {
-        for (TipoPrevisaoEnum previsaoChurnEnum : values()) {
-            if (previsaoChurnEnum.id == id) {
-                return previsaoChurnEnum;
+    @JsonCreator
+    public static TipoPrevisaoEnum fromJson(String valor) {
+        for (TipoPrevisaoEnum previsao : values()) {
+            if (previsao.displayName.equalsIgnoreCase(valor)
+                    || previsao.name().equalsIgnoreCase(valor)) {
+                return previsao;
             }
         }
-        throw new IllegalArgumentException("ID inválido: " + id);
+        throw new IllegalArgumentException("Tipo previsão inválido: " + valor);
     }
 
 }

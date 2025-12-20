@@ -5,13 +5,15 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 
-import equipe25.churninsight_backend.application.api.dto.ClientRequest;
+import equipe25.churninsight_backend.application.api.dto.ClienteRequest;
 import equipe25.churninsight_backend.application.api.dto.ClienteResponse;
+import equipe25.churninsight_backend.application.api.service.PrevisaoClienteService;
+import equipe25.churninsight_backend.application.nivelrisco.NivelRiscoRepository;
 import equipe25.churninsight_backend.application.previsao.dto.PrevisaoListagem;
 import equipe25.churninsight_backend.application.previsao.dto.PrevisaoPorNivelRisco;
 import equipe25.churninsight_backend.application.previsao.repository.PrevisaoRepository;
+import equipe25.churninsight_backend.application.tipoprevisao.TipoPrevisaoRepository;
 import equipe25.churninsight_backend.model.previsao.Previsao;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -21,20 +23,19 @@ import lombok.RequiredArgsConstructor;
 public class PrevisaoService {
 
     private final PrevisaoRepository previsaoRepository;
-    private final WebClient webClient;
+    private final PrevisaoClienteService previsaoClienteService;
+    private final NivelRiscoRepository nivelRiscoRepository;
+    private final TipoPrevisaoRepository tipoPrevisaoRepository;
 
     @Transactional
-    public ClienteResponse prever(ClientRequest request) {
-        ClienteResponse response = webClient.post()
-                .uri("/predict")
-                .bodyValue(request)
-                .retrieve()
-                .bodyToMono(ClienteResponse.class)
-                .block();
+    public ClienteResponse prever(ClienteRequest request) {
+        ClienteResponse response = previsaoClienteService.prever(request);
 
         Previsao previsao = new Previsao();
-        previsao.setPrevisao(response.tipoPrevisao());
-        previsao.setNivelRisco(response.nivelRisco());
+        previsao.setPrevisao(tipoPrevisaoRepository.findById(response.tipoPrevisao().getId())
+                .orElseThrow());
+        previsao.setNivelRisco(nivelRiscoRepository.findById(response.nivelRisco().getId())
+                .orElseThrow());
         previsao.setProbabilidade(response.probabilidade());
         previsao.setRecomendacao(response.recomendacao());
 
