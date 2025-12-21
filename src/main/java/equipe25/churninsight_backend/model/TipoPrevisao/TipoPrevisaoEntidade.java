@@ -23,7 +23,7 @@ public class TipoPrevisaoEntidade {
     @Id
     private Integer id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "tipo_previsao", nullable = false, unique = true)
     private String tipoPrevisao;
 
     public static TipoPrevisaoEntidade fromEnum(TipoPrevisaoEnum previsaoChurnEnum) {

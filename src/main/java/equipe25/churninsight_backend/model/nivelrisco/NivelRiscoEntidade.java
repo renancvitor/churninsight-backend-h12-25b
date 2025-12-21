@@ -23,7 +23,7 @@ public class NivelRiscoEntidade {
     @Id
     private Integer id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "nivel_risco", nullable = false, unique = true)
     private String nivelRiscoNome;
 
     public static NivelRiscoEntidade fromEnum(NivelRiscoEnum nivelRiscoEnum) {
