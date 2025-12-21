@@ -1,15 +1,18 @@
 package equipe25.churninsight_backend.application.previsao.controller;
 
+import equipe25.churninsight_backend.application.previsao.dto.PrevisaoListagem;
+import equipe25.churninsight_backend.application.previsao.dto.PrevisaoPorNivelRisco;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import equipe25.churninsight_backend.application.api.dto.ClienteRequest;
 import equipe25.churninsight_backend.application.api.dto.ClienteResponse;
 import equipe25.churninsight_backend.application.previsao.service.PrevisaoService;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,4 +26,17 @@ public class PrevisaoController {
         return ResponseEntity.ok(previsaoService.prever(request));
     }
 
+    @GetMapping("/listar")
+    public ResponseEntity<Page<PrevisaoListagem>> listar(Pageable paginacao) {
+
+        var page = previsaoService.listar(paginacao);
+        return ResponseEntity.ok(page);
+    }
+
+    @GetMapping("/obterGrafico")
+    public ResponseEntity<List<PrevisaoPorNivelRisco>> obterGrafico() {
+
+        var lista = previsaoService.obterGrafico();
+        return ResponseEntity.ok(lista);
+    }
 }
