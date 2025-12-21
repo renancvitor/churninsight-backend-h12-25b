@@ -9,7 +9,7 @@ CREATE TABLE previsao (
   probabilidade DOUBLE PRECISION NOT NULL,
   nivel_risco VARCHAR(255),
   recomendacao VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE genero (
