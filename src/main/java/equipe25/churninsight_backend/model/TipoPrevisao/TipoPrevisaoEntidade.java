@@ -1,6 +1,6 @@
-package equipe25.churninsight_backend.model.TipoPrevisao;
+package equipe25.churninsight_backend.model.tipoprevisao;
 
-import equipe25.churninsight_backend.model.TipoPrevisao.enums.TipoPrevisaoEnum;
+import equipe25.churninsight_backend.model.tipoprevisao.enums.TipoPrevisaoEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
