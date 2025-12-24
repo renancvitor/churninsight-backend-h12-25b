@@ -12,4 +12,4 @@ RUN ./mvnw -B -q package -DskipTests
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "target/*.jar"]
+ENTRYPOINT ["java", "-jar", "target/*.jar"] 
