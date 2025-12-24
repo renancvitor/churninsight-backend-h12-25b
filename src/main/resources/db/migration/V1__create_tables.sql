@@ -15,7 +15,7 @@ CREATE TABLE genero (
 
 CREATE TABLE pais (
   id INTEGER PRIMARY KEY,
-  nome VARCHAR(100) NOT NULL
+  pais VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE previsao (
