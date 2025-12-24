@@ -1,0 +1,15 @@
+FROM eclipse-temurin:17-jdk-alpine
+
+WORKDIR /app
+
+COPY pom.xml .
+COPY mvnw .
+COPY .mvn .mvn
+RUN ./mvnw -B -q dependency:go-offline
+
+COPY src src
+RUN ./mvnw -B -q package -DskipTests
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "target/*.jar"] 
