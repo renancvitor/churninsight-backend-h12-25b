@@ -2,18 +2,22 @@ CREATE TABLE nivel_risco (
   id INTEGER PRIMARY KEY,
   nivel_risco VARCHAR(100) NOT NULL
 );
+
 CREATE TABLE tipo_previsao (
   id INTEGER PRIMARY KEY,
   tipo_previsao VARCHAR(100) NOT NULL
 );
+
 CREATE TABLE genero (
   id INTEGER PRIMARY KEY,
   genero VARCHAR(100) NOT NULL
 );
+
 CREATE TABLE pais (
   id INTEGER PRIMARY KEY,
   pais VARCHAR(100) NOT NULL
 );
+
 CREATE TABLE previsao (
   id BIGSERIAL PRIMARY KEY,
   tipo_previsao_id INTEGER NOT NULL,
