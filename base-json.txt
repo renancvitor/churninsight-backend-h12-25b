@@ -1,0 +1,99 @@
+{
+  "CreditScore": 702,
+  "Geography": "Germany",
+  "Gender": "Male",
+  "Age": 36,
+  "Tenure": 7,
+  "Balance": 52000,
+  "EstimatedSalary": 85000
+}
+
+{
+  "CreditScore": 645,
+  "Geography": "France",
+  "Gender": "Female",
+  "Age": 28,
+  "Tenure": 4,
+  "Balance": 18000,
+  "EstimatedSalary": 49000
+}
+
+{
+  "CreditScore": 781,
+  "Geography": "Spain",
+  "Gender": "Male",
+  "Age": 44,
+  "Tenure": 9,
+  "Balance": 97000,
+  "EstimatedSalary": 112000
+}
+
+{
+  "CreditScore": 610,
+  "Geography": "Germany",
+  "Gender": "Female",
+  "Age": 51,
+  "Tenure": 8,
+  "Balance": 64000,
+  "EstimatedSalary": 72000
+}
+
+{
+  "CreditScore": 689,
+  "Geography": "France",
+  "Gender": "Male",
+  "Age": 33,
+  "Tenure": 5,
+  "Balance": 31000,
+  "EstimatedSalary": 66000
+}
+
+{
+  "CreditScore": 734,
+  "Geography": "Spain",
+  "Gender": "Female",
+  "Age": 40,
+  "Tenure": 6,
+  "Balance": 45000,
+  "EstimatedSalary": 88000
+}
+
+{
+  "CreditScore": 590,
+  "Geography": "Germany",
+  "Gender": "Male",
+  "Age": 24,
+  "Tenure": 2,
+  "Balance": 9000,
+  "EstimatedSalary": 41000
+}
+
+{
+  "CreditScore": 820,
+  "Geography": "France",
+  "Gender": "Female",
+  "Age": 48,
+  "Tenure": 10,
+  "Balance": 155000,
+  "EstimatedSalary": 138000
+}
+
+{
+  "CreditScore": 667,
+  "Geography": "Spain",
+  "Gender": "Male",
+  "Age": 30,
+  "Tenure": 3,
+  "Balance": 26000,
+  "EstimatedSalary": 57000
+}
+
+{
+  "CreditScore": 715,
+  "Geography": "Germany",
+  "Gender": "Female",
+  "Age": 39,
+  "Tenure": 7,
+  "Balance": 58000,
+  "EstimatedSalary": 92000
+}

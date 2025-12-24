@@ -1,8 +1,8 @@
 package equipe25.churninsight_backend.application.previsao.dto;
 
-import equipe25.churninsight_backend.model.nivelrisco.enums.NivelRiscoEnum;
+import equipe25.churninsight_backend.model.nivelrisco.NivelRiscoEntidade;
 
 public record PrevisaoPorNivelRisco(
-        NivelRiscoEnum nivelRisco,
-        Long quantidade) {
+                NivelRiscoEntidade nivelRisco,
+                Long quantidade) {
 }
