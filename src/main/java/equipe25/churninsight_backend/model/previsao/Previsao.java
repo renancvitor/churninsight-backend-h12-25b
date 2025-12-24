@@ -23,11 +23,11 @@ public class Previsao {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "tipo_previsao", nullable = false)
+    @JoinColumn(name = "tipo_previsao_id", nullable = false)
     private TipoPrevisaoEntidade previsao;
 
     @ManyToOne
-    @JoinColumn(name = "nivel_risco", nullable = false)
+    @JoinColumn(name = "nivel_risco_id", nullable = false)
     private NivelRiscoEntidade nivelRisco;
 
     @Column(nullable = false)

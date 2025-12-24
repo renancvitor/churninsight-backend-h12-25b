@@ -14,8 +14,8 @@ public record PrevisaoListagem(
     public PrevisaoListagem(Previsao predicao) {
         this(
                 predicao.getId(),
-                TipoPrevisaoEnum.valueOf(predicao.getPrevisao().getTipoPrevisao()).getDisplayName(),
-                NivelRiscoEnum.valueOf(predicao.getNivelRisco().getNivelRiscoNome()).getDisplayName(),
+                TipoPrevisaoEnum.fromJson(predicao.getPrevisao().getTipoPrevisao()).getDisplayName(),
+                NivelRiscoEnum.fromJson(predicao.getNivelRisco().getNivelRiscoNome()).getDisplayName(),
                 predicao.getProbabilidade());
         // predicao.getRecomendacao());
     }

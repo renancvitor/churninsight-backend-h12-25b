@@ -15,7 +15,7 @@ public class PrevisaoClienteService {
 
     public ClienteResponse prever(ClienteRequest request) {
         return webClient.post()
-                .uri("/previsao")
+                .uri("/predict")
                 .bodyValue(request)
                 .retrieve()
                 .bodyToMono(ClienteResponse.class)
