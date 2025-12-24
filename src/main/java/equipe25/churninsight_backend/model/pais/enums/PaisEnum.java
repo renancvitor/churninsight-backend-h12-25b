@@ -34,7 +34,7 @@ public enum PaisEnum {
                 return pais;
             }
         }
-        throw new IllegalArgumentException("Gênero inválido: " + valor);
+        throw new IllegalArgumentException("País inválido: " + valor);
     }
 
 }
