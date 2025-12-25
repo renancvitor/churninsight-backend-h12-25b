@@ -23,7 +23,7 @@ CREATE TABLE previsao (
   tipo_previsao_id INTEGER NOT NULL,
   nivel_risco_id INTEGER NOT NULL,
   probabilidade DOUBLE PRECISION NOT NULL,
-  -- recomendacao TEXT NOT NULL,
+  recomendacao TEXT NOT NULL,
   FOREIGN KEY (tipo_previsao_id) REFERENCES tipo_previsao(id),
   FOREIGN KEY (nivel_risco_id) REFERENCES nivel_risco(id)
 );
