@@ -1,4 +1,4 @@
-package equipe25.churninsight_backend.model.tipoprevisao.enums;
+package equipe25.churninsight_backend.model.tipopre.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;

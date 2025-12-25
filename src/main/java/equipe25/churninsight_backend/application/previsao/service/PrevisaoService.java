@@ -37,7 +37,7 @@ public class PrevisaoService {
         previsao.setNivelRisco(nivelRiscoRepository.findById(response.nivelRisco().getId())
                 .orElseThrow());
         previsao.setProbabilidade(response.probabilidade());
-        // previsao.setRecomendacao(response.recomendacao());
+        previsao.setRecomendacao(response.recomendacao());
 
         previsaoRepository.save(previsao);
 

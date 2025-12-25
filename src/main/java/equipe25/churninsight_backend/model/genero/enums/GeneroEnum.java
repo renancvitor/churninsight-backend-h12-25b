@@ -35,4 +35,5 @@ public enum GeneroEnum {
         }
         throw new IllegalArgumentException("Gênero inválido: " + valor);
     }
+
 }
