@@ -1,7 +1,7 @@
 package equipe25.churninsight_backend.model.previsao;
 
 import equipe25.churninsight_backend.model.nivelrisco.NivelRiscoEntidade;
-import equipe25.churninsight_backend.model.tipopre.TipoPrevisaoEntidade;
+import equipe25.churninsight_backend.model.tipoprevisao.TipoPrevisaoEntidade;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

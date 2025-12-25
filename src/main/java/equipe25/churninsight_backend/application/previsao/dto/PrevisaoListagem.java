@@ -2,7 +2,7 @@ package equipe25.churninsight_backend.application.previsao.dto;
 
 import equipe25.churninsight_backend.model.nivelrisco.enums.NivelRiscoEnum;
 import equipe25.churninsight_backend.model.previsao.Previsao;
-import equipe25.churninsight_backend.model.tipopre.enums.TipoPrevisaoEnum;
+import equipe25.churninsight_backend.model.tipoprevisao.enums.TipoPrevisaoEnum;
 
 public record PrevisaoListagem(
         Long id,
