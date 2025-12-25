@@ -10,7 +10,7 @@ public class WebClientConfig {
     @Bean
     public WebClient pythonApiWebClient() {
         return WebClient.builder()
-                .baseUrl("http://localhost:8000")
+                .baseUrl("https://churn-hackathon.onrender.com")
                 .build();
     }
 

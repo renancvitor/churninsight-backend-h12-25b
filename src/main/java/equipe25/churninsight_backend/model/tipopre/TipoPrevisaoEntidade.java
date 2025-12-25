@@ -1,6 +1,6 @@
-package equipe25.churninsight_backend.model.tipoprevisao;
+package equipe25.churninsight_backend.model.tipopre;
 
-import equipe25.churninsight_backend.model.tipoprevisao.enums.TipoPrevisaoEnum;
+import equipe25.churninsight_backend.model.tipopre.enums.TipoPrevisaoEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -26,8 +26,8 @@ public class TipoPrevisaoEntidade {
     @Column(name = "tipo_previsao", nullable = false, unique = true)
     private String tipoPrevisao;
 
-    public static TipoPrevisaoEntidade fromEnum(TipoPrevisaoEnum previsaoChurnEnum) {
-        return new TipoPrevisaoEntidade(previsaoChurnEnum.getId(), previsaoChurnEnum.name());
+    public static TipoPrevisaoEntidade fromEnum(TipoPrevisaoEnum tipoPrevisaoEnum) {
+        return new TipoPrevisaoEntidade(tipoPrevisaoEnum.getId(), tipoPrevisaoEnum.name());
     }
 
 }
