@@ -27,7 +27,7 @@ public class GeneroEntidade {
     private String genero;
 
     public static GeneroEntidade fromEnum(GeneroEnum generoEnum) {
-        return new GeneroEntidade(generoEnum.getId(), generoEnum.name());
+        return new GeneroEntidade(generoEnum.getId(), generoEnum.getDisplayName());
     }
 
 }

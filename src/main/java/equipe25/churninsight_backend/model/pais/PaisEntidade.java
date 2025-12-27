@@ -27,7 +27,7 @@ public class PaisEntidade {
     private String pais;
 
     public static PaisEntidade fromEnum(PaisEnum paisEnum) {
-        return new PaisEntidade(paisEnum.getId(), paisEnum.name());
+        return new PaisEntidade(paisEnum.getId(), paisEnum.getDisplayName());
     }
 
 }

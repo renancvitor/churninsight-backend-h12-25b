@@ -27,7 +27,7 @@ public class TipoPrevisaoEntidade {
     private String tipoPrevisao;
 
     public static TipoPrevisaoEntidade fromEnum(TipoPrevisaoEnum tipoPrevisaoEnum) {
-        return new TipoPrevisaoEntidade(tipoPrevisaoEnum.getId(), tipoPrevisaoEnum.name());
+        return new TipoPrevisaoEntidade(tipoPrevisaoEnum.getId(), tipoPrevisaoEnum.getDisplayName());
     }
 
 }
