@@ -33,9 +33,11 @@ public class PrevisaoService {
 
         Previsao previsao = new Previsao();
         previsao.setPrevisao(tipoPrevisaoRepository.findById(response.tipoPrevisao().getId())
-                .orElseThrow());
+                .orElseThrow(() -> new IllegalStateException(
+                        "Tipo Previsão não encontrado para id " + response.tipoPrevisao().getId())));
         previsao.setNivelRisco(nivelRiscoRepository.findById(response.nivelRisco().getId())
-                .orElseThrow());
+                .orElseThrow(() -> new IllegalStateException(
+                        "Nível Risco não encontrado para id " + response.nivelRisco().getId())));
         previsao.setProbabilidade(response.probabilidade());
         previsao.setRecomendacao(response.recomendacao());
 

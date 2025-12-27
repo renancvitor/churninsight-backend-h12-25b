@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import equipe25.churninsight_backend.application.api.dto.ClienteRequest;
 import equipe25.churninsight_backend.application.api.dto.ClienteResponse;
 import equipe25.churninsight_backend.application.previsao.service.PrevisaoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class PrevisaoController {
     private final PrevisaoService previsaoService;
 
     @PostMapping
-    public ResponseEntity<ClienteResponse> prever(@RequestBody ClienteRequest request) {
+    public ResponseEntity<ClienteResponse> prever(@Valid @RequestBody ClienteRequest request) {
         return ResponseEntity.ok(previsaoService.prever(request));
     }
 

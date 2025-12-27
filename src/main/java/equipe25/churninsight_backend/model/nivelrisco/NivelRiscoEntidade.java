@@ -27,7 +27,7 @@ public class NivelRiscoEntidade {
     private String nivelRiscoNome;
 
     public static NivelRiscoEntidade fromEnum(NivelRiscoEnum nivelRiscoEnum) {
-        return new NivelRiscoEntidade(nivelRiscoEnum.getId(), nivelRiscoEnum.name());
+        return new NivelRiscoEntidade(nivelRiscoEnum.getId(), nivelRiscoEnum.getDisplayName());
     }
 
 }

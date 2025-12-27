@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum NivelRiscoEnum {
     BAIXO(1, "Baixo"),
-    MEDIO(2, "Médio"),
+    MÉDIO(2, "Médio"),
     ALTO(3, "Alto");
 
     private final int id;
@@ -20,6 +20,7 @@ public enum NivelRiscoEnum {
         return id;
     }
 
+    @JsonValue
     public String getDisplayName() {
         return displayName;
     }
@@ -32,11 +33,6 @@ public enum NivelRiscoEnum {
             }
         }
         throw new IllegalArgumentException("Nível de risco inválido: " + valor);
-    }
-
-    @JsonValue
-    public String toJson() {
-        return this.name();
     }
 
 }
