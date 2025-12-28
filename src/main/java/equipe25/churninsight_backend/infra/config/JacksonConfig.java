@@ -1,4 +1,4 @@
-package equipe25.churninsight_backend.config;
+package equipe25.churninsight_backend.infra.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
