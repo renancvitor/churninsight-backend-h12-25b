@@ -21,7 +21,7 @@ jobs:
           java-version: '17'
 
       - name: Run Flyway migrations
-        run: mvn flyway:migrate
+        run: mvn flyway:migrate -Dspring.profiles.active=prod
         env:
           FLYWAY_URL: ${{ secrets.DB_URL }}
           FLYWAY_USER: ${{ secrets.DB_USER }}
