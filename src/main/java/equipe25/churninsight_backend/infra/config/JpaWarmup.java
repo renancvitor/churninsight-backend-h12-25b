@@ -3,13 +3,16 @@ package equipe25.churninsight_backend.infra.config;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 
-@Slf4j
 @Component
+@Profile("!test")
+@Slf4j
 public class JpaWarmup {
 
     @PersistenceContext
