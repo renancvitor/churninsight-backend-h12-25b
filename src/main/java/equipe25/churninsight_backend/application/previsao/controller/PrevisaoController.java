@@ -33,6 +33,12 @@ public class PrevisaoController {
         var page = previsaoService.listar(paginacao);
         return ResponseEntity.ok(page);
     }
+    @GetMapping("/total")
+    public ResponseEntity<Long> total() {
+
+        var resultado = previsaoService.total();
+        return ResponseEntity.ok(resultado);
+    }
 
     @GetMapping("/obterGrafico")
     public ResponseEntity<List<PrevisaoPorNivelRisco>> obterGrafico() {

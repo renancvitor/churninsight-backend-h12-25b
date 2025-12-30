@@ -12,12 +12,13 @@ public interface PrevisaoRepository extends JpaRepository<Previsao, Long> {
 
     @Query("""
             SELECT new equipe25.churninsight_backend.application.previsao.dto.PrevisaoPorNivelRisco(
-            p.nivelRisco,
-            COUNT(p)
+            nr.nivelRiscoNome,
+            COUNT(p.id)
             )
             FROM Previsao p
-            GROUP BY p.nivelRisco
+            JOIN p.nivelRisco nr
+            GROUP BY nr.nivelRiscoNome
+            ORDER BY nr.nivelRiscoNome
             """)
     List<PrevisaoPorNivelRisco> previsaoPorNivelRiscos();
-
 }

@@ -53,5 +53,8 @@ public class PrevisaoService {
     public List<PrevisaoPorNivelRisco> obterGrafico() {
         return previsaoRepository.previsaoPorNivelRiscos();
     }
+    public Long total() {
+        return previsaoRepository.count();
+    }
 
 }
