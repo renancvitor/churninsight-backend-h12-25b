@@ -178,15 +178,41 @@ O contrato pode evoluir conforme ajustes no modelo e nas regras de negócio.
 ### Backend
 
 ```plaintext
+.github/workflows/                      # Pipelines de CI/CD: build, testes e validações automatizadas
+docs/
+ ├── diagrama-database/                 # Imagem do diagrama Entidade Relacionamento do banco de dados PostgreSQL
+ ├── gifs/                              # Conjunto de gifs para gerar a documentação visual Swagger
+ ├── boas-praticas-backend.md           # Guia completo de boas práticas em projetos Java/Spring Boot
+ ├── DEPLOY_AND_CICD.md                 # Detalhes do Pipelina de CI/CD aplicado no projeto
+ ├── documentacao-nocountry.md          # Documentação atualizada semanalmente na plataforma NoCountry
+ ├── documentacao-swagger.md            # Documentação visual da API com GIFs demonstrativos      
+ ├── er-diagrama.md                     # Documentação sobre o diagrama ER do banco de dados PostgreSQL
+ └── er-diagrama.md                     # Estrutura detalhada do projeto e organização dos pacotes
+
 src/main/java/
  └── com.churninsight.backend/
-      ├── controller/
-      ├── service/
-      ├── client/
-      ├── dto/
-      ├── config/
+      ├── application/                  # Camada de aplicação: orquestração dos casos de uso da API
+      ├── config/                       # Configurações e integrações externas
+      ├── exception/                    # Exceções globais e tratamento de erros da aplicação
+      ├── model/                        # Entidades e enums específicas de cada agregado de domínio
       └── ChurnInsightBackendApplication.java
+
+src/main/resources/
+ ├── db/                                # Scripts Flyway (migrations e seeds)
+ ├── application-*.properties           # Configurações específicas (prod, dev)
+ └── application.properties             # Configuração padrão      
+
+src/test/java/
+ ├── service/                           # Testes unitários dos services, com alta cobertura por método
+ ├── utils/                             # Fábrica de entidades e mocks reutilizáveis para testes
+ └── ChurninsightBackendApplicationTests.java 
+
+ src/test/resources/
+ ├── application-test.properties        # Configuração do ambiente de testes
+ └── payload/                           # Dados auxiliares (JSON / JSONL) usados em testes e validações manuais
 ```
+> 🔗 [Veja a estrutura completa do projeto aqui](./docs/estrutura-projeto.md)
+
 ### Data Science
 
 ```plaintext
