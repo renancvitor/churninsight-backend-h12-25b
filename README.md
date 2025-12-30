@@ -5,13 +5,22 @@ ChurnInsight — Plataforma de Previsão de Churn<br>
 
 ---
 
-<h2 align="center">🔗 Repositório do Time de Data Science</h2>
+<h2 align="center">🔗 Repositórios Relacionados</h2>
 
-O **ChurnInsight** utiliza um modelo preditivo desenvolvido pelo squad de **Data Science**, responsável pela análise dos dados, treinamento do modelo e disponibilização das previsões via API Python.
+O **ChurnInsight** é um projeto distribuído em múltiplos repositórios, cada um responsável por uma parte específica da solução.
 
-O código do modelo, experimentos, notebooks e a API de inferência estão disponíveis no repositório abaixo:
+Este repositório contém o **Backend da aplicação**, desenvolvido em **Java com Spring Boot**, responsável pela orquestração da solução, regras de negócio, integrações e consumo das previsões do modelo.
 
-👉 [**ChurnInsight — Data Science**](https://github.com/LeticiaPaesano/Churn_Hackathon_ONE-Data_Science)
+Além dele, o projeto conta com os seguintes repositórios complementares:
+
+- O repositório de **Data Science**, responsável pela análise dos dados, treinamento do modelo preditivo e disponibilização das previsões por meio de uma **API em Python**.
+- O repositório de **Frontend**, responsável pela interface visual da aplicação e pelo consumo das APIs expostas pelo backend.
+
+Repositórios:
+
+👉 [**ChurnInsight — Data Science**](https://github.com/LeticiaPaesano/Churn_Hackathon_ONE-Data_Science)  
+👉 [**ChurnInsight — Frontend**](https://github.com/lucasns06/churninsight-frontend)
+
 
 ---
 
