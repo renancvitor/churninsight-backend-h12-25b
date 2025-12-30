@@ -28,7 +28,7 @@ jobs:
           FLYWAY_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
       - name: Build application
-        run: mvn clean package -DskipTests
+        run: mvn clean package
 
       - name: Trigger deploy on Render
         run: |

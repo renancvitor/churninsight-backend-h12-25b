@@ -26,10 +26,12 @@ O código do modelo, experimentos, notebooks e a API de inferência estão dispo
 - [Contrato de Comunicação](#contrato)
 - [Estrutura do Projeto](#estrutura)
 - [Como Executar o Projeto](#como-executar)
+- [Deploy & CI/CD](#deploy)
 - [Primeiros Entregáveis](#entregaveis)
 - [Próximos Passos](#proximos-passos)
 - [Equipe](#equipe)
 - [Contribuições](#contribuicoes)
+- [Licença](#licenca)
 
 ---
 
@@ -177,15 +179,42 @@ O contrato pode evoluir conforme ajustes no modelo e nas regras de negócio.
 ### Backend
 
 ```plaintext
+.github/workflows/                      # Pipelines de CI/CD: build, testes e validações automatizadas
+docs/
+ ├── diagrama-database/                 # Imagem do diagrama Entidade Relacionamento do banco de dados PostgreSQL
+ ├── gifs/                              # Conjunto de gifs para gerar a documentação visual Swagger
+ ├── boas-praticas-backend.md           # Guia completo de boas práticas em projetos Java/Spring Boot
+ ├── DEPLOY_AND_CICD.md                 # Detalhes do Pipelina de CI/CD aplicado no projeto
+ ├── documentacao-nocountry.md          # Documentação atualizada semanalmente na plataforma NoCountry
+ ├── documentacao-swagger.md            # Documentação visual da API com GIFs demonstrativos      
+ ├── er-diagrama.md                     # Documentação sobre o diagrama ER do banco de dados PostgreSQL
+ └── estrutura-projeto.md                     # Estrutura detalhada do projeto e organização dos pacotes
+
 src/main/java/
- └── com.churninsight.backend/
-      ├── controller/
-      ├── service/
-      ├── client/
-      ├── dto/
-      ├── config/
+ └── equipe25/churninsight_backend/
+      ├── application/                  # Camada de aplicação: orquestração dos casos de uso da API
+      ├── config/                       # Configurações e integrações externas
+      ├── exception/                    # Exceções globais e tratamento de erros da aplicação
+      ├── model/                        # Entidades e enums específicas de cada agregado de domínio
       └── ChurnInsightBackendApplication.java
+
+src/main/resources/
+ ├── db/                                # Scripts Flyway (migrations e seeds)
+ ├── application-*.properties           # Configurações específicas (prod, dev)
+ └── application.properties             # Configuração padrão      
+
+src/test/java/
+ └── equipe25/churninsight_backend/
+      ├── service/                      # Testes unitários dos services, com alta cobertura por método
+      ├── utils/                        # Fábrica de entidades e mocks reutilizáveis para testes
+      └── ChurninsightBackendApplicationTests.java 
+
+ src/test/resources/
+ ├── application-test.properties        # Configuração do ambiente de testes
+ └── payload/                           # Dados auxiliares (JSON / JSONL) usados em testes e validações manuais
 ```
+> 🔗 [Veja a estrutura completa do projeto aqui](./docs/estrutura-projeto.md)
+
 ### Data Science
 
 ```plaintext
@@ -200,7 +229,7 @@ api/
 
 ---
 
-<h2 id="como-executar" align="center">Como Executar o Projeto</h2>
+<h2 id="como-executar" align="center">Como Executar o Projeto Localmente</h2>
 
 ### API de Data Science
 
@@ -221,9 +250,20 @@ http://localhost:8000/docs
 Endpoint principal:
 
 ```bash
-POST http://localhost:8080/predict
+POST http://localhost:8080/previsao
 ```
 ⚠️ A API de Data Science deve estar em execução para previsões reais.
+
+<p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
+
+---
+
+<h2 id="deploy" align="center">Deploy & CI/CD</h2>
+
+O backend utiliza deploy automatizado com GitHub Actions,
+incluindo migrações de banco via Flyway e execução de testes automatizados.
+
+📄 [Detalhes do pipeline](docs/DEPLOY_AND_CICD.md)
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
@@ -247,11 +287,11 @@ POST http://localhost:8080/predict
 
 Como evolução natural da plataforma, são considerados os seguintes aprimoramentos:
 
-- Interface frontend para visualização das previsões
 - Persistência do histórico de previsões
 - Monitoramento de métricas do modelo
 - Deploy em ambiente cloud
 - Evolução das regras de recomendação de retenção
+- Interface frontend para visualização das previsões
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
@@ -264,6 +304,15 @@ Projeto desenvolvido durante o Hackathon da Alura, com dois squads integrados:
 **Data Science**: análise de dados, modelagem e API Python
 
 **Backend**: API REST, integração e padronização de respostas
+
+<p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
+
+---
+
+<h2 id="licenca" align="center">Licença</h2>
+
+📌 Este projeto está licenciado sob a [Licença MIT](LICENSE), o que significa que você pode utilizá-lo, modificar, compartilhar e distribuir livremente, desde que mantenha o aviso de copyright e inclua uma cópia da licença original.  
+Para mais detalhes, consulte o arquivo [LICENSE](LICENSE) ou a [licença MIT oficial](https://opensource.org/licenses/MIT).
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 

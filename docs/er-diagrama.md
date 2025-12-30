@@ -1,19 +1,15 @@
-# 🗃️ Diagrama ER (Entidade-Relacionamento)
+# 🗃️ Diagrama ER (Entidade Relacionamento) - ChurnInsight
 
-Este documento descreve o modelo de dados utilizado pelo backend.
-
----
-
-## 📌 Diagrama Atual
-(Insira aqui imagem ou link para o diagrama)
-
-Exemplo:
-/docs/er-diagrama.png
+Este documento apresenta o **Diagrama ER** utilizado no **ChurnInsight Backend Java**. Ele representa a estrutura do banco de dados e os elacionamentos entre as entidades principais do sistema.
 
 ---
 
-## 🏷️ Regras Gerais de Modelagem
-- Tabelas devem ser nomeadas de forma coerente com o domínio.
-- Chaves estrangeiras com o padrão: <nome_tabela>_id
-- Relacionamentos devem sempre possuir cardinalidade definida.
-- Nomes devem refletir o negócio, não implementações técnicas.
+## 📊 Diagrama completo
+
+<p align="center">
+  <img src="./diagrama-database//churninsight-der.png" alt="Diagrama ER" width="700"/>
+</p>
+
+---
+
+<p align="right"><a href="../README.md">🔄 Voltar para a documentação completa</a></p>
