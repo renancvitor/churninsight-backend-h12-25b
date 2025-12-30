@@ -188,7 +188,7 @@ docs/
  ├── documentacao-nocountry.md          # Documentação atualizada semanalmente na plataforma NoCountry
  ├── documentacao-swagger.md            # Documentação visual da API com GIFs demonstrativos      
  ├── er-diagrama.md                     # Documentação sobre o diagrama ER do banco de dados PostgreSQL
- └── estrutura-projeto.md                     # Estrutura detalhada do projeto e organização dos pacotes
+ └── estrutura-projeto.md               # Estrutura detalhada do projeto e organização dos pacotes
 
 src/main/java/
  └── equipe25/churninsight_backend/
