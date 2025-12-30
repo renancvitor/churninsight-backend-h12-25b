@@ -26,6 +26,7 @@ O código do modelo, experimentos, notebooks e a API de inferência estão dispo
 - [Contrato de Comunicação](#contrato)
 - [Estrutura do Projeto](#estrutura)
 - [Como Executar o Projeto](#como-executar)
+- [Deploy & CI/CD](#deploy)
 - [Primeiros Entregáveis](#entregaveis)
 - [Próximos Passos](#proximos-passos)
 - [Equipe](#equipe)
@@ -224,6 +225,17 @@ Endpoint principal:
 POST http://localhost:8080/predict
 ```
 ⚠️ A API de Data Science deve estar em execução para previsões reais.
+
+<p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
+
+---
+
+<h2 id="deploy" align="center">Deploy & CI/CD</h2>
+
+O backend utiliza deploy automatizado com GitHub Actions,
+incluindo migrações de banco via Flyway.
+
+📄 [Detalhes do pipeline](docs/DEPLOY_AND_CICD.md)
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
