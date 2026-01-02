@@ -33,6 +33,7 @@ Repositórios:
 - [Abordagem de Data Science](#data-science)
 - [Tecnologias Utilizadas](#tecnologias)
 - [Contrato de Comunicação](#contrato)
+- [Diagrama ER](#diagramaer)
 - [Estrutura do Projeto](#estrutura)
 - [Como Executar o Projeto](#como-executar)
 - [Deploy & CI/CD](#deploy)
@@ -178,6 +179,15 @@ O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
 }
 ```
 O contrato pode evoluir conforme ajustes no modelo e nas regras de negócio.
+
+<p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
+
+---
+
+<h2 id="diagramaer" align="center">Diagrama Entidade Relacionamento</h2>
+
+👉 Veja o diagrama completo aqui:  
+[📊 Diagrama ER — Banco de Dados](./docs/diagrama-database/churnInsight-der.png)
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
