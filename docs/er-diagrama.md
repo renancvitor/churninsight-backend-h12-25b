@@ -7,7 +7,7 @@ Este documento apresenta o **Diagrama ER** utilizado no **ChurnInsight Backend J
 ## 📊 Diagrama completo
 
 <p align="center">
-  <img src="./diagrama-database//churninsight-der.png" alt="Diagrama ER" width="700"/>
+  <img src="./diagrama-database/churninsight-der.png" alt="Diagrama ER" width="700"/>
 </p>
 
 ---
