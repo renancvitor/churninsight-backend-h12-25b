@@ -25,7 +25,7 @@ public interface PrevisaoRepository extends JpaRepository<Previsao, Long> {
         List<PrevisaoPorNivelRisco> previsaoPorNivelRiscos();
 
         @Query("""
-                        SELECT new equipe25.churninsight_backend.application.previsao.dto.FatorCount(
+                        SELECT new equipe25.churninsight_backend.application.previsao.dto.FatorCountAnalytics(
                         e,
                         COUNT(e)
                         )

@@ -1,4 +1,4 @@
-package equipe25.churninsight_backend.model.previsao;
+package equipe25.churninsight_backend.model.explicabilidade;
 
 public enum ExplicabilidadeEnum {
 

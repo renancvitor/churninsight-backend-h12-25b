@@ -17,7 +17,7 @@ import equipe25.churninsight_backend.application.previsao.dto.PrevisaoListagem;
 import equipe25.churninsight_backend.application.previsao.dto.PrevisaoPorNivelRisco;
 import equipe25.churninsight_backend.application.previsao.repository.PrevisaoRepository;
 import equipe25.churninsight_backend.application.tipoprevisao.TipoPrevisaoRepository;
-import equipe25.churninsight_backend.model.previsao.ExplicabilidadeEnum;
+import equipe25.churninsight_backend.model.explicabilidade.ExplicabilidadeEnum;
 import equipe25.churninsight_backend.model.previsao.Previsao;
 import equipe25.churninsight_backend.model.tipoprevisao.enums.TipoPrevisaoEnum;
 import jakarta.transaction.Transactional;
