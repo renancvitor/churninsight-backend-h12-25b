@@ -22,19 +22,14 @@ public class TratadorDeErros {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<DadosErro> tratarErro500(Exception e) {
-
-        // Detalhe ligeiro galera:  Usar essa mensagem faz com que nosso codigo nao exiba informações sensiveis como
-        // tabelas de banco de dados, etc para o frontend ou quem esteja consumindo nossa API. Se eu fizesse como esta
-        // no metodo acima os logs da classe Exception ia expor demais nossa plicaçao
         String mensagem = "Ocorreu um erro interno no servidor.";
 
         DadosErro dadosErro = new DadosErro(mensagem, 500);
         return ResponseEntity.status(dadosErro.status()).body(dadosErro);
     }
 
-    // Esse metodo trata os erros de validação dos dados de entrada (400 Bad Request) do bean validation
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<List<DadosErroValidacao>> tratarErro400(MethodArgumentNotValidException e){
+    public ResponseEntity<List<DadosErroValidacao>> tratarErro400(MethodArgumentNotValidException e) {
 
         var erros = e.getFieldErrors()
                 .stream()
