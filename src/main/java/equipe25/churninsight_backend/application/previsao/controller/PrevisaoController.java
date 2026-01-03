@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import equipe25.churninsight_backend.application.api.dto.ClienteRequest;
 import equipe25.churninsight_backend.application.api.dto.ClienteResponse;
-import equipe25.churninsight_backend.application.previsao.dto.FatorCount;
+import equipe25.churninsight_backend.application.previsao.dto.FatorCountResponse;
 import equipe25.churninsight_backend.application.previsao.dto.PrevisaoListagem;
 import equipe25.churninsight_backend.application.previsao.dto.PrevisaoPorNivelRisco;
 import equipe25.churninsight_backend.application.previsao.service.PrevisaoService;
@@ -48,8 +48,8 @@ public class PrevisaoController {
     }
 
     @GetMapping("/top3Fatores")
-    public ResponseEntity<List<FatorCount>> top3Fatores() {
-        return ResponseEntity.ok(previsaoService.top3Fatores());
+    public ResponseEntity<List<FatorCountResponse>> top3Fatores() {
+        return ResponseEntity.ok(previsaoService.top3FatoresResponse());
     }
 
 }
