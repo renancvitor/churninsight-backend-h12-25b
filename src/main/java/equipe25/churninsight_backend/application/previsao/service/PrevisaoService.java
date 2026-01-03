@@ -11,11 +11,13 @@ import equipe25.churninsight_backend.application.api.dto.ClienteRequest;
 import equipe25.churninsight_backend.application.api.dto.ClienteResponse;
 import equipe25.churninsight_backend.application.api.service.PrevisaoClienteService;
 import equipe25.churninsight_backend.application.nivelrisco.NivelRiscoRepository;
-import equipe25.churninsight_backend.application.previsao.dto.FatorCount;
+import equipe25.churninsight_backend.application.previsao.dto.FatorCountAnalytics;
+import equipe25.churninsight_backend.application.previsao.dto.FatorCountResponse;
 import equipe25.churninsight_backend.application.previsao.dto.PrevisaoListagem;
 import equipe25.churninsight_backend.application.previsao.dto.PrevisaoPorNivelRisco;
 import equipe25.churninsight_backend.application.previsao.repository.PrevisaoRepository;
 import equipe25.churninsight_backend.application.tipoprevisao.TipoPrevisaoRepository;
+import equipe25.churninsight_backend.model.previsao.ExplicabilidadeEnum;
 import equipe25.churninsight_backend.model.previsao.Previsao;
 import equipe25.churninsight_backend.model.tipoprevisao.enums.TipoPrevisaoEnum;
 import jakarta.transaction.Transactional;
@@ -67,8 +69,16 @@ public class PrevisaoService {
         return previsaoRepository.count();
     }
 
-    public List<FatorCount> top3Fatores() {
+    public List<FatorCountAnalytics> top3Fatores() {
         return previsaoRepository.topFatores(PageRequest.of(0, 3));
+    }
+
+    public List<FatorCountResponse> top3FatoresResponse() {
+        return top3Fatores().stream()
+                .map(valor -> new FatorCountResponse(
+                        ExplicabilidadeEnum.traduzir(valor.fator()),
+                        valor.total()))
+                .toList();
     }
 
 }
