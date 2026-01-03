@@ -21,6 +21,7 @@ public class WebConfig implements WebMvcConfigurer {
                 registry.addMapping("/**")
                                 .allowedOrigins(
                                                 "http://localhost:5173",
+                                                "https://churninsight-frontend.vercel.app/",
                                                 "http://localhost:8080")
                                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                                 .allowedHeaders("*")
