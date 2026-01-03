@@ -1,5 +1,7 @@
 package equipe25.churninsight_backend.utils;
 
+import java.util.List;
+
 import equipe25.churninsight_backend.application.api.dto.ClienteRequest;
 import equipe25.churninsight_backend.application.api.dto.ClienteResponse;
 import equipe25.churninsight_backend.model.genero.GeneroEntidade;
@@ -53,6 +55,7 @@ public class FabricaObjetosTeste {
         previsao.setNivelRisco(criarNivelBaixo());
         previsao.setProbabilidade(7.12);
         previsao.setRecomendacao("Recomendação.");
+        previsao.setExplicabilidade(List.of("Age", "Balance", "FRANCE"));
 
         return previsao;
     }
@@ -64,7 +67,8 @@ public class FabricaObjetosTeste {
                 TipoPrevisaoEnum.fromJson(previsao.getPrevisao().getTipoPrevisao()),
                 previsao.getProbabilidade(),
                 NivelRiscoEnum.fromJson(previsao.getNivelRisco().getNivelRiscoNome()),
-                previsao.getRecomendacao());
+                previsao.getRecomendacao(),
+                previsao.getExplicabilidade());
 
         return response;
     }
