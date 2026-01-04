@@ -31,6 +31,8 @@ src/main
  │    │    │    │    ├── HealthController.java
  │    │    │    │    └── PrevisaoController.java
  │    │    │    ├── dto
+ │    │    │    │    ├── FatorCountAnalytics.java
+ │    │    │    │    ├── FatorCountResponse.java
  │    │    │    │    ├── PrevisaoListagem.java
  │    │    │    │    └── PrevisaoPorNivelRisco.java
  │    │    │    ├── repository
@@ -52,8 +54,11 @@ src/main
  │    │    ├── documentation
  │    │    │    └── SpringDocConfiguracoes.java
  │    │    └── security
+ │    │    │    ├── CorsConfig.java
  │    │         └── WebConfig.java
  │    ├── model
+ │    │    ├── explicabilidade
+ │    │    │    └── ExplicabilidadeEnum.java
  │    │    ├── genero
  │    │    │    ├── enums
  │    │    |    │    └── GeneroEnum.java
@@ -65,18 +70,19 @@ src/main
  │    │    ├── pais
  │    │    │    ├── enums
  │    │    |    │    └── PaisEnum.java
- │    │    │    └── PaisEntidade.java 
+ │    │    │    └── PaisEntidade.java
  │    │    ├── previsao
- │    │    │    └── Previsao.java 
+ │    │    │    └── Previsao.java
  │    │    └── tipoprevisao
  │    │         ├── enums
  │    │         │    └── TipoPrevisaoEnum.java
- │    │         └── TipoPrevisaoEntidade.java 
+ │    │         └── TipoPrevisaoEntidade.java
  │    └── ChurninsightBackendApplication.java
  ├── resources
  │    ├── db
  │    │    ├── V1__create_tables.sql
- │    │    └── V2__insert_data.sql
+ │    │    ├── V2__insert_data.sql
+ │    │    └── V3__create_table_explicabilidade_previsao.sql
  │    ├── application-dev.properties
  │    ├── application-prod.properties
  │    └── application.properties
@@ -90,8 +96,8 @@ src/main
  │    ├── payload
  │    └── application-test.properties
  └── README.md
- ```
+```
 
- > Estrutura atualizada em: Dezembro/2025
+> Estrutura atualizada em: Dezembro/2025
 
  <p align="right"><a href="../README.md">🔄 Voltar para a documentação completa</a></p>

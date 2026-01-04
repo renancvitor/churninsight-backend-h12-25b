@@ -8,12 +8,12 @@ public enum ExplicabilidadeEnum {
     TENURE("Tenure", "Tempo de Relacionamento"),
     ESTIMATED_SALARY("EstimatedSalary", "Salário Estimado"),
 
-    SPAIN("SPAIN", "Espanha"),
-    FRANCE("FRANCE", "França"),
-    GERMANY("GERMANY", "Alemanha"),
+    SPAIN("Spain", "Espanha"),
+    FRANCE("France", "França"),
+    GERMANY("Germany", "Alemanha"),
 
-    MALE("MALE", "Masculino"),
-    FEMALE("FEMALE", "Feminino");
+    MALE("Male", "Masculino"),
+    FEMALE("Female", "Feminino");
 
     private final String valorBancoDeDados;
     private final String displayName;
