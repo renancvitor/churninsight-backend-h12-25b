@@ -21,7 +21,6 @@ Repositórios:
 👉 [**ChurnInsight — Data Science**](https://github.com/LeticiaPaesano/Churn_Hackathon_ONE-Data_Science)  
 👉 [**ChurnInsight — Frontend**](https://github.com/lucasns06/churninsight-frontend)
 
-
 ---
 
 <h2 align="center">📑 Sumário</h2>
@@ -106,15 +105,18 @@ Durante o hackathon, os serviços são executados localmente, mas a arquitetura 
 A abordagem adotada pelo squad de Data Science para o MVP inclui:
 
 - **Pré-processamento**
+
   - Remoção de colunas identificadoras
   - One-Hot Encoding para variáveis categóricas
 
 - **Engenharia de Features**
+
   - `Age_Tenure`
   - `Balance_Salary_Ratio`
   - `High_Value_Customer` (calculada a partir das medianas do conjunto de treino)
 
 - **Modelagem**
+
   - Random Forest Classifier (`n_estimators=200`)
   - Tratamento de desbalanceamento com `class_weight={0:1, 1:3}`
   - Threshold ajustado para maximizar o Recall da classe churn
@@ -133,6 +135,7 @@ O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
 <h2 id="tecnologias" align="center">Tecnologias Utilizadas</h2>
 
 ### Backend
+
 - ☕ Java 17+
 - 🌱 Spring Boot 3
 - 🌐 Spring Web
@@ -143,6 +146,7 @@ O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
 - 🐘 PostgreSQL
 
 ### Data Science
+
 - 🐍 Python 3
 - 📊 Pandas, NumPy, Matplotlib, Seaborn
 - 🤖 Scikit-learn
@@ -157,6 +161,7 @@ O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
 <h2 id="contrato" align="center">Contrato de Comunicação</h2>
 
 📥 **Entrada**
+
 ```json
 {
   "CreditScore": 650,
@@ -170,14 +175,17 @@ O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
 ```
 
 📤 **Saída**
+
 ```json
 {
   "previsao": "Vai continuar",
   "probabilidade": 0.24,
   "nivel_risco": "BAIXO",
-  "recomendacao": "Cliente estável - manutenção padrão"
+  "recomendacao": "Cliente estável - manutenção padrão",
+  "explicabilidade": ["Age", "Balance", "Germany"]
 }
 ```
+
 O contrato pode evoluir conforme ajustes no modelo e nas regras de negócio.
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
@@ -205,7 +213,7 @@ docs/
  ├── boas-praticas-backend.md           # Guia completo de boas práticas em projetos Java/Spring Boot
  ├── DEPLOY_AND_CICD.md                 # Detalhes do Pipelina de CI/CD aplicado no projeto
  ├── documentacao-nocountry.md          # Documentação atualizada semanalmente na plataforma NoCountry
- ├── documentacao-swagger.md            # Documentação visual da API com GIFs demonstrativos      
+ ├── documentacao-swagger.md            # Documentação visual da API com GIFs demonstrativos
  ├── er-diagrama.md                     # Documentação sobre o diagrama ER do banco de dados PostgreSQL
  └── estrutura-projeto.md               # Estrutura detalhada do projeto e organização dos pacotes
 
@@ -220,18 +228,19 @@ src/main/java/
 src/main/resources/
  ├── db/                                # Scripts Flyway (migrations e seeds)
  ├── application-*.properties           # Configurações específicas (prod, dev)
- └── application.properties             # Configuração padrão      
+ └── application.properties             # Configuração padrão
 
 src/test/java/
  └── equipe25/churninsight_backend/
       ├── service/                      # Testes unitários dos services, com alta cobertura por método
       ├── utils/                        # Fábrica de entidades e mocks reutilizáveis para testes
-      └── ChurninsightBackendApplicationTests.java 
+      └── ChurninsightBackendApplicationTests.java
 
  src/test/resources/
  ├── application-test.properties        # Configuração do ambiente de testes
  └── payload/                           # Dados auxiliares (JSON / JSONL) usados em testes e validações manuais
 ```
+
 > 🔗 [Veja a estrutura completa do projeto aqui](./docs/estrutura-projeto.md)
 
 ### Data Science
@@ -256,21 +265,25 @@ api/
 pip install -r api/requirements.txt
 uvicorn api.main:app --reload
 ```
+
 A documentação interativa estará disponível em:
 
 ```bash
 http://localhost:8000/docs
 ```
+
 ### Backend
 
 ```bash
 ./mvnw spring-boot:run
 ```
+
 Endpoint principal:
 
 ```bash
 POST http://localhost:8080/previsao
 ```
+
 ⚠️ A API de Data Science deve estar em execução para previsões reais.
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
@@ -287,7 +300,6 @@ incluindo migrações de banco via Flyway e execução de testes automatizados.
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
 ---
-
 
 <h2 id="entregaveis" align="center">Primeiros Entregáveis</h2>
 
