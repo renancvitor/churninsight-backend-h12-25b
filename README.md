@@ -182,7 +182,11 @@ O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
   "probabilidade": 0.24,
   "nivel_risco": "BAIXO",
   "recomendacao": "Cliente estável - manutenção padrão",
-  "explicabilidade": ["Age", "Balance", "Germany"]
+  "explicabilidade": [
+    "Age",
+    "Balance",
+    "Germany"
+  ]
 }
 ```
 
