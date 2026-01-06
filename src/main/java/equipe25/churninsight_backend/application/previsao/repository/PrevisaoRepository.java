@@ -35,4 +35,11 @@ public interface PrevisaoRepository extends JpaRepository<Previsao, Long> {
                         ORDER BY COUNT(e) DESC
                         """)
         List<FatorCountAnalytics> topFatores(Pageable pageable);
+
+        @Query("""
+                SELECT ROUND((SUM(CASE WHEN nr.nivelRiscoNome = 'ALTO' THEN 1 ELSE 0 END) * 1.0) / COUNT(p), 2)
+                FROM Previsao p
+                JOIN p.nivelRisco nr
+            """)
+        Double calculoTaxaChurn();
 }

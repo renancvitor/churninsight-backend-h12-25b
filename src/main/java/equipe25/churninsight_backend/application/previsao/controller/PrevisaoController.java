@@ -2,6 +2,7 @@ package equipe25.churninsight_backend.application.previsao.controller;
 
 import java.util.List;
 
+import equipe25.churninsight_backend.application.previsao.dto.EstatisticasResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -37,9 +38,9 @@ public class PrevisaoController {
         return ResponseEntity.ok(previsaoService.listar(paginacao));
     }
 
-    @GetMapping("/total")
-    public ResponseEntity<Long> total() {
-        return ResponseEntity.ok(previsaoService.total());
+    @GetMapping("/estatisticas")
+    public ResponseEntity<EstatisticasResponse> stats() {
+        return ResponseEntity.ok(previsaoService.estatisticas());
     }
 
     @GetMapping("/obterGrafico")

@@ -2,6 +2,7 @@ package equipe25.churninsight_backend.application.previsao.service;
 
 import java.util.List;
 
+import equipe25.churninsight_backend.application.previsao.dto.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -11,10 +12,6 @@ import equipe25.churninsight_backend.application.api.dto.ClienteRequest;
 import equipe25.churninsight_backend.application.api.dto.ClienteResponse;
 import equipe25.churninsight_backend.application.api.service.PrevisaoClienteService;
 import equipe25.churninsight_backend.application.nivelrisco.NivelRiscoRepository;
-import equipe25.churninsight_backend.application.previsao.dto.FatorCountAnalytics;
-import equipe25.churninsight_backend.application.previsao.dto.FatorCountResponse;
-import equipe25.churninsight_backend.application.previsao.dto.PrevisaoListagem;
-import equipe25.churninsight_backend.application.previsao.dto.PrevisaoPorNivelRisco;
 import equipe25.churninsight_backend.application.previsao.repository.PrevisaoRepository;
 import equipe25.churninsight_backend.application.tipoprevisao.TipoPrevisaoRepository;
 import equipe25.churninsight_backend.model.explicabilidade.ExplicabilidadeEnum;
@@ -65,8 +62,15 @@ public class PrevisaoService {
         return previsaoRepository.previsaoPorNivelRiscos();
     }
 
-    public Long total() {
-        return previsaoRepository.count();
+    public EstatisticasResponse estatisticas() {
+        Long total = previsaoRepository.count();
+        Double taxaChurn = previsaoRepository.calculoTaxaChurn();
+
+        if (taxaChurn == null) {
+            taxaChurn = 0.0;
+        }
+
+        return new EstatisticasResponse(total, taxaChurn);
     }
 
     public List<FatorCountAnalytics> top3Fatores() {
