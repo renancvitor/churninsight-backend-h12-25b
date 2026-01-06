@@ -15,13 +15,14 @@ import org.springframework.test.context.ActiveProfiles;
 
 import equipe25.churninsight_backend.application.api.service.PrevisaoClienteService;
 import equipe25.churninsight_backend.application.nivelrisco.NivelRiscoRepository;
+import equipe25.churninsight_backend.application.previsao.dto.EstatisticasResponse;
 import equipe25.churninsight_backend.application.previsao.repository.PrevisaoRepository;
 import equipe25.churninsight_backend.application.previsao.service.PrevisaoService;
 import equipe25.churninsight_backend.application.tipoprevisao.TipoPrevisaoRepository;
 
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class PrevisaoServiceTotalTestes {
+public class PrevisaoServiceEstatisticasTestes {
 
     @Mock
     private PrevisaoRepository previsaoRepository;
@@ -41,32 +42,42 @@ public class PrevisaoServiceTotalTestes {
     @Nested
     class PositiveCases {
         @Test
-        void deveriaRetornarTotalCorretamente() {
+        void deveriaRetornarEstatisticasQuandoTaxaChurnExistir() {
             when(previsaoRepository.count())
-                    .thenReturn(10L);
+                    .thenReturn(100L);
 
-            Long result = previsaoService.total();
+            when(previsaoRepository.calculoTaxaChurn())
+                    .thenReturn(25.5);
+
+            EstatisticasResponse result = previsaoService.estatisticas();
 
             assertNotNull(result);
-            assertEquals(10L, result);
+            assertEquals(100L, result.total());
+            assertEquals(25.5, result.taxa_churn());
 
             verify(previsaoRepository).count();
+            verify(previsaoRepository).calculoTaxaChurn();
         }
     }
 
     @Nested
     class NegativeCases {
         @Test
-        void deveriaRetornarZeroQuandoNaoExistirRegistro() {
+        void deveriaRetornarTaxaChurnZeroQuandoRepositorioRetornarNull() {
             when(previsaoRepository.count())
-                    .thenReturn(0L);
+                    .thenReturn(50L);
 
-            Long result = previsaoService.total();
+            when(previsaoRepository.calculoTaxaChurn())
+                    .thenReturn(null);
+
+            EstatisticasResponse result = previsaoService.estatisticas();
 
             assertNotNull(result);
-            assertEquals(0L, result);
+            assertEquals(50L, result.total());
+            assertEquals(0.0, result.taxa_churn());
 
             verify(previsaoRepository).count();
+            verify(previsaoRepository).calculoTaxaChurn();
         }
     }
 
