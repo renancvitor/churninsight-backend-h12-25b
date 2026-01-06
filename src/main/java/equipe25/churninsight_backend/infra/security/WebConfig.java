@@ -36,6 +36,9 @@ public class WebConfig implements WebMvcConfigurer {
                                                 "/",
                                                 "/error",
                                                 "/health",
-                                                "/actuator/**");
+                                                "/actuator/**").excludePathPatterns(
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**");
         }
 }
