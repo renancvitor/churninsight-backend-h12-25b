@@ -3,17 +3,21 @@ package equipe25.churninsight_backend.model.genero.enums;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import equipe25.churninsight_backend.exception.domain.RecursoNaoEncontradoException;
+
 public enum GeneroEnum {
 
-    MALE(1, "Male"),
-    FEMALE(2, "Female");
+    MALE(1, "Male", "Masculino"),
+    FEMALE(2, "Female", "Feminino");
 
     private final int id;
-    private final String displayName;
+    private final String apiValue;
+    private final String label;
 
-    GeneroEnum(int id, String displayName) {
+    GeneroEnum(int id, String apiValue, String label) {
         this.id = id;
-        this.displayName = displayName;
+        this.apiValue = apiValue;
+        this.label = label;
     }
 
     public int getId() {
@@ -21,19 +25,23 @@ public enum GeneroEnum {
     }
 
     @JsonValue
-    public String getDisplayName() {
-        return displayName;
+    public String getApiValue() {
+        return apiValue;
+    }
+
+    public String getLabel() {
+        return label;
     }
 
     @JsonCreator
     public static GeneroEnum fromJson(String valor) {
         for (GeneroEnum genero : values()) {
-            if (genero.displayName.equalsIgnoreCase(valor)
+            if (genero.apiValue.equalsIgnoreCase(valor)
                     || genero.name().equalsIgnoreCase(valor)) {
                 return genero;
             }
         }
-        throw new IllegalArgumentException("Gênero inválido: " + valor);
+        throw new RecursoNaoEncontradoException("Gênero inválido: " + valor);
     }
 
 }

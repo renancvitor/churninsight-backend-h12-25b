@@ -9,9 +9,8 @@ import equipe25.churninsight_backend.model.tipoprevisao.enums.TipoPrevisaoEnum;
 
 public record ClienteResponse(
 
-                @JsonProperty("previsao") TipoPrevisaoEnum tipoPrevisao,
-                @JsonProperty("probabilidade") Double probabilidade,
-                @JsonProperty("nivel_risco") NivelRiscoEnum nivelRisco,
-                @JsonProperty("recomendacao") String recomendacao,
-                @JsonProperty("explicabilidade") List<String> explicabilidade) {
+        @JsonProperty("previsao") TipoPrevisaoEnum tipoPrevisao,
+        @JsonProperty("probabilidade") Double probabilidade,
+        @JsonProperty("nivel_risco") NivelRiscoEnum nivelRisco,
+        @JsonProperty("explicabilidade") List<String> explicabilidade) {
 }

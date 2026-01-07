@@ -53,7 +53,7 @@ public class PrevisaoServiceEstatisticasTestes {
 
             assertNotNull(result);
             assertEquals(100L, result.total());
-            assertEquals(25.5, result.taxa_churn());
+            assertEquals(25.5, result.taxaChurn());
 
             verify(previsaoRepository).count();
             verify(previsaoRepository).calculoTaxaChurn();
@@ -74,7 +74,7 @@ public class PrevisaoServiceEstatisticasTestes {
 
             assertNotNull(result);
             assertEquals(50L, result.total());
-            assertEquals(0.0, result.taxa_churn());
+            assertEquals(0.0, result.taxaChurn());
 
             verify(previsaoRepository).count();
             verify(previsaoRepository).calculoTaxaChurn();

@@ -47,7 +47,6 @@ public class PrevisaoService {
                 .orElseThrow(() -> new RecursoNaoEncontradoException(
                         "Nível Risco não encontrado para id " + response.nivelRisco().getId())));
         previsao.setProbabilidade(response.probabilidade());
-        previsao.setRecomendacao(response.recomendacao());
 
         if (response.tipoPrevisao() == TipoPrevisaoEnum.VAI_CANCELAR) {
             previsao.setExplicabilidade(response.explicabilidade());

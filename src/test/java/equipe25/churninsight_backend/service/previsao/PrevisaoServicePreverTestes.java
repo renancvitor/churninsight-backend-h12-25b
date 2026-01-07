@@ -92,7 +92,6 @@ public class PrevisaoServicePreverTestes {
                         assertEquals(tipoPrevisaoEntidade, previsaoSalva.getPrevisao());
                         assertEquals(nivelRiscoEntidade, previsaoSalva.getNivelRisco());
                         assertEquals(response.probabilidade(), previsaoSalva.getProbabilidade());
-                        assertEquals(response.recomendacao(), previsaoSalva.getRecomendacao());
                 }
         }
 
