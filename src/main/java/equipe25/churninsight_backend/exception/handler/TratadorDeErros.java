@@ -1,8 +1,10 @@
-package equipe25.churninsight_backend.exception;
+package equipe25.churninsight_backend.exception.handler;
 
+import equipe25.churninsight_backend.exception.domain.IntegracaoExternaException;
+import equipe25.churninsight_backend.exception.domain.RecursoNaoEncontradoException;
+import equipe25.churninsight_backend.exception.domain.RegraNegocioException;
 import equipe25.churninsight_backend.exception.dto.DadosErro;
 import equipe25.churninsight_backend.exception.dto.DadosErroValidacao;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,8 +15,10 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class TratadorDeErros {
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<DadosErro> tratarErro404(EntityNotFoundException e) {
+
+
+    @ExceptionHandler(RecursoNaoEncontradoException.class)
+    public ResponseEntity<DadosErro> tratarErro404(RecursoNaoEncontradoException e) {
         String mensagem = e.getMessage();
         DadosErro dadosErro = new DadosErro(mensagem, 404);
         return ResponseEntity.status(dadosErro.status()).body(dadosErro);
@@ -37,5 +41,19 @@ public class TratadorDeErros {
                 .collect(Collectors.toList());
 
         return ResponseEntity.status(400).body(erros);
+    }
+
+    @ExceptionHandler(RegraNegocioException.class)
+    public ResponseEntity<DadosErro> tratarErro422(RegraNegocioException e) {
+        String mensagem = "Erro na regra de negócio";
+        DadosErro dadosErro = new DadosErro(mensagem, 422);
+        return ResponseEntity.status(dadosErro.status()).body(dadosErro);
+    }
+
+    @ExceptionHandler(IntegracaoExternaException.class)
+    public ResponseEntity<DadosErro> tratarErro503(IntegracaoExternaException e) {
+        String mensagem = e.getMessage();
+        DadosErro dadosErro = new DadosErro(mensagem, 503);
+        return ResponseEntity.status(dadosErro.status()).body(dadosErro);
     }
 }

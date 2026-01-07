@@ -3,6 +3,8 @@ package equipe25.churninsight_backend.application.previsao.service;
 import java.util.List;
 
 import equipe25.churninsight_backend.application.previsao.dto.*;
+import equipe25.churninsight_backend.exception.domain.RecursoNaoEncontradoException;
+import equipe25.churninsight_backend.exception.domain.RegraNegocioException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -33,12 +35,16 @@ public class PrevisaoService {
     public ClienteResponse prever(ClienteRequest request) {
         ClienteResponse response = previsaoClienteService.prever(request);
 
+        if (response == null) {
+            throw new RegraNegocioException("Erro ao obter previsão do cliente.");
+        }
+
         Previsao previsao = new Previsao();
         previsao.setPrevisao(tipoPrevisaoRepository.findById(response.tipoPrevisao().getId())
-                .orElseThrow(() -> new IllegalStateException(
+                .orElseThrow(() -> new RecursoNaoEncontradoException(
                         "Tipo Previsão não encontrado para id " + response.tipoPrevisao().getId())));
         previsao.setNivelRisco(nivelRiscoRepository.findById(response.nivelRisco().getId())
-                .orElseThrow(() -> new IllegalStateException(
+                .orElseThrow(() -> new RecursoNaoEncontradoException(
                         "Nível Risco não encontrado para id " + response.nivelRisco().getId())));
         previsao.setProbabilidade(response.probabilidade());
         previsao.setRecomendacao(response.recomendacao());
