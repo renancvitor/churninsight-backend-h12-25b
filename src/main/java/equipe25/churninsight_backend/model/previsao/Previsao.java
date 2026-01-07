@@ -36,9 +36,6 @@ public class Previsao {
     @Column(nullable = false)
     private Double probabilidade;
 
-    @Column(nullable = false)
-    private String recomendacao;
-
     @ElementCollection
     @CollectionTable(name = "explicabilidade_previsao", joinColumns = @JoinColumn(name = "previsao_id"))
     @Column(name = "fator", nullable = false)

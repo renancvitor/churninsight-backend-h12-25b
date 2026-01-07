@@ -54,7 +54,6 @@ public class FabricaObjetosTeste {
         previsao.setPrevisao(criarPrevisaoVaiContinuar());
         previsao.setNivelRisco(criarNivelBaixo());
         previsao.setProbabilidade(7.12);
-        previsao.setRecomendacao("Recomendação.");
         previsao.setExplicabilidade(List.of("Age", "Balance", "FRANCE"));
 
         return previsao;
@@ -67,7 +66,6 @@ public class FabricaObjetosTeste {
                 TipoPrevisaoEnum.fromJson(previsao.getPrevisao().getTipoPrevisao()),
                 previsao.getProbabilidade(),
                 NivelRiscoEnum.fromJson(previsao.getNivelRisco().getNivelRiscoNome()),
-                previsao.getRecomendacao(),
                 previsao.getExplicabilidade());
 
         return response;

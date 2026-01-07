@@ -1,6 +1,5 @@
 INSERT INTO nivel_risco (id, nivel_risco) VALUES
 (1, 'BAIXO'),
-(2, 'MÉDIO'),
 (3, 'ALTO');
 
 INSERT INTO tipo_previsao (id, tipo_previsao) VALUES

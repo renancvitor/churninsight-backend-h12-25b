@@ -5,8 +5,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum NivelRiscoEnum {
     BAIXO(1, "Baixo"),
-    MÉDIO(2, "Médio"),
-    ALTO(3, "Alto");
+    ALTO(2, "Alto");
 
     private final int id;
     private final String displayName;
