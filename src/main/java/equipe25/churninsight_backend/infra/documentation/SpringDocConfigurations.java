@@ -12,7 +12,7 @@ public class SpringDocConfigurations {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("churninsight") // <-- Nome da sua API aqui
+                        .title("churninsight")
                         .version("1.0.0")
                         .description("API RESTful para o ChurnInsight. " +
                                 "Fornece endpoints para calcular a probabilidade de churn, " +
