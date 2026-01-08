@@ -24,6 +24,11 @@ public class PrevisaoBatchService {
 
     public void processarBatch(MultipartFile file) {
         validarArquivo(file);
+        processarBatchAsync(file);
+    }
+
+    @Async
+    void processarBatchAsync(MultipartFile file) {
 
         byte[] conteudo;
         String nomeArquivo;
@@ -34,12 +39,6 @@ public class PrevisaoBatchService {
         } catch (Exception e) {
             throw new RegraNegocioException("Erro ao ler arquivo CSV", e);
         }
-
-        processarBatchAsync(conteudo, nomeArquivo);
-    }
-
-    @Async
-    void processarBatchAsync(byte[] conteudo, String nomeArquivo) {
 
         Resource resource = new ByteArrayResource(conteudo) {
             @Override
