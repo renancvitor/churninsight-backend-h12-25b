@@ -20,7 +20,7 @@ public class PrevisaoBatchController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> enviar(@RequestParam("File") MultipartFile file) {
-        previsaoBatchService.processarBatchAsync(file);
+        previsaoBatchService.processarBatch(file);
 
         return ResponseEntity.accepted().build();
     }

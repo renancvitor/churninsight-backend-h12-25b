@@ -1,5 +1,6 @@
 package equipe25.churninsight_backend.application.previsao.service;
 
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -23,16 +24,37 @@ public class PrevisaoBatchService {
 
     public void processarBatch(MultipartFile file) {
         validarArquivo(file);
-        BatchJobResponse job = previsaoClienteService.enviarBatch(file);
-        aguardarProcessamento(job.jobId());
-        Resource csv = previsaoClienteService.baixarResultado(job.jobId());
 
-        previsaoPersistenciaService.persistirCsv(csv);
+        byte[] conteudo;
+        String nomeArquivo;
+
+        try {
+            conteudo = file.getBytes();
+            nomeArquivo = file.getOriginalFilename();
+        } catch (Exception e) {
+            throw new RegraNegocioException("Erro ao ler arquivo CSV", e);
+        }
+
+        processarBatchAsync(conteudo, nomeArquivo);
     }
 
     @Async
-    public void processarBatchAsync(MultipartFile file) {
-        processarBatch(file);
+    void processarBatchAsync(byte[] conteudo, String nomeArquivo) {
+
+        Resource resource = new ByteArrayResource(conteudo) {
+            @Override
+            public String getFilename() {
+                return nomeArquivo;
+            }
+        };
+
+        BatchJobResponse job = previsaoClienteService.enviarBatch(resource);
+
+        aguardarProcessamento(job.jobId());
+
+        Resource csv = previsaoClienteService.baixarResultado(job.jobId());
+
+        previsaoPersistenciaService.persistirCsv(csv);
     }
 
     private void validarArquivo(MultipartFile file) {

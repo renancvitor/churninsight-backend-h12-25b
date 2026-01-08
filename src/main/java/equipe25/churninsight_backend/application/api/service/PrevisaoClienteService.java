@@ -31,9 +31,9 @@ public class PrevisaoClienteService {
                 ClienteResponse.class);
     }
 
-    public BatchJobResponse enviarBatch(MultipartFile file) {
+    public BatchJobResponse enviarBatch(Resource file) {
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-        body.add("file", file.getResource());
+        body.add("file", file);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
