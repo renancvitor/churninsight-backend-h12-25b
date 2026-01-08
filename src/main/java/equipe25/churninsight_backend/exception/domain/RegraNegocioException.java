@@ -1,9 +1,12 @@
 package equipe25.churninsight_backend.exception.domain;
 
-public class RegraNegocioException extends RuntimeException{
+public class RegraNegocioException extends RuntimeException {
 
-    public RegraNegocioException(String mensagem) {
-        super(mensagem);
+    public RegraNegocioException(String message) {
+        super(message);
     }
 
+    public RegraNegocioException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
