@@ -35,3 +35,4 @@ build/
 ### PROJECT ###
 application-prod.txt
 application.txt
+.env
