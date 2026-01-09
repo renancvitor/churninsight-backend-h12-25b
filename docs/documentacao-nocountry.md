@@ -2,13 +2,22 @@
 
 ---
 
-## 🔗 Repositório do Time de Data Science
+## 🔗 Repositórios Relacionados
 
-O **ChurnInsight** utiliza um modelo preditivo desenvolvido pelo squad de **Data Science**, responsável pela análise dos dados, treinamento do modelo e disponibilização das previsões via API Python.
+O **ChurnInsight** é um projeto distribuído em múltiplos repositórios, cada um responsável por uma parte específica da solução.
 
-O código do modelo, experimentos, notebooks e a API de inferência estão disponíveis no repositório abaixo:
+Este repositório contém o **Backend da aplicação**, desenvolvido em **Java com Spring Boot**, responsável pela orquestração da solução, regras de negócio, integrações e consumo das previsões do modelo.
 
-👉 [**ChurnInsight — Data Science**](https://github.com/LeticiaPaesano/Churn_Hackathon_ONE-Data_Science)
+Além dele, o projeto conta com os seguintes repositórios complementares:
+
+- O repositório de **Data Science**, responsável pela análise dos dados, treinamento do modelo preditivo e disponibilização das previsões por meio de uma **API em Python**.
+- O repositório de **Frontend**, responsável pela interface visual da aplicação e pelo consumo das APIs expostas pelo backend.
+
+Repositórios:
+
+👉 [**ChurnInsight — Backend**](https://github.com/renancvitor/churninsight-backend-h12-25b)  
+👉 [**ChurnInsight — Data Science**](https://github.com/LeticiaPaesano/Churn_Hackathon_ONE-Data_Science)  
+👉 [**ChurnInsight — Frontend**](https://github.com/lucasns06/churninsight-frontend)
 
 ---
 
@@ -36,10 +45,10 @@ O ChurnInsight atua exatamente nesse ponto, oferecendo previsões claras e inter
 A solução é composta por dois componentes principais:
 
 **Microserviço de Data Science (Python)**  
-  Responsável pela análise dos dados, treinamento do modelo e geração das previsões.
+ Responsável pela análise dos dados, treinamento do modelo e geração das previsões.
 
 **API Backend (Java / Spring Boot)**  
-  Responsável por expor uma API REST, validar dados, consumir o modelo preditivo e padronizar as respostas ao cliente final.
+ Responsável por expor uma API REST, validar dados, consumir o modelo preditivo e padronizar as respostas ao cliente final.
 
 Essa separação garante baixo acoplamento, clareza de responsabilidades e facilidade de manutenção.
 
@@ -49,7 +58,7 @@ Essa separação garante baixo acoplamento, clareza de responsabilidades e facil
 
 Fluxo de funcionamento da plataforma:
 
-1. O cliente envia os dados do cliente via JSON.
+1. O cliente envia os dados do cliente em formato JSON.
 2. O Backend valida o payload recebido.
 3. O Backend chama a API Python do time de Data Science.
 4. O modelo preditivo executa a inferência.
@@ -65,23 +74,27 @@ Durante o hackathon, os serviços são executados localmente, mas a arquitetura 
 A abordagem adotada pelo squad de Data Science para o MVP inclui:
 
 **Pré-processamento**
-  - Remoção de colunas identificadoras
-  - One-Hot Encoding para variáveis categóricas
+
+- Remoção de colunas identificadoras
+- One-Hot Encoding para variáveis categóricas
 
 **Engenharia de Features**
-  - `Age_Tenure`
-  - `Balance_Salary_Ratio`
-  - `High_Value_Customer` (calculada a partir das medianas do conjunto de treino)
+
+- `Age_Tenure`
+- `Balance_Salary_Ratio`
+- `High_Value_Customer` (calculada a partir das medianas do conjunto de treino)
 
 **Modelagem**
-  - Random Forest Classifier (`n_estimators=200`)
-  - Tratamento de desbalanceamento com `class_weight={0:1, 1:3}`
-  - Threshold ajustado para maximizar o Recall da classe churn
+
+- Random Forest Classifier (`n_estimators=200`)
+- Tratamento de desbalanceamento com `class_weight={0:1, 1:3}`
+- Threshold ajustado para maximizar o Recall da classe churn
 
 **Métricas finais (teste)**
-  - ROC-AUC: **0.7669**
-  - Acurácia: **79%**
-  - Recall churn: **47.91%**
+
+- ROC-AUC: **0.7669**
+- Acurácia: **79%**
+- Recall churn: **47.91%**
 
 O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
 
@@ -90,6 +103,7 @@ O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
 ## Tecnologias Utilizadas
 
 ### Backend
+
 - ☕ Java 17+
 - 🌱 Spring Boot 3
 - 🌐 Spring Web
@@ -100,6 +114,7 @@ O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
 - 🐘 PostgreSQL
 
 ### Data Science
+
 - 🐍 Python 3
 - 📊 Pandas, NumPy, Matplotlib, Seaborn
 - 🤖 Scikit-learn
@@ -112,6 +127,7 @@ O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
 ## Contrato de Comunicação
 
 📥 **Entrada**
+
 ```json
 {
   "CreditScore": 650,
@@ -125,15 +141,25 @@ O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
 ```
 
 📤 **Saída**
+
 ```json
 {
   "previsao": "Vai continuar",
   "probabilidade": 0.24,
   "nivel_risco": "BAIXO",
-  "recomendacao": "Cliente estável - manutenção padrão"
+  "recomendacao": "Cliente estável - manutenção padrão",
+  "explicabilidade": ["Age", "Balance", "Germany"]
 }
 ```
+
 O contrato pode evoluir conforme ajustes no modelo e nas regras de negócio.
+
+---
+
+## Diagrama Entidade Relacionamento
+
+Foi elaborado um Diagrama Entidade-Relacionamento (DER) para representar a modelagem dos dados da aplicação.  
+A partir desse diagrama, a estrutura do banco de dados foi implementada em PostgreSQL, utilizando o Supabase como sistema gerenciador de banco de dados (SGDB) online.
 
 ---
 
@@ -142,23 +168,82 @@ O contrato pode evoluir conforme ajustes no modelo e nas regras de negócio.
 ### Backend
 
 ```plaintext
+.github/workflows/                      # Pipelines de CI/CD: build, testes e validações automatizadas
+docs/
+ ├── diagrama-database/                 # Imagem do diagrama Entidade Relacionamento do banco de dados PostgreSQL
+ ├── gifs/                              # Conjunto de gifs para gerar a documentação visual Swagger
+ ├── boas-praticas-backend.md           # Guia completo de boas práticas em projetos Java/Spring Boot
+ ├── DEPLOY_AND_CICD.md                 # Detalhes do Pipelina de CI/CD aplicado no projeto
+ ├── documentacao-nocountry.md          # Documentação atualizada semanalmente na plataforma NoCountry
+ ├── documentacao-swagger.md            # Documentação visual da API com GIFs demonstrativos
+ ├── er-diagrama.md                     # Documentação sobre o diagrama ER do banco de dados PostgreSQL
+ └── estrutura-projeto.md               # Estrutura detalhada do projeto e organização dos pacotes
+
 src/main/java/
- └── com.churninsight.backend/
-      ├── application/  # Camada de aplicação: DTOs, serviços, controllers, especificações e repositórios
-      ├── config/       # Configurações e integrações externas
-      ├── exception/    # Exceções genéricas
-      ├── model/        # Entidades e enums específicas de cada agregado de domínio
-      ├── resources/.   # Scripts Flyway (migrations e seeds), configurações específicas (prdo) e configurações padrão
+ └── equipe25/churninsight_backend/
+      ├── application/                  # Camada de aplicação: orquestração dos casos de uso da API
+      ├── config/                       # Configurações e integrações externas
+      ├── exception/                    # Exceções globais e tratamento de erros da aplicação
+      ├── model/                        # Entidades e enums específicas de cada agregado de domínio
       └── ChurnInsightBackendApplication.java
+
+src/main/resources/
+ ├── db/                                # Scripts Flyway (migrations e seeds)
+ ├── application-*.properties           # Configurações específicas (prod, dev)
+ └── application.properties             # Configuração padrão
+
+src/test/java/
+ └── equipe25/churninsight_backend/
+      ├── service/                      # Testes unitários dos services, com alta cobertura por método
+      ├── utils/                        # Fábrica de entidades e mocks reutilizáveis para testes
+      └── ChurninsightBackendApplicationTests.java
+
+ src/test/resources/
+ ├── application-test.properties        # Configuração do ambiente de testes
+ └── payload/                           # Dados auxiliares (JSON / JSONL) usados em testes e validações manuais
 ```
+
 ### Data Science
 
 ```plaintext
-api/
- ├── model/
- │ └── model.joblib
- ├── main.py
- ├── requirements.txt
+app/
+├── models/
+│   ├── model.joblib        # Modelo serializado
+│   └── __init__.py
+└── main.py                 # API FastAPI
+
+data/
+├── Churn.csv               # Dados brutos
+└── dataset.parquet         # Dados tratados
+
+docs/
+└── Documentação Técnica de Visualizações.md  # Gráficos e análises
+
+notebooks/
+└── Churn_Hackathon.ipynb   # EDA e modelagem
+
+tests/
+├── integration/
+│   ├── __init__.py
+│   ├── test_integration_health.py
+│   ├── test_integration_previsao.py
+│   └── test_integration_root.py
+└── unit/
+    ├── __init__.py
+    ├── test_unit_payload.py
+    ├── test_unit_previsao_lote.py
+    └── teste_unit_explicabilidade.py
+
+__init__.py
+.gitignore
+Dockerfile
+LICENSE
+README.md
+check_all.sh                # Script de validação total
+conftest.py
+docker-compose.yml
+requirements.txt
+stress_test.py
 ```
 
 ---
@@ -171,25 +256,28 @@ api/
 pip install -r api/requirements.txt
 uvicorn api.main:app --reload
 ```
+
 A documentação interativa estará disponível em:
 
 ```bash
 http://localhost:8000/docs
 ```
+
 ### Backend
 
 ```bash
 ./mvnw spring-boot:run
 ```
+
 Endpoint principal:
 
 ```bash
 POST http://localhost:8080/predict
 ```
+
 ⚠️ A API de Data Science deve estar em execução para previsões reais.
 
 ---
-
 
 ## Primeiros Entregáveis
 
@@ -206,11 +294,8 @@ POST http://localhost:8080/predict
 
 Como evolução natural da plataforma, são considerados os seguintes aprimoramentos:
 
-- Interface frontend para visualização das previsões
-- Persistência do histórico de previsões
-- Monitoramento de métricas do modelo
-- Deploy em ambiente cloud
-- Evolução das regras de recomendação de retenção
+- Deploy em ambiente cloud aderente e performático
+- Novos testes unitários no projeto Java/Spring Boot para adequar às novas services
 
 ---
 

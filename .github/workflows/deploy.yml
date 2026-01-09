@@ -1,4 +1,4 @@
-name: Deploy Backend with Flyway
+name: Deploy Backend with Flyway (OCI)
 
 on:
   push:
@@ -14,22 +14,56 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Java
+      - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: "17"
 
+      # ===============================
+      # FLYWAY - MIGRATIONS
+      # ===============================
       - name: Run Flyway migrations
-        run: mvn flyway:migrate -Dspring.profiles.active=prod
+        run: ./mvnw flyway:migrate -Dspring.profiles.active=prod
         env:
           FLYWAY_URL: ${{ secrets.DB_URL }}
           FLYWAY_USER: ${{ secrets.DB_USER }}
           FLYWAY_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
+      # ===============================
+      # BUILD (JAR)
+      # ===============================
       - name: Build application
-        run: mvn clean package
+        run: ./mvnw clean package -DskipTests
 
-      - name: Trigger deploy on Render
-        run: |
-          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
+      # ===============================
+      # DOCKER BUILD & PUSH
+      # ===============================
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
+
+      - name: Build Docker image
+        run: docker build -t ${{ secrets.DOCKER_USER }}/churninsight-backend:latest .
+
+      - name: Push Docker image
+        run: docker push ${{ secrets.DOCKER_USER }}/churninsight-backend:latest
+
+      # ===============================
+      # DEPLOY TO OCI VM (SSH)
+      # ===============================
+      - name: Deploy to OCI VM
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.OCI_VM_HOST }}
+          username: ${{ secrets.OCI_VM_USER }}
+          key: ${{ secrets.OCI_VM_SSH_KEY }}
+          script: |
+            docker pull ${{ secrets.DOCKER_USER }}/churninsight-backend:latest
+            docker stop churninsight || true
+            docker rm churninsight || true
+            docker run -d \
+              --name churninsight \
+              --restart unless-stopped \
+              -p 80:8080 \
+              --env-file /opt/churninsight/.env \
+              ${{ secrets.DOCKER_USER }}/churninsight-backend:latest
