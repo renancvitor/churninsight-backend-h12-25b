@@ -80,6 +80,9 @@ jobs:
           host: ${{ secrets.OCI_VM_HOST }}
           username: ${{ secrets.OCI_VM_USER }}
           key: ${{ secrets.OCI_VM_SSH_KEY }}
+          port: 22
+          timeout: 60s
+          command_timeout: 10m
           script: |
             docker pull ${{ secrets.DOCKER_USER }}/churninsight-backend:latest
             docker stop churninsight || true
