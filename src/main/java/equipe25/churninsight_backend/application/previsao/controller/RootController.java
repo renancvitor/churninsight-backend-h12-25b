@@ -13,7 +13,7 @@ public class RootController {
         return Map.of(
                 "status", "online",
                 "service", "ChurnInsight API",
-                "Version", "2.2.1",
+                "Version", "1.0.0",
                 "docs", "/swagger-ui.html",
                 "health", "/health");
     }

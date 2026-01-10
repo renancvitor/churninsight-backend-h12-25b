@@ -64,6 +64,6 @@ jobs:
             docker run -d \
               --name churninsight \
               --restart unless-stopped \
-              -p 80:8080 \
+              -p 127.0.0.1:8080:8080 \
               --env-file /opt/churninsight/.env \
               renancv/churninsight-backend:latest
