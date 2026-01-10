@@ -47,23 +47,3 @@ jobs:
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USER }}/churninsight-backend:latest
-
-      # ===============================
-      # DEPLOY TO OCI VM (SSH)
-      # ===============================
-      - name: Deploy to OCI VM
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.OCI_VM_HOST }}
-          username: ${{ secrets.OCI_VM_USER }}
-          key: ${{ secrets.OCI_VM_SSH_KEY }}
-          script: |
-            docker pull renancv/churninsight-backend:latest
-            docker stop churninsight || true
-            docker rm churninsight || true
-            docker run -d \
-              --name churninsight \
-              --restart unless-stopped \
-              -p 127.0.0.1:8080:8080 \
-              --env-file /opt/churninsight/.env \
-              renancv/churninsight-backend:latest
