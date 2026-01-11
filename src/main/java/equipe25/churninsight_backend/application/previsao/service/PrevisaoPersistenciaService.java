@@ -30,81 +30,80 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PrevisaoPersistenciaService {
 
-    private final PrevisaoRepository previsaoRepository;
-    private final NivelRiscoRepository nivelRiscoRepository;
-    private final TipoPrevisaoRepository tipoPrevisaoRepository;
+        private final PrevisaoRepository previsaoRepository;
+        private final NivelRiscoRepository nivelRiscoRepository;
+        private final TipoPrevisaoRepository tipoPrevisaoRepository;
 
-    private static final int BATCH_SIZE = 250;
+        private static final int BATCH_SIZE = 250;
 
-    @Transactional
-    public void persistirCsv(Resource csv) {
-        NivelRiscoEntidade alto = nivelRiscoRepository.findByNivelRiscoNome("ALTO")
-                .orElseThrow(() -> new RecursoNaoEncontradoException(
-                        "Nível de risco ALTO não encontrado"));
+        public void persistirCsv(Resource csv) {
+                NivelRiscoEntidade alto = nivelRiscoRepository.findByNivelRiscoNome("ALTO")
+                                .orElseThrow(() -> new RecursoNaoEncontradoException(
+                                                "Nível de risco ALTO não encontrado"));
 
-        NivelRiscoEntidade baixo = nivelRiscoRepository.findByNivelRiscoNome("BAIXO")
-                .orElseThrow(() -> new RecursoNaoEncontradoException(
-                        "Nível de risco BAIXO não encontrado"));
+                NivelRiscoEntidade baixo = nivelRiscoRepository.findByNivelRiscoNome("BAIXO")
+                                .orElseThrow(() -> new RecursoNaoEncontradoException(
+                                                "Nível de risco BAIXO não encontrado"));
 
-        TipoPrevisaoEntidade cancelar = tipoPrevisaoRepository.findByTipoPrevisao("Vai cancelar")
-                .orElseThrow(() -> new RecursoNaoEncontradoException(
-                        "Tipo previsão 'Vai cancelar' não encontrado"));
+                TipoPrevisaoEntidade cancelar = tipoPrevisaoRepository.findByTipoPrevisao("Vai cancelar")
+                                .orElseThrow(() -> new RecursoNaoEncontradoException(
+                                                "Tipo previsão 'Vai cancelar' não encontrado"));
 
-        TipoPrevisaoEntidade continuar = tipoPrevisaoRepository.findByTipoPrevisao("Vai continuar")
-                .orElseThrow(() -> new RecursoNaoEncontradoException(
-                        "Tipo previsão 'Vai continuar' não encontrado"));
+                TipoPrevisaoEntidade continuar = tipoPrevisaoRepository.findByTipoPrevisao("Vai continuar")
+                                .orElseThrow(() -> new RecursoNaoEncontradoException(
+                                                "Tipo previsão 'Vai continuar' não encontrado"));
 
-        List<Previsao> buffer = new ArrayList<>(BATCH_SIZE);
+                List<Previsao> buffer = new ArrayList<>(BATCH_SIZE);
 
-        try (Reader reader = new BufferedReader(new InputStreamReader(csv.getInputStream()))) {
+                try (Reader reader = new BufferedReader(new InputStreamReader(csv.getInputStream()))) {
 
-            CsvToBean<PrevisaoBatchCsv> csvToBean = new CsvToBeanBuilder<PrevisaoBatchCsv>(reader)
-                    .withType(PrevisaoBatchCsv.class)
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .build();
+                        CsvToBean<PrevisaoBatchCsv> csvToBean = new CsvToBeanBuilder<PrevisaoBatchCsv>(reader)
+                                        .withType(PrevisaoBatchCsv.class)
+                                        .withIgnoreLeadingWhiteSpace(true)
+                                        .build();
 
-            for (PrevisaoBatchCsv linha : csvToBean) {
+                        for (PrevisaoBatchCsv linha : csvToBean) {
 
-                Previsao previsao = new Previsao();
-                previsao.setProbabilidade(
-                        linha.getProbabilidade().doubleValue());
+                                Previsao previsao = new Previsao();
+                                previsao.setProbabilidade(
+                                                linha.getProbabilidade().doubleValue());
 
-                previsao.setNivelRisco(
-                        "ALTO".equals(linha.getNivelRisco()) ? alto : baixo);
+                                previsao.setNivelRisco(
+                                                "ALTO".equals(linha.getNivelRisco()) ? alto : baixo);
 
-                previsao.setPrevisao(
-                        "Vai cancelar".equals(linha.getPrevisao())
-                                ? cancelar
-                                : continuar);
+                                previsao.setPrevisao(
+                                                "Vai cancelar".equals(linha.getPrevisao())
+                                                                ? cancelar
+                                                                : continuar);
 
-                previsao.setExplicabilidade(
-                        parseExplicabilidade(linha.getExplicabilidade()));
+                                previsao.setExplicabilidade(
+                                                parseExplicabilidade(linha.getExplicabilidade()));
 
-                buffer.add(previsao);
+                                buffer.add(previsao);
 
-                if (buffer.size() == BATCH_SIZE) {
-                    previsaoRepository.saveAll(buffer);
-                    buffer.clear();
+                                if (buffer.size() == BATCH_SIZE) {
+                                        previsaoRepository.saveAll(buffer);
+                                        buffer.clear();
+                                }
+                        }
+
+                        if (!buffer.isEmpty()) {
+                                previsaoRepository.saveAll(buffer);
+                        }
+
+                } catch (Exception e) {
+                        throw new RegraNegocioException("Erro ao persistir CSV batch", e);
                 }
-            }
-
-            if (!buffer.isEmpty()) {
-                previsaoRepository.saveAll(buffer);
-            }
-
-        } catch (Exception e) {
-            throw new RegraNegocioException("Erro ao persistir CSV batch", e);
-        }
-    }
-
-    private List<String> parseExplicabilidade(String valor) {
-        if (valor == null || valor.isBlank()) {
-            return List.of();
         }
 
-        return Arrays.stream(valor.split(","))
-                .map(String::trim)
-                .toList();
-    }
+        private List<String> parseExplicabilidade(String valor) {
+                if (valor == null || valor.isBlank()) {
+                        return List.of();
+                }
+
+                return Arrays.stream(valor.split(","))
+                                .map(String::trim)
+                                .toList();
+        }
 
 }

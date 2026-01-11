@@ -7,6 +7,7 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import equipe25.churninsight_backend.application.api.dto.BatchJobResponse;
@@ -26,6 +27,7 @@ public class PrevisaoBatchAsyncService {
     private static final Duration POLLING_INTERVAL = Duration.ofSeconds(3);
 
     @Async
+    @Transactional
     public void processarBatchAsync(MultipartFile file) {
 
         BatchJobResponse job = enviarCsvStreaming(file);
