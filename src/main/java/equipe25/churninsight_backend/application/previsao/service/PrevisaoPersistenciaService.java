@@ -1,5 +1,17 @@
 package equipe25.churninsight_backend.application.previsao.service;
 
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Service;
+
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
@@ -12,19 +24,8 @@ import equipe25.churninsight_backend.exception.domain.RegraNegocioException;
 import equipe25.churninsight_backend.model.nivelrisco.NivelRiscoEntidade;
 import equipe25.churninsight_backend.model.previsao.Previsao;
 import equipe25.churninsight_backend.model.tipoprevisao.TipoPrevisaoEntidade;
-
-import org.springframework.core.io.Resource;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -34,28 +35,20 @@ public class PrevisaoPersistenciaService {
         private final NivelRiscoRepository nivelRiscoRepository;
         private final TipoPrevisaoRepository tipoPrevisaoRepository;
 
-        private static final int BATCH_SIZE = 250;
-
+        @Transactional
         public void persistirCsv(Resource csv) {
-                NivelRiscoEntidade alto = nivelRiscoRepository.findByNivelRiscoNome("ALTO")
-                                .orElseThrow(() -> new RecursoNaoEncontradoException(
-                                                "Nível de risco ALTO não encontrado"));
 
-                NivelRiscoEntidade baixo = nivelRiscoRepository.findByNivelRiscoNome("BAIXO")
-                                .orElseThrow(() -> new RecursoNaoEncontradoException(
-                                                "Nível de risco BAIXO não encontrado"));
+                Map<String, NivelRiscoEntidade> niveis = nivelRiscoRepository.findAll()
+                                .stream()
+                                .collect(Collectors.toMap(NivelRiscoEntidade::getNivelRiscoNome, Function.identity()));
 
-                TipoPrevisaoEntidade cancelar = tipoPrevisaoRepository.findByTipoPrevisao("Vai cancelar")
-                                .orElseThrow(() -> new RecursoNaoEncontradoException(
-                                                "Tipo previsão 'Vai cancelar' não encontrado"));
+                Map<String, TipoPrevisaoEntidade> tipos = tipoPrevisaoRepository.findAll()
+                                .stream()
+                                .collect(Collectors.toMap(TipoPrevisaoEntidade::getTipoPrevisao, Function.identity()));
 
-                TipoPrevisaoEntidade continuar = tipoPrevisaoRepository.findByTipoPrevisao("Vai continuar")
-                                .orElseThrow(() -> new RecursoNaoEncontradoException(
-                                                "Tipo previsão 'Vai continuar' não encontrado"));
+                List<Previsao> previsoes = new ArrayList<>();
 
-                List<Previsao> buffer = new ArrayList<>(BATCH_SIZE);
-
-                try (Reader reader = new BufferedReader(new InputStreamReader(csv.getInputStream()))) {
+                try (Reader reader = new InputStreamReader(csv.getInputStream())) {
 
                         CsvToBean<PrevisaoBatchCsv> csvToBean = new CsvToBeanBuilder<PrevisaoBatchCsv>(reader)
                                         .withType(PrevisaoBatchCsv.class)
@@ -63,37 +56,41 @@ public class PrevisaoPersistenciaService {
                                         .build();
 
                         for (PrevisaoBatchCsv linha : csvToBean) {
-
-                                Previsao previsao = new Previsao();
-                                previsao.setProbabilidade(
-                                                linha.getProbabilidade().doubleValue());
-
-                                previsao.setNivelRisco(
-                                                "ALTO".equals(linha.getNivelRisco()) ? alto : baixo);
-
-                                previsao.setPrevisao(
-                                                "Vai cancelar".equals(linha.getPrevisao())
-                                                                ? cancelar
-                                                                : continuar);
-
-                                previsao.setExplicabilidade(
-                                                parseExplicabilidade(linha.getExplicabilidade()));
-
-                                buffer.add(previsao);
-
-                                if (buffer.size() == BATCH_SIZE) {
-                                        previsaoRepository.saveAll(buffer);
-                                        buffer.clear();
-                                }
-                        }
-
-                        if (!buffer.isEmpty()) {
-                                previsaoRepository.saveAll(buffer);
+                                previsoes.add(mapearParaEntidade(linha, niveis, tipos));
                         }
 
                 } catch (Exception e) {
-                        throw new RegraNegocioException("Erro ao persistir CSV batch", e);
+                        throw new RegraNegocioException("Erro ao processar CSV", e);
                 }
+
+                previsaoRepository.saveAll(previsoes);
+        }
+
+        private Previsao mapearParaEntidade(
+                        PrevisaoBatchCsv dto,
+                        Map<String, NivelRiscoEntidade> niveis,
+                        Map<String, TipoPrevisaoEntidade> tipos) {
+
+                Previsao previsao = new Previsao();
+                previsao.setProbabilidade(dto.getProbabilidade().doubleValue());
+
+                NivelRiscoEntidade nivel = niveis.get(dto.getNivelRisco());
+                if (nivel == null) {
+                        throw new RecursoNaoEncontradoException(
+                                        "Nível de risco não encontrado: " + dto.getNivelRisco());
+                }
+
+                TipoPrevisaoEntidade tipo = tipos.get(dto.getPrevisao());
+                if (tipo == null) {
+                        throw new RecursoNaoEncontradoException(
+                                        "Tipo de previsão não encontrado: " + dto.getPrevisao());
+                }
+
+                previsao.setNivelRisco(nivel);
+                previsao.setPrevisao(tipo);
+                previsao.setExplicabilidade(parseExplicabilidade(dto.getExplicabilidade()));
+
+                return previsao;
         }
 
         private List<String> parseExplicabilidade(String valor) {
