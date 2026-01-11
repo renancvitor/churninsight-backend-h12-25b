@@ -7,6 +7,7 @@ import equipe25.churninsight_backend.application.api.dto.PrevisaoBatchCsv;
 import equipe25.churninsight_backend.application.nivelrisco.NivelRiscoRepository;
 import equipe25.churninsight_backend.application.previsao.repository.PrevisaoRepository;
 import equipe25.churninsight_backend.application.tipoprevisao.TipoPrevisaoRepository;
+import equipe25.churninsight_backend.exception.domain.RecursoNaoEncontradoException;
 import equipe25.churninsight_backend.exception.domain.RegraNegocioException;
 import equipe25.churninsight_backend.model.nivelrisco.NivelRiscoEntidade;
 import equipe25.churninsight_backend.model.previsao.Previsao;
@@ -37,12 +38,21 @@ public class PrevisaoPersistenciaService {
 
     @Transactional
     public void persistirCsv(Resource csv) {
+        NivelRiscoEntidade alto = nivelRiscoRepository.findByNivelRiscoNome("ALTO")
+                .orElseThrow(() -> new RecursoNaoEncontradoException(
+                        "Nível de risco ALTO não encontrado"));
 
-        NivelRiscoEntidade alto = nivelRiscoRepository.findByNivelRiscoNome("ALTO").orElseThrow();
-        NivelRiscoEntidade baixo = nivelRiscoRepository.findByNivelRiscoNome("BAIXO").orElseThrow();
+        NivelRiscoEntidade baixo = nivelRiscoRepository.findByNivelRiscoNome("BAIXO")
+                .orElseThrow(() -> new RecursoNaoEncontradoException(
+                        "Nível de risco BAIXO não encontrado"));
 
-        TipoPrevisaoEntidade cancelar = tipoPrevisaoRepository.findByTipoPrevisao("Vai cancelar").orElseThrow();
-        TipoPrevisaoEntidade continuar = tipoPrevisaoRepository.findByTipoPrevisao("Vai continuar").orElseThrow();
+        TipoPrevisaoEntidade cancelar = tipoPrevisaoRepository.findByTipoPrevisao("Vai cancelar")
+                .orElseThrow(() -> new RecursoNaoEncontradoException(
+                        "Tipo previsão 'Vai cancelar' não encontrado"));
+
+        TipoPrevisaoEntidade continuar = tipoPrevisaoRepository.findByTipoPrevisao("Vai continuar")
+                .orElseThrow(() -> new RecursoNaoEncontradoException(
+                        "Tipo previsão 'Vai continuar' não encontrado"));
 
         List<Previsao> buffer = new ArrayList<>(BATCH_SIZE);
 
@@ -56,12 +66,19 @@ public class PrevisaoPersistenciaService {
             for (PrevisaoBatchCsv linha : csvToBean) {
 
                 Previsao previsao = new Previsao();
-                previsao.setProbabilidade(linha.getProbabilidade().doubleValue());
+                previsao.setProbabilidade(
+                        linha.getProbabilidade().doubleValue());
+
                 previsao.setNivelRisco(
                         "ALTO".equals(linha.getNivelRisco()) ? alto : baixo);
+
                 previsao.setPrevisao(
-                        "Vai cancelar".equals(linha.getPrevisao()) ? cancelar : continuar);
-                previsao.setExplicabilidade(parseExplicabilidade(linha.getExplicabilidade()));
+                        "Vai cancelar".equals(linha.getPrevisao())
+                                ? cancelar
+                                : continuar);
+
+                previsao.setExplicabilidade(
+                        parseExplicabilidade(linha.getExplicabilidade()));
 
                 buffer.add(previsao);
 
@@ -76,7 +93,7 @@ public class PrevisaoPersistenciaService {
             }
 
         } catch (Exception e) {
-            throw new RegraNegocioException("Erro ao persistir CSV", e);
+            throw new RegraNegocioException("Erro ao persistir CSV batch", e);
         }
     }
 
