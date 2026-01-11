@@ -1,6 +1,10 @@
 package equipe25.churninsight_backend.application.previsao.service;
 
-import org.springframework.core.io.ByteArrayResource;
+import java.io.InputStream;
+import java.time.Duration;
+import java.time.Instant;
+
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -16,61 +20,55 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PrevisaoBatchService {
 
+    private final PrevisaoBatchService self;
+
     private final PrevisaoClienteService previsaoClienteService;
     private final PrevisaoPersistenciaService previsaoPersistenciaService;
 
-    private static final int MAX_TENTATIVAS = 30;
-    private static final int INTERVALO_MS = 2000;
+    private static final Duration TIMEOUT_TOTAL = Duration.ofSeconds(30);
+    private static final Duration POLLING_INTERVAL = Duration.ofSeconds(3);
 
     public void processarBatch(MultipartFile file) {
         validarArquivo(file);
-        processarBatchAsync(file);
+        self.processarBatchAsync(file);
     }
 
     @Async
     void processarBatchAsync(MultipartFile file) {
 
-        byte[] conteudo;
-        String nomeArquivo;
+        BatchJobResponse job = enviarCsvStreaming(file);
 
+        aguardarConclusao(job.jobId());
+
+        Resource csvResultado = previsaoClienteService.baixarResultado(job.jobId());
+
+        previsaoPersistenciaService.persistirCsv(csvResultado);
+    }
+
+    private BatchJobResponse enviarCsvStreaming(MultipartFile file) {
         try {
-            conteudo = file.getBytes();
-            nomeArquivo = file.getOriginalFilename();
+            InputStream inputStream = file.getInputStream();
+
+            Resource resource = new InputStreamResource(inputStream) {
+                @Override
+                public String getFilename() {
+                    return file.getOriginalFilename();
+                }
+            };
+
+            return previsaoClienteService.enviarBatch(resource);
+
         } catch (Exception e) {
-            throw new RegraNegocioException("Erro ao ler arquivo CSV", e);
-        }
-
-        Resource resource = new ByteArrayResource(conteudo) {
-            @Override
-            public String getFilename() {
-                return nomeArquivo;
-            }
-        };
-
-        BatchJobResponse job = previsaoClienteService.enviarBatch(resource);
-
-        aguardarProcessamento(job.jobId());
-
-        Resource csv = previsaoClienteService.baixarResultado(job.jobId());
-
-        previsaoPersistenciaService.persistirCsv(csv);
-    }
-
-    private void validarArquivo(MultipartFile file) {
-        if (file == null || file.isEmpty()) {
-            throw new RegraNegocioException("Arquivo CSV vazio");
-        }
-
-        if (file.getOriginalFilename() == null ||
-                !file.getOriginalFilename().toLowerCase().endsWith(".csv")) {
-            throw new RegraNegocioException("Arquivo deve ser CSV");
+            throw new RegraNegocioException("Erro ao enviar CSV para API Python", e);
         }
     }
 
-    private void aguardarProcessamento(String jobId) {
-        int tentativas = 0;
+    private void aguardarConclusao(String jobId) {
 
-        while (tentativas < MAX_TENTATIVAS) {
+        Instant inicio = Instant.now();
+
+        while (Duration.between(inicio, Instant.now()).compareTo(TIMEOUT_TOTAL) < 0) {
+
             BatchStatusResponse status = previsaoClienteService.consultarStatus(jobId);
 
             if ("FINALIZADO".equals(status.status())) {
@@ -81,19 +79,29 @@ public class PrevisaoBatchService {
                 throw new RegraNegocioException("Erro no processamento batch");
             }
 
-            tentarDormir();
-            tentativas++;
+            dormir(POLLING_INTERVAL);
         }
 
-        throw new RegraNegocioException("Timeout no processamento batch");
+        throw new RegraNegocioException("Timeout ao aguardar processamento batch");
     }
 
-    private void tentarDormir() {
+    private void dormir(Duration duration) {
         try {
-            Thread.sleep(INTERVALO_MS);
+            Thread.sleep(duration.toMillis());
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RegraNegocioException("Thread interrompida");
+        }
+    }
+
+    private void validarArquivo(MultipartFile file) {
+        if (file == null || file.isEmpty()) {
+            throw new RegraNegocioException("Arquivo CSV vazio");
+        }
+
+        if (file.getOriginalFilename() == null ||
+                !file.getOriginalFilename().toLowerCase().endsWith(".csv")) {
+            throw new RegraNegocioException("Arquivo deve ser CSV");
         }
     }
 
