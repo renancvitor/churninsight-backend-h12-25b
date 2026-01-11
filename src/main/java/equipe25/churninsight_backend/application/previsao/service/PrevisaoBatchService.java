@@ -10,6 +10,7 @@ import equipe25.churninsight_backend.application.api.dto.BatchJobResponse;
 import equipe25.churninsight_backend.application.api.dto.BatchStatusResponse;
 import equipe25.churninsight_backend.application.api.service.PrevisaoClienteService;
 import equipe25.churninsight_backend.exception.domain.RegraNegocioException;
+import equipe25.churninsight_backend.exception.domain.ResultadoAindaNaoDisponivelException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -95,6 +96,17 @@ public class PrevisaoBatchService {
             Thread.currentThread().interrupt();
             throw new RegraNegocioException("Thread interrompida");
         }
+    }
+
+    public Resource baixarResultadoFinalizado(String jobId) {
+        BatchStatusResponse status = previsaoClienteService.consultarStatus(jobId);
+
+        if (!"FINALIZADO".equals(status.status())) {
+            throw new ResultadoAindaNaoDisponivelException(
+                    "Resultado ainda não disponível. Status atual: " + status.status());
+        }
+
+        return previsaoClienteService.baixarResultado(jobId);
     }
 
 }

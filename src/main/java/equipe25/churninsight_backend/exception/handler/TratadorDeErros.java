@@ -3,6 +3,7 @@ package equipe25.churninsight_backend.exception.handler;
 import equipe25.churninsight_backend.exception.domain.IntegracaoExternaException;
 import equipe25.churninsight_backend.exception.domain.RecursoNaoEncontradoException;
 import equipe25.churninsight_backend.exception.domain.RegraNegocioException;
+import equipe25.churninsight_backend.exception.domain.ResultadoAindaNaoDisponivelException;
 import equipe25.churninsight_backend.exception.dto.DadosErro;
 import equipe25.churninsight_backend.exception.dto.DadosErroValidacao;
 import org.slf4j.Logger;
@@ -71,6 +72,15 @@ public class TratadorDeErros {
         return ResponseEntity
                 .status(500)
                 .body(new DadosErro("Ocorreu um erro interno no servidor."));
+    }
+
+    @ExceptionHandler(ResultadoAindaNaoDisponivelException.class)
+    public ResponseEntity<String> aindaNaoDisponivel(ResultadoAindaNaoDisponivelException e) {
+        log.warn("Tentativa de download antes da finalização do batch");
+
+        return ResponseEntity
+                .status(409)
+                .body(e.getMessage());
     }
 
 }
