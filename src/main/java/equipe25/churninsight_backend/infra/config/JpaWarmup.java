@@ -24,7 +24,6 @@ public class JpaWarmup {
      * Warm-up real do JPA/Hibernate.
      *
      * Objetivos:
-     * - Inicializar EntityManagerFactory
      * - Abrir pool de conexões
      * - Preparar queries reais usadas no batch
      * - Evitar custo pesado na primeira requisição
