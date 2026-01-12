@@ -2,7 +2,6 @@ package equipe25.churninsight_backend.application.previsao.service;
 
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,10 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class PrevisaoBatchService {
 
     private final PrevisaoClienteService previsaoClienteService;
-    private final PrevisaoPersistenciaService previsaoPersistenciaService;
-
-    private static final int MAX_TENTATIVAS = 30;
-    private static final int INTERVALO_MS = 2000;
+    private final PrevisaoBatchAsyncService previsaoBatchAsyncService;
 
     public BatchJobResponse processarBatch(MultipartFile file) {
         validarArquivo(file);
@@ -45,19 +41,9 @@ public class PrevisaoBatchService {
 
         BatchJobResponse job = previsaoClienteService.enviarBatch(resource);
 
-        processarBatchAsync(job.jobId(), conteudo, nomeArquivo);
+        previsaoBatchAsyncService.processarBatchAsync(job.jobId());
 
         return job;
-    }
-
-    @Async
-    void processarBatchAsync(String jobId, byte[] conteudo, String nomeArquivo) {
-
-        aguardarProcessamento(jobId);
-
-        Resource csv = previsaoClienteService.baixarResultado(jobId);
-
-        previsaoPersistenciaService.persistirCsv(csv);
     }
 
     private void validarArquivo(MultipartFile file) {
@@ -68,36 +54,6 @@ public class PrevisaoBatchService {
         if (file.getOriginalFilename() == null ||
                 !file.getOriginalFilename().toLowerCase().endsWith(".csv")) {
             throw new RegraNegocioException("Arquivo deve ser CSV");
-        }
-    }
-
-    private void aguardarProcessamento(String jobId) {
-        int tentativas = 0;
-
-        while (tentativas < MAX_TENTATIVAS) {
-            BatchStatusResponse status = previsaoClienteService.consultarStatus(jobId);
-
-            if ("FINALIZADO".equals(status.status())) {
-                return;
-            }
-
-            if ("ERRO".equals(status.status())) {
-                throw new RegraNegocioException("Erro no processamento batch");
-            }
-
-            tentarDormir();
-            tentativas++;
-        }
-
-        throw new RegraNegocioException("Timeout no processamento batch");
-    }
-
-    private void tentarDormir() {
-        try {
-            Thread.sleep(INTERVALO_MS);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RegraNegocioException("Thread interrompida");
         }
     }
 
