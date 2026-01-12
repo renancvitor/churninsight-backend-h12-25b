@@ -23,13 +23,8 @@ public class PrevisaoBatchService {
     private static final int MAX_TENTATIVAS = 30;
     private static final int INTERVALO_MS = 2000;
 
-    public void processarBatch(MultipartFile file) {
+    public BatchJobResponse processarBatch(MultipartFile file) {
         validarArquivo(file);
-        processarBatchAsync(file);
-    }
-
-    @Async
-    void processarBatchAsync(MultipartFile file) {
 
         byte[] conteudo;
         String nomeArquivo;
@@ -50,9 +45,17 @@ public class PrevisaoBatchService {
 
         BatchJobResponse job = previsaoClienteService.enviarBatch(resource);
 
-        aguardarProcessamento(job.jobId());
+        processarBatchAsync(job.jobId(), conteudo, nomeArquivo);
 
-        Resource csv = previsaoClienteService.baixarResultado(job.jobId());
+        return job;
+    }
+
+    @Async
+    void processarBatchAsync(String jobId, byte[] conteudo, String nomeArquivo) {
+
+        aguardarProcessamento(jobId);
+
+        Resource csv = previsaoClienteService.baixarResultado(jobId);
 
         previsaoPersistenciaService.persistirCsv(csv);
     }

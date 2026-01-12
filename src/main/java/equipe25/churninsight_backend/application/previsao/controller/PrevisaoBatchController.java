@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import equipe25.churninsight_backend.application.api.dto.BatchJobResponse;
 import equipe25.churninsight_backend.application.api.dto.BatchStatusResponse;
 import equipe25.churninsight_backend.application.api.service.PrevisaoClienteService;
 import equipe25.churninsight_backend.application.previsao.service.PrevisaoBatchService;
@@ -26,10 +27,11 @@ public class PrevisaoBatchController {
     private final PrevisaoClienteService previsaoClienteService;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Void> enviar(@RequestParam("file") MultipartFile file) {
-        previsaoBatchService.processarBatch(file);
+    public ResponseEntity<BatchJobResponse> enviar(@RequestParam("file") MultipartFile file) {
 
-        return ResponseEntity.accepted().build();
+        BatchJobResponse job = previsaoBatchService.processarBatch(file);
+
+        return ResponseEntity.accepted().body(job);
     }
 
     @GetMapping("/{jobId}/download")
