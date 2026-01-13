@@ -21,7 +21,7 @@ public class PrevisaoClienteService {
 
     private final RestTemplate restTemplate;
 
-    private static final String PYTHON_API_URL = "https://churn-hackathon.onrender.com";
+    private static final String PYTHON_API_URL = "https://churn-api-hackathon.duckdns.org";
 
     public ClienteResponse prever(ClienteRequest request) {
         return restTemplate.postForObject(

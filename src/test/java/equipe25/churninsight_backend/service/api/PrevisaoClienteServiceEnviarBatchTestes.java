@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -16,17 +17,17 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
 
-import equipe25.churninsight_backend.application.api.dto.ClienteRequest;
-import equipe25.churninsight_backend.application.api.dto.ClienteResponse;
+import equipe25.churninsight_backend.application.api.dto.BatchJobResponse;
 import equipe25.churninsight_backend.application.api.service.PrevisaoClienteService;
-import equipe25.churninsight_backend.utils.FabricaObjetosTeste;
 
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-public class PrevisaoClienteServicePreverTestes {
+public class PrevisaoClienteServiceEnviarBatchTestes {
 
     @Mock
     private RestTemplate restTemplate;
@@ -34,34 +35,34 @@ public class PrevisaoClienteServicePreverTestes {
     @InjectMocks
     private PrevisaoClienteService previsaoClienteService;
 
-    private ClienteRequest request;
-    private ClienteResponse response;
+    private Resource resource;
 
     @BeforeEach
     void setup() {
-        request = FabricaObjetosTeste.criarRequest();
-        response = FabricaObjetosTeste.criarResponse();
+        resource = mock(Resource.class);
     }
 
     @Nested
     class PositiveCases {
         @Test
-        void deveriaChamarApiPythonERetornarResponse() {
+        void deveriaEnviarArquivoBatchERetornarJob() {
+            BatchJobResponse response = new BatchJobResponse("job-123", "PROCESSANDO");
+
             when(restTemplate.postForObject(
-                    eq("https://churn-api-hackathon.duckdns.org/previsao"),
-                    eq(request),
-                    eq(ClienteResponse.class)))
+                    eq("https://churn-api-hackathon.duckdns.org/previsao-lote"),
+                    any(HttpEntity.class),
+                    eq(BatchJobResponse.class)))
                     .thenReturn(response);
 
-            ClienteResponse result = previsaoClienteService.prever(request);
+            BatchJobResponse result = previsaoClienteService.enviarBatch(resource);
 
             assertNotNull(result);
             assertEquals(response, result);
 
             verify(restTemplate).postForObject(
-                    "https://churn-api-hackathon.duckdns.org/previsao",
-                    request,
-                    ClienteResponse.class);
+                    eq("https://churn-api-hackathon.duckdns.org/previsao-lote"),
+                    any(HttpEntity.class),
+                    eq(BatchJobResponse.class));
         }
     }
 
@@ -71,15 +72,15 @@ public class PrevisaoClienteServicePreverTestes {
         void deveriaPropagarExcecaoQuandoApiFalhar() {
             when(restTemplate.postForObject(
                     anyString(),
-                    any(),
-                    eq(ClienteResponse.class)))
-                    .thenThrow(new RuntimeException("Erro API externa"));
+                    any(HttpEntity.class),
+                    eq(BatchJobResponse.class)))
+                    .thenThrow(new RuntimeException("Erro API"));
 
             RuntimeException exception = assertThrows(
                     RuntimeException.class,
-                    () -> previsaoClienteService.prever(request));
+                    () -> previsaoClienteService.enviarBatch(resource));
 
-            assertEquals("Erro API externa", exception.getMessage());
+            assertEquals("Erro API", exception.getMessage());
         }
     }
 
