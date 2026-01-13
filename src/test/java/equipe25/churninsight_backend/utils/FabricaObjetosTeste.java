@@ -32,6 +32,20 @@ public class FabricaObjetosTeste {
         return NivelRiscoEnum.BAIXO;
     }
 
+    public static NivelRiscoEntidade criarNivelBaixoString() {
+        NivelRiscoEntidade nivel = new NivelRiscoEntidade();
+        nivel.setId(1);
+        nivel.setNivelRiscoNome("BAIXO");
+        return nivel;
+    }
+
+    public static NivelRiscoEntidade criarNivelAltoString() {
+        NivelRiscoEntidade nivel = new NivelRiscoEntidade();
+        nivel.setId(1);
+        nivel.setNivelRiscoNome("ALTO");
+        return nivel;
+    }
+
     public static PaisEntidade criarPaisFrance() {
         return PaisEntidade.fromEnum(PaisEnum.FRANCE);
     }
@@ -46,6 +60,20 @@ public class FabricaObjetosTeste {
 
     public static TipoPrevisaoEnum previsaoEnumVaiContinuar() {
         return TipoPrevisaoEnum.VAI_CONTINUAR;
+    }
+
+    public static TipoPrevisaoEntidade criarPrevisaoVaiContinuarString() {
+        TipoPrevisaoEntidade tipoPrevisao = new TipoPrevisaoEntidade();
+        tipoPrevisao.setId(1);
+        tipoPrevisao.setTipoPrevisao("VAI_CONTINUAR");
+        return tipoPrevisao;
+    }
+
+    public static TipoPrevisaoEntidade criarPrevisaoVaiCancelarString() {
+        TipoPrevisaoEntidade tipoPrevisao = new TipoPrevisaoEntidade();
+        tipoPrevisao.setId(1);
+        tipoPrevisao.setTipoPrevisao("VAI_CANCELAR");
+        return tipoPrevisao;
     }
 
     public static Previsao criarPrevisao() {

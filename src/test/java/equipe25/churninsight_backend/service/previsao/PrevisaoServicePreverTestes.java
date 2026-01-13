@@ -28,6 +28,7 @@ import equipe25.churninsight_backend.application.nivelrisco.NivelRiscoRepository
 import equipe25.churninsight_backend.application.previsao.repository.PrevisaoRepository;
 import equipe25.churninsight_backend.application.previsao.service.PrevisaoService;
 import equipe25.churninsight_backend.application.tipoprevisao.TipoPrevisaoRepository;
+import equipe25.churninsight_backend.exception.domain.RecursoNaoEncontradoException;
 import equipe25.churninsight_backend.model.nivelrisco.NivelRiscoEntidade;
 import equipe25.churninsight_backend.model.previsao.Previsao;
 import equipe25.churninsight_backend.model.tipoprevisao.TipoPrevisaoEntidade;
@@ -105,8 +106,8 @@ public class PrevisaoServicePreverTestes {
                         when(tipoPrevisaoRepository.findById(tipoPrevisaoEntidade.getId()))
                                         .thenReturn(Optional.empty());
 
-                        IllegalStateException exception = assertThrows(
-                                        IllegalStateException.class,
+                        RecursoNaoEncontradoException exception = assertThrows(
+                                        RecursoNaoEncontradoException.class,
                                         () -> previsaoService.prever(request));
 
                         assertTrue(exception.getMessage().contains("Tipo Previsão não encontrado"));
@@ -125,8 +126,8 @@ public class PrevisaoServicePreverTestes {
                         when(nivelRiscoRepository.findById(nivelRiscoEntidade.getId()))
                                         .thenReturn(Optional.empty());
 
-                        IllegalStateException exception = assertThrows(
-                                        IllegalStateException.class,
+                        RecursoNaoEncontradoException exception = assertThrows(
+                                        RecursoNaoEncontradoException.class,
                                         () -> previsaoService.prever(request));
 
                         assertTrue(exception.getMessage().contains("Nível Risco não encontrado"));
