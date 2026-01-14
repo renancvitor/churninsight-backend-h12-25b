@@ -150,6 +150,6 @@ Porque você mostra que:
 
 Mesmo que ninguém leia tudo, **o simples fato de existir** já pesa positivamente.
 
----
+> Documento atualizado em: Janeiro/2026
 
 <p align="right"><a href="../README.md">🔄 Voltar para a documentação completa</a></p>

@@ -152,6 +152,6 @@ src/main
  └── README.md
 ```
 
-> Estrutura atualizada em: Dezembro/2025
+> Estrutura atualizada em: Janeiro/2026
 
  <p align="right"><a href="../README.md">🔄 Voltar para a documentação completa</a></p>
