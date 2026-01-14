@@ -9,11 +9,11 @@ ChurnInsight — Plataforma de Previsão de Churn<br>
 
 O **ChurnInsight** é um projeto distribuído em múltiplos repositórios, cada um responsável por uma parte específica da solução.
 
-Este repositório contém o **Backend da aplicação**, desenvolvido em **Java com Spring Boot**, responsável pela orquestração da solução, regras de negócio, integrações e consumo das previsões do modelo.
+Este repositório contém o **Backend da aplicação**, desenvolvido em **[Java](https://www.java.com/pt-BR/) com [Spring Boot](https://spring.io/projects/spring-boot)**, responsável pela orquestração da solução, regras de negócio, integrações e consumo das previsões do modelo.
 
 Além dele, o projeto conta com os seguintes repositórios complementares:
 
-- O repositório de **Data Science**, responsável pela análise dos dados, treinamento do modelo preditivo e disponibilização das previsões por meio de uma **API em Python**.
+- O repositório de **Data Science**, responsável pela análise dos dados, treinamento do modelo preditivo e disponibilização das previsões por meio de uma **API em [Python](https://www.python.org/)**.
 - O repositório de **Frontend**, responsável pela interface visual da aplicação e pelo consumo das APIs expostas pelo backend.
 
 Repositórios:
@@ -32,7 +32,9 @@ Repositórios:
 - [Abordagem de Data Science](#data-science)
 - [Tecnologias Utilizadas](#tecnologias)
 - [Contrato de Comunicação](#contrato)
-- [Diagrama ER](#diagramaer)
+- [Documentação Visual](#documentação-visual)
+  - [🌐 API - Swagger](#api-swagger)
+  - [🗂️ Diagrama ER](#diagrama-er-banco-dados)
 - [Estrutura do Projeto](#estrutura)
 - [Como Executar o Projeto](#como-executar)
 - [Deploy & CI/CD](#deploy)
@@ -46,7 +48,7 @@ Repositórios:
 
 <h2 id="visao-geral" align="center">Visão Geral do Projeto</h2>
 
-O **ChurnInsight** é uma solução desenvolvida durante o **Hackathon da Alura** com o objetivo de prever o risco de **cancelamento de clientes (churn)** em serviços recorrentes, como bancos digitais, plataformas de assinatura e soluções SaaS.
+O **ChurnInsight** é uma solução desenvolvida durante o **Hackathon da [Alura](https://www.alura.com.br/)** com o objetivo de prever o risco de **cancelamento de clientes (churn)** em serviços recorrentes, como bancos digitais, plataformas de assinatura e soluções SaaS.
 
 A plataforma integra **Data Science** e **Backend** para transformar dados de clientes em **insights acionáveis**, permitindo que empresas antecipem riscos de evasão e tomem decisões baseadas em dados.
 
@@ -71,10 +73,10 @@ O ChurnInsight atua exatamente nesse ponto, oferecendo previsões claras e inter
 
 A solução é composta por dois componentes principais:
 
-- **Microserviço de Data Science (Python)**  
+- **Microserviço de Data Science ([Python](https://www.python.org/))**  
   Responsável pela análise dos dados, treinamento do modelo e geração das previsões.
 
-- **API Backend (Java / Spring Boot)**  
+- **API Backend ([Java](https://www.java.com/pt-BR/) / [Spring Boot](https://spring.io/projects/spring-boot))**  
   Responsável por expor uma API REST, validar dados, consumir o modelo preditivo e padronizar as respostas ao cliente final.
 
 Essa separação garante baixo acoplamento, clareza de responsabilidades e facilidade de manutenção.
@@ -87,14 +89,15 @@ Essa separação garante baixo acoplamento, clareza de responsabilidades e facil
 
 Fluxo de funcionamento da plataforma:
 
-1. O cliente envia os dados do cliente via JSON.
+1. O cliente envia os dados via [JSON](https://www.json.org/json-en.html).
 2. O Backend valida o payload recebido.
-3. O Backend chama a API Python do time de Data Science.
+3. O Backend chama a API [Python](https://www.python.org/) do time de Data Science.
 4. O modelo preditivo executa a inferência.
 5. A previsão e a probabilidade são retornadas ao Backend.
 6. O Backend responde ao cliente de forma padronizada.
 
-Durante o hackathon, os serviços são executados localmente, mas a arquitetura é compatível com deploy em ambientes cloud.
+Durante o hackathon, os serviços foram inicialmente executados localmente, 
+mas a arquitetura é compatível com deploy em ambientes cloud e atualmente suporta execução em VM via [Docker](https://www.docker.com/).
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
@@ -136,23 +139,26 @@ O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
 
 ### Backend
 
-- ☕ Java 17+
-- 🌱 Spring Boot 3
-- 🌐 Spring Web
-- 📦 Bean Validation
+- ☕ [Java 17+](https://www.java.com/pt-BR/)
+- 🌱 [Spring Boot 3](https://start.spring.io/)
+- 🌐 [Spring Web](https://spring.io/projects/spring-web)
+- 📦 [Bean Validation](https://docs.spring.io/spring-framework/reference/core/validation/beanvalidation.html)
+- 🔄 [Spring Boot DevTools](https://docs.spring.io/spring-boot/reference/using/devtools.html)
 - 🔧 Lombok
-- 📖 Swagger / OpenAPI
-- 🧪 JUnit
-- 🐘 PostgreSQL
+- 🧪 [JUnit 5](https://junit.org/) e 🔧 [Mockito](https://site.mockito.org/)
+- 🛠️ [Flyway](https://flywaydb.org/)
+- 🐘 [PostgreSQL](https://www.postgresql.org/)
+- 📄 [Swagger (OpenAPI)](https://swagger.io/specification/)
+- 📦 [Maven](https://maven.apache.org/)
 
 ### Data Science
 
-- 🐍 Python 3
-- 📊 Pandas, NumPy, Matplotlib, Seaborn
-- 🤖 Scikit-learn
-- 🌐 FastAPI
-- 🔧 Uvicorn
-- 📓 Jupyter Notebook / Google Colab
+- 🐍 [Python 3](https://www.python.org/)
+- 📊 [Pandas](https://pandas.pydata.org/), [NumPy](https://numpy.org/), [Matplotlib](https://matplotlib.org/), [Seaborn](https://seaborn.pydata.org/)
+- 🤖 [Scikit-learn](https://scikit-learn.org/stable/)
+- 🌐 [FastAPI](https://fastapi.tiangolo.com/)
+- 🔧 [Uvicorn](https://uvicorn.dev/)
+- 📓 [Jupyter Notebook](https://jupyter.org/) / [Google Colab](https://colab.google/)
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
@@ -186,8 +192,6 @@ O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
 }
 ```
 
-O contrato pode evoluir conforme ajustes no modelo e nas regras de negócio.
-
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
 ---
@@ -204,7 +208,7 @@ Para visualizar a interface em funcionamento, acesse as
 
 ---
 
-<h3 id="diagrama-er-banco-dados">🗂️ <strong>Diagrama ER do Banco de Dados (PostgreSQL)</strong></h3>
+<h3 id="diagrama-er-banco-dados">🗂️ <strong>Diagrama ER do Banco de Dados (<a href="https://www.postgresql.org/" target="_blank">PostgreSQL</a>)</strong></h3>
 
 A estrutura do banco de dados é representada por um diagrama entidade-relacionamento (ER), facilitando a compreensão das tabelas, relacionamentos e domínios utilizados pela aplicação.
 
@@ -306,8 +310,8 @@ POST http://localhost:8080/previsao
 
 <h2 id="deploy" align="center">Deploy & CI/CD</h2>
 
-O backend utiliza deploy automatizado com GitHub Actions,
-incluindo migrações de banco via Flyway e execução de testes automatizados.
+O backend utiliza deploy automatizado com [GitHub Actions](https://github.com/features/actions?locale=pt-BR),
+incluindo migrações de banco via [Flyway](https://flywaydb.org/) e build automatizado da aplicação.
 
 📄 [Detalhes do pipeline](docs/DEPLOY_AND_CICD.md)
 
@@ -319,9 +323,9 @@ incluindo migrações de banco via Flyway e execução de testes automatizados.
 
 - Modelo preditivo treinado e validado
 - Pipeline serializado
-- API FastAPI funcional
+- API [FastAPI](https://fastapi.tiangolo.com/) funcional
 - API Backend integrada
-- Contrato JSON definido
+- Contrato [JSON](https://www.json.org/json-en.html) definido
 - Documentação unificada do projeto
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
@@ -344,9 +348,9 @@ Como evolução natural da plataforma, são considerados os seguintes aprimorame
 
 <h2 id="equipe" align="center">Equipe</h2>
 
-Projeto desenvolvido durante o Hackathon da Alura, com dois squads integrados:
+Projeto desenvolvido durante o Hackathon da [Alura](https://www.alura.com.br/), com dois squads integrados:
 
-**Data Science**: análise de dados, modelagem e API Python
+**Data Science**: análise de dados, modelagem e API [Python](https://www.python.org/)
 
 **Backend**: API REST, integração e padronização de respostas
 
