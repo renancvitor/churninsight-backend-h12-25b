@@ -188,7 +188,11 @@ O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
   "probabilidade": 0.24,
   "nivel_risco": "BAIXO",
   "recomendacao": "Cliente estável - manutenção padrão",
-  "explicabilidade": ["Age", "Balance", "Germany"]
+  "explicabilidade": [
+    "Age",
+    "Balance",
+    "Germany"
+  ]
 }
 ```
 
@@ -264,11 +268,44 @@ src/test/java/
 ### Data Science
 
 ```plaintext
-api/
- ├── model/
- │ └── model.joblib
- ├── main.py
- ├── requirements.txt
+app/                      
+├── models/
+│   ├── __init__.py           
+│   ├── model.joblib        # Modelo serializado         
+└── main.py                 # API FastAPI
+
+data/                       
+├── Churn.csv               # Dados brutos
+└── dataset.parquet         # Dados tratados
+
+docs/                       
+└── Documentação Técnica de Visualizações.md  # Gráficos e análises
+
+notebooks/                  
+└── Churn_Hackathon.ipynb   # EDA e modelagem
+
+tests/                      
+├── integration/            
+│   ├── __init__.py
+│   ├── test_integration_health.py
+│   ├── test_integration_previsao.py
+│   └── test_integration_root.py
+└── unit/                   
+    ├── __init__.py
+    ├── test_unit_payload.py
+    ├── test_unit_previsao_lote.py
+    └── teste_unit_explicabilidade.py
+
+__init__.py
+.gitignore
+Dockerfile
+LICENSE
+README.md
+check_all.sh                # Script de validação total
+conftest.py
+docker-compose.yml
+requirements.txt                   
+stress_test.py                     
 ```
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
