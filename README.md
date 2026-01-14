@@ -159,6 +159,13 @@ O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
 - 🌐 [FastAPI](https://fastapi.tiangolo.com/)
 - 🔧 [Uvicorn](https://uvicorn.dev/)
 - 📓 [Jupyter Notebook](https://jupyter.org/) / [Google Colab](https://colab.google/)
+- 💾 [Joblib 1.5.3](https://joblib.readthedocs.io/en/stable/installing.html)
+- 📦 [pyarrow 22.0.0](https://pypi.org/project/pyarrow/)
+- 📌 [pydantic >=2.0,<3.0](https://pypi.org/project/pydantic/2.0.3/)
+- 📌 [python-multipart](https://pypi.org/project/python-multipart/)
+- 📌 [Requests 2.31.0](https://pypi.org/project/requests/)
+- 📌 [HTTPX](https://www.python-httpx.org/)
+- 📌 [pytest](https://docs.pytest.org/en/stable/)
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 
@@ -187,7 +194,6 @@ O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
   "previsao": "Vai continuar",
   "probabilidade": 0.24,
   "nivel_risco": "BAIXO",
-  "recomendacao": "Cliente estável - manutenção padrão",
   "explicabilidade": [
     "Age",
     "Balance",
@@ -317,8 +323,8 @@ stress_test.py
 ### API de Data Science
 
 ```bash
-pip install -r api/requirements.txt
-uvicorn api.main:app --reload
+pip install -r requirements.txt
+uvicorn app.main:app --reload
 ```
 
 A documentação interativa estará disponível em:
