@@ -59,10 +59,6 @@ public class PrevisaoService {
         return response;
     }
 
-    public Page<PrevisaoListagem> listar(Pageable pageable) {
-        return previsaoRepository.findAll(pageable).map(PrevisaoListagem::new);
-    }
-
     public List<PrevisaoPorNivelRisco> obterGrafico() {
         return previsaoRepository.previsaoPorNivelRiscos();
     }

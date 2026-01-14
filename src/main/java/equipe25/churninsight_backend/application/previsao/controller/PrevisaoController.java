@@ -33,11 +33,6 @@ public class PrevisaoController {
         return ResponseEntity.ok(previsaoService.prever(request));
     }
 
-    @GetMapping("/listar")
-    public ResponseEntity<Page<PrevisaoListagem>> listar(Pageable paginacao) {
-        return ResponseEntity.ok(previsaoService.listar(paginacao));
-    }
-
     @GetMapping("/estatisticas")
     public ResponseEntity<EstatisticasResponse> stats() {
         return ResponseEntity.ok(previsaoService.estatisticas());
