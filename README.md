@@ -182,11 +182,7 @@ O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
   "probabilidade": 0.24,
   "nivel_risco": "BAIXO",
   "recomendacao": "Cliente estável - manutenção padrão",
-  "explicabilidade": [
-    "Age",
-    "Balance",
-    "Germany"
-  ]
+  "explicabilidade": ["Age", "Balance", "Germany"]
 }
 ```
 
@@ -196,10 +192,24 @@ O contrato pode evoluir conforme ajustes no modelo e nas regras de negócio.
 
 ---
 
-<h2 id="diagramaer" align="center">Diagrama Entidade Relacionamento</h2>
+<h2 id="documentação-visual" align="center">Documentação Visual</h2>
 
-👉 Veja o diagrama completo aqui:  
-[📊 Diagrama ER — Banco de Dados](./docs/diagrama-database/churnInsight-der.png)
+<h3 id="api-swagger">🌐 <strong>API – Swagger</strong></h3>
+
+A API do ChurnInsight é documentada utilizando o padrão  
+[Swagger / OpenAPI](https://swagger.io/specification/).
+
+Para visualizar a interface em funcionamento, acesse as  
+[demonstrações visuais do Swagger](./docs/documentacao-swagger.md), com GIFs interativos mostrando os principais endpoints, fluxos de previsão e consultas disponíveis.
+
+---
+
+<h3 id="diagrama-er-banco-dados">🗂️ <strong>Diagrama ER do Banco de Dados (PostgreSQL)</strong></h3>
+
+A estrutura do banco de dados é representada por um diagrama entidade-relacionamento (ER), facilitando a compreensão das tabelas, relacionamentos e domínios utilizados pela aplicação.
+
+👉 Acesse o diagrama completo aqui:  
+[📊 Diagrama ER — Banco de Dados](./docs/er-diagrama.md)
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 

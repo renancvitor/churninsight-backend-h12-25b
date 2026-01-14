@@ -118,4 +118,6 @@ Demonstração da navegação geral pela interface Swagger UI, destacando:
 - Modelos de request e response
   ![](./gifs/documentacao-completa.gif)
 
+  > Documento atualizado em: Janeiro/2026
+
  <p align="right"><a href="../README.md">🔄 Voltar para a documentação completa</a></p>
