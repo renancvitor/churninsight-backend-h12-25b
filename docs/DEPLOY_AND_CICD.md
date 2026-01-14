@@ -13,7 +13,9 @@ Sempre que há um push na branch `main`, o workflow executa:
 1. Preparação do ambiente
 2. Execução das migrações do banco de dados (Flyway)
 3. Build da aplicação
-4. Deploy automático em produção (Render)
+4. Build da imagem Docker
+5. Push da imagem para o Docker Hub
+6. Deploy automático em produção (Oracle Cloud Infrastructure – VM via Docker)
 
 ---
 
@@ -45,6 +47,7 @@ A aplicação utiliza Java 17, configurado via GitHub Actions.
 ### 3️⃣ Migrações de banco de dados (Flyway)
 
 Antes do build, o Flyway executa automaticamente as migrações no banco de dados de produção.
+
 - As credenciais são armazenadas como Secrets
 - O perfil ativo é prod
 
@@ -52,34 +55,68 @@ Isso garante que o banco esteja sempre compatível com a versão da aplicação.
 
 ### 4️⃣ Build da aplicação
 
-A aplicação é compilada com Maven, gerando o artefato final.
-- Testes automatizados são executados durante o build
-- Estratégia adotada visando maior confiabilidade, mesmo no contexto de Hackathon
+A aplicação é compilada com Maven, gerando o JAR final.
 
-### 5️⃣ Deploy em produção
+- O build é executado com `-DskipTests`
+- Decisão tomada visando velocidade e estabilidade no contexto de Hackathon
+- Os testes automatizados existem no projeto, mas não bloqueiam o deploy neste pipeline
 
-O deploy é disparado automaticamente via Webhook do Render, integrando o pipeline de CI/CD à infraestrutura de produção.
+### 5️⃣ Build e publicação da imagem Docker
+
+Após o build da aplicação:
+
+- A imagem Docker é criada utilizando o Dockerfile do projeto
+- A imagem recebe duas tags:
+  - SHA do commit (imutável)
+  - `latest`
+- As imagens são publicadas no Docker Hub
+
+Essa estratégia permite:
+
+- Rastreabilidade por commit
+- Rollback simples em caso de falha
+
+### 6️⃣ Deploy em produção (OCI)
+
+O deploy é realizado automaticamente em uma VM na Oracle Cloud Infrastructure (OCI) via SSH.
+
+O pipeline executa:
+
+- Pull da imagem Docker mais recente
+- Parada do container anterior (se existir)
+- Remoção do container antigo
+- Inicialização de um novo container com:
+  - Porta 8080 exposta apenas localmente na VM
+  - Variáveis de ambiente via arquivo `.env`
+  - Política de restart automático
 
 ---
 
 ## 🔐 Variáveis de Ambiente e Secrets
 
 As seguintes variáveis são gerenciadas via GitHub Secrets:
-- DB_URL
-- DB_USER
-- DB_PASSWORD
-- RENDER_DEPLOY_HOOK
 
-Isso garante segurança e evita exposição de dados sensíveis no repositório.
+- `DB_URL`
+- `DB_USER`
+- `DB_PASSWORD`
+- `DOCKER_USER`
+- `DOCKER_PASSWORD`
+- `OCI_VM_HOST`
+- `OCI_VM_USER`
+- `OCI_VM_SSH_KEY`
+
+Além disso, a VM utiliza um arquivo `.env` local para configuração da aplicação em runtime.
 
 ---
 
 ## 🏗️ Ambiente de Produção
 
-- Plataforma de deploy: Render
-- Banco de dados: (descrever, ex: PostgreSQL)
+- Plataforma de deploy: Oracle Cloud Infrastructure (VM)
+- Orquestração: Docker (container único)
+- Registro de imagens: Docker Hub
+- Banco de dados: PostgreSQL
 - Migrações: Flyway
-- Perfil ativo: production
+- Perfil ativo: prod
 
 ---
 
@@ -89,12 +126,14 @@ Isso garante segurança e evita exposição de dados sensíveis no repositório.
 - Deploy automatizado para evitar inconsistências manuais
 - Pipeline simples e direto, equilibrando rapidez e confiabilidade no contexto de Hackathon
 - Integração contínua garantindo consistência entre código e banco
+- Uso de Docker para padronizar o ambiente de execução
+- Deploy via SSH em VM para maior controle da infraestrutura
 
 ---
 
 ## 🔮 Próximos Passos
 
-- Expansão da cobertura de testes automatizadoss
+- Expansão da cobertura de testes automatizados
 - Separação de ambientes (staging / production)
 - Validações adicionais (lint, quality gates)
 
@@ -103,6 +142,7 @@ Isso garante segurança e evita exposição de dados sensíveis no repositório.
 ## 🏆 Por que isso é muito bom para Hackathon?
 
 Porque você mostra que:
+
 - Não faz deploy “na mão”
 - Se preocupa com banco de dados
 - Entende CI/CD de verdade
