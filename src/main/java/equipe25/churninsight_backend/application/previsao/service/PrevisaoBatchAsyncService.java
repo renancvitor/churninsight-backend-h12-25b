@@ -3,7 +3,6 @@ package equipe25.churninsight_backend.application.previsao.service;
 import org.springframework.core.io.Resource;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-
 import equipe25.churninsight_backend.application.api.dto.BatchStatusResponse;
 import equipe25.churninsight_backend.application.api.service.PrevisaoClienteService;
 import equipe25.churninsight_backend.exception.domain.RegraNegocioException;

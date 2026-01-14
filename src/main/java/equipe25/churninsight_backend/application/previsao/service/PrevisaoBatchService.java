@@ -4,7 +4,6 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import equipe25.churninsight_backend.application.api.dto.BatchJobResponse;
 import equipe25.churninsight_backend.application.api.dto.BatchStatusResponse;
 import equipe25.churninsight_backend.application.api.service.PrevisaoClienteService;

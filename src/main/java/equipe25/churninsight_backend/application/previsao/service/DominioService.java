@@ -2,9 +2,7 @@ package equipe25.churninsight_backend.application.previsao.service;
 
 import java.util.Arrays;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
 import equipe25.churninsight_backend.application.previsao.dto.Dominio;
 import equipe25.churninsight_backend.model.genero.enums.GeneroEnum;
 import equipe25.churninsight_backend.model.pais.enums.PaisEnum;

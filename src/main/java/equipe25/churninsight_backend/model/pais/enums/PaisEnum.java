@@ -2,7 +2,6 @@ package equipe25.churninsight_backend.model.pais.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-
 import equipe25.churninsight_backend.exception.domain.RecursoNaoEncontradoException;
 
 public enum PaisEnum {

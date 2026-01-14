@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
 import equipe25.churninsight_backend.application.nivelrisco.NivelRiscoRepository;
 import equipe25.churninsight_backend.application.tipoprevisao.TipoPrevisaoRepository;
 import lombok.RequiredArgsConstructor;

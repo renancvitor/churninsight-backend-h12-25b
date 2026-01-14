@@ -8,13 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
-
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
-
 import equipe25.churninsight_backend.application.api.dto.PrevisaoBatchCsv;
 import equipe25.churninsight_backend.application.nivelrisco.NivelRiscoRepository;
 import equipe25.churninsight_backend.application.previsao.repository.PrevisaoRepository;

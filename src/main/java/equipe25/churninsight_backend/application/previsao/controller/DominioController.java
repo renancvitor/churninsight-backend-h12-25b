@@ -2,7 +2,6 @@ package equipe25.churninsight_backend.application.previsao.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import equipe25.churninsight_backend.application.previsao.dto.Dominio;
 import equipe25.churninsight_backend.application.previsao.dto.DominioResponse;
 import equipe25.churninsight_backend.application.previsao.service.DominioService;

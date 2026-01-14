@@ -5,11 +5,8 @@ import java.util.List;
 import equipe25.churninsight_backend.application.previsao.dto.*;
 import equipe25.churninsight_backend.exception.domain.RecursoNaoEncontradoException;
 import equipe25.churninsight_backend.exception.domain.RegraNegocioException;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import equipe25.churninsight_backend.application.api.dto.ClienteRequest;
 import equipe25.churninsight_backend.application.api.dto.ClienteResponse;
 import equipe25.churninsight_backend.application.api.service.PrevisaoClienteService;

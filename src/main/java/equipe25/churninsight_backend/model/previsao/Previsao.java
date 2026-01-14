@@ -2,7 +2,6 @@ package equipe25.churninsight_backend.model.previsao;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import equipe25.churninsight_backend.model.nivelrisco.NivelRiscoEntidade;
 import equipe25.churninsight_backend.model.tipoprevisao.TipoPrevisaoEntidade;
 import jakarta.persistence.*;
