@@ -194,7 +194,11 @@ O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
   "previsao": "Vai continuar",
   "probabilidade": 0.24,
   "nivel_risco": "BAIXO",
-  "explicabilidade": ["Age", "Balance", "Germany"]
+  "explicabilidade": [
+    "Age",
+    "Balance",
+    "Germany"
+  ]
 }
 ```
 
