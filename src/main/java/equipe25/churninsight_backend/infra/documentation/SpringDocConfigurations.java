@@ -40,11 +40,11 @@ public class SpringDocConfigurations {
                                                                 bancos digitais, plataformas de assinatura e soluções SaaS.
 
                                                                 Esta API disponibiliza funcionalidades para:
-                                                                • Previsão unitária de churn a partir de dados de clientes
-                                                                • Processamento assíncrono de previsões em lote (batch)
-                                                                • Consulta de status e download de resultados de batch
-                                                                • Análises estatísticas agregadas por nível de risco
-                                                                • Integração com um microserviço de Data Science em Python
+                                                                - Previsão unitária de churn a partir de dados de clientes
+                                                                - Processamento assíncrono de previsões em lote (batch)
+                                                                - Consulta de status e download de resultados de batch
+                                                                - Análises estatísticas agregadas por nível de risco
+                                                                - Integração com um microserviço de Data Science em Python
 
                                                                 O backend atua como camada de validação, padronização de respostas,
                                                                 aplicação de regras de negócio e persistência histórica das previsões,
