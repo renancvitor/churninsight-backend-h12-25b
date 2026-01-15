@@ -1,6 +1,6 @@
 <h1 id="inicio" align="center">
 ChurnInsight — Plataforma de Previsão de Churn<br>
-<img src="https://img.shields.io/badge/Status-Em%20desenvolvimento-yellow" width="180" height="30" />
+<img src="https://img.shields.io/badge/Status-Completed-brightgreen" width="180" height="30" />
 </h1>
 
 ---
