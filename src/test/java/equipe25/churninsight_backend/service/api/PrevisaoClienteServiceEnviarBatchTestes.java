@@ -49,7 +49,7 @@ public class PrevisaoClienteServiceEnviarBatchTestes {
             BatchJobResponse response = new BatchJobResponse("job-123", "PROCESSANDO");
 
             when(restTemplate.postForObject(
-                    eq("https://churn-api-hackathon.duckdns.org/previsao-lote"),
+                    eq("https://api-ds.duckdns.org/previsao-lote"),
                     any(HttpEntity.class),
                     eq(BatchJobResponse.class)))
                     .thenReturn(response);
@@ -60,7 +60,7 @@ public class PrevisaoClienteServiceEnviarBatchTestes {
             assertEquals(response, result);
 
             verify(restTemplate).postForObject(
-                    eq("https://churn-api-hackathon.duckdns.org/previsao-lote"),
+                    eq("https://api-ds.duckdns.org/previsao-lote"),
                     any(HttpEntity.class),
                     eq(BatchJobResponse.class));
         }

@@ -37,7 +37,7 @@ public class PrevisaoClienteServiceConsultarStatusTestes {
             BatchStatusResponse status = new BatchStatusResponse("PROCESSANDO");
 
             when(restTemplate.getForObject(
-                    eq("https://churn-api-hackathon.duckdns.org/previsao-lote/status/job-123"),
+                    eq("https://api-ds.duckdns.org/previsao-lote/status/job-123"),
                     eq(BatchStatusResponse.class)))
                     .thenReturn(status);
 
@@ -47,7 +47,7 @@ public class PrevisaoClienteServiceConsultarStatusTestes {
             assertEquals(status, result);
 
             verify(restTemplate).getForObject(
-                    "https://churn-api-hackathon.duckdns.org/previsao-lote/status/job-123",
+                    "https://api-ds.duckdns.org/previsao-lote/status/job-123",
                     BatchStatusResponse.class);
         }
     }
