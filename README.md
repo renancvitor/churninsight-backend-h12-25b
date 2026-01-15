@@ -96,7 +96,7 @@ Fluxo de funcionamento da plataforma:
 5. A previsão e a probabilidade são retornadas ao Backend.
 6. O Backend responde ao cliente de forma padronizada.
 
-Durante o hackathon, os serviços foram inicialmente executados localmente, 
+Durante o hackathon, os serviços foram inicialmente executados localmente,
 mas a arquitetura é compatível com deploy em ambientes cloud e atualmente suporta execução em VM via [Docker](https://www.docker.com/).
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
@@ -194,11 +194,7 @@ O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
   "previsao": "Vai continuar",
   "probabilidade": 0.24,
   "nivel_risco": "BAIXO",
-  "explicabilidade": [
-    "Age",
-    "Balance",
-    "Germany"
-  ]
+  "explicabilidade": ["Age", "Balance", "Germany"]
 }
 ```
 
@@ -274,29 +270,29 @@ src/test/java/
 ### Data Science
 
 ```plaintext
-app/                      
+app/
 ├── models/
-│   ├── __init__.py           
-│   ├── model.joblib        # Modelo serializado         
+│   ├── __init__.py
+│   ├── model.joblib        # Modelo serializado
 └── main.py                 # API FastAPI
 
-data/                       
+data/
 ├── Churn.csv               # Dados brutos
 └── dataset.parquet         # Dados tratados
 
-docs/                       
+docs/
 └── Documentação Técnica de Visualizações.md  # Gráficos e análises
 
-notebooks/                  
+notebooks/
 └── Churn_Hackathon.ipynb   # EDA e modelagem
 
-tests/                      
-├── integration/            
+tests/
+├── integration/
 │   ├── __init__.py
 │   ├── test_integration_health.py
 │   ├── test_integration_previsao.py
 │   └── test_integration_root.py
-└── unit/                   
+└── unit/
     ├── __init__.py
     ├── test_unit_payload.py
     ├── test_unit_previsao_lote.py
@@ -310,8 +306,8 @@ README.md
 check_all.sh                # Script de validação total
 conftest.py
 docker-compose.yml
-requirements.txt                   
-stress_test.py                     
+requirements.txt
+stress_test.py
 ```
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
@@ -358,32 +354,17 @@ incluindo migrações de banco via [Flyway](https://flywaydb.org/) e build autom
 
 📄 [Detalhes do pipeline](docs/DEPLOY_AND_CICD.md)
 
-<p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
+A plataforma ChurnInsight possui deploy ativo para fins de demonstração e validação do MVP.
 
----
+🔹 [**Data Science (API de Inferência)**](https://api-ds.duckdns.org/)  
+👉 [Swagger](https://api-ds.duckdns.org/docs)
 
-<h2 id="entregaveis" align="center">Primeiros Entregáveis</h2>
+🔹 [**Backend (API REST)**](https://api.churninsight.renantech.com.br)  
+👉 [Swagger](https://api.churninsight.renantech.com.br/swagger-ui/index.html#/)
 
-- Modelo preditivo treinado e validado
-- Pipeline serializado
-- API [FastAPI](https://fastapi.tiangolo.com/) funcional
-- API Backend integrada
-- Contrato [JSON](https://www.json.org/json-en.html) definido
-- Documentação unificada do projeto
+🔹 [**Frontend (Interface Web)**](https://churninsight-frontend.vercel.app/)
 
-<p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
-
----
-
-<h2 id="proximos-passos" align="center">Próximos Passos</h2>
-
-Como evolução natural da plataforma, são considerados os seguintes aprimoramentos:
-
-- Persistência do histórico de previsões
-- Monitoramento de métricas do modelo
-- Deploy em ambiente cloud
-- Evolução das regras de recomendação de retenção
-- Interface frontend para visualização das previsões
+⚠️ _Observação:_ Os ambientes estão configurados para fins de demonstração do MVP desenvolvido durante o Hackathon da Alura.
 
 <p align="right"><a href="#inicio">⬆️ Voltar ao início</a></p>
 

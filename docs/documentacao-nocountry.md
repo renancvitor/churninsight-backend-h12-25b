@@ -15,9 +15,25 @@ Além dele, o projeto conta com os seguintes repositórios complementares:
 
 Repositórios:
 
-👉 [**ChurnInsight — Backend**](https://github.com/renancvitor/churninsight-backend-h12-25b)  
 👉 [**ChurnInsight — Data Science**](https://github.com/LeticiaPaesano/Churn_Hackathon_ONE-Data_Science)  
+👉 [**ChurnInsight — Backend**](https://github.com/renancvitor/churninsight-backend-h12-25b)  
 👉 [**ChurnInsight — Frontend**](https://github.com/lucasns06/churninsight-frontend)
+
+---
+
+## Deploy e Acesso à Plataforma
+
+A plataforma ChurnInsight possui deploy ativo para fins de demonstração e validação do MVP.
+
+🔹 [**Data Science (API de Inferência)**](https://api-ds.duckdns.org/)  
+👉 [Swagger](https://api-ds.duckdns.org/docs)
+
+🔹 [**Backend (API REST)**](https://api.churninsight.renantech.com.br)  
+👉 [Swagger](https://api.churninsight.renantech.com.br/swagger-ui/index.html#/)
+
+🔹 [**Frontend (Interface Web)**](https://api.churninsight.renantech.com.br/)
+
+⚠️ _Observação:_ Os ambientes estão configurados para fins de demonstração do MVP desenvolvido durante o Hackathon da Alura.
 
 ---
 
@@ -102,17 +118,6 @@ O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
 
 ## Tecnologias Utilizadas
 
-### Backend
-
-- ☕ Java 17+
-- 🌱 Spring Boot 3
-- 🌐 Spring Web
-- 📦 Bean Validation
-- 🔧 Lombok
-- 📖 Swagger / OpenAPI
-- 🧪 JUnit
-- 🐘 PostgreSQL
-
 ### Data Science
 
 - 🐍 Python 3
@@ -121,6 +126,38 @@ O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
 - 🌐 FastAPI
 - 🔧 Uvicorn
 - 📓 Jupyter Notebook / Google Colab
+- 💾 Joblib 1.5.3
+- 📦 pyarrow 22.0.0
+- 📌 pydantic >=2.0,<3.0
+- 📌 python-multipart
+- 📌 Requests 2.31.0
+- 📌 HTTPX
+- 📌 pytest
+
+### Backend
+
+- ☕ Java 17+
+- 🌱 Spring Boot 3
+- 🌐 Spring Web
+- 📦 Bean Validation
+- 🔄 Spring Boot DevTools
+- 🔧 Lombok
+- 🧪 JUnit 5 e 🔧 Mockito
+- 📖 Swagger / OpenAPI
+- 🛠️ Flyway
+- 🐘 PostgreSQL
+- 📦 Maven
+
+### Frontend
+
+- ⚛️ React - v19.2.0
+- #️⃣ TypeScript
+- 🎨 Tailwind CSS - v4.1.18
+- 🎨 Headlessui - v2.2.9
+- 🎨 Heroicons - v2.2.0
+- 🎨 Tsparticles - v3.0.0
+- 🔌 Axios v1.13.2
+- ⚡ Vite - v7.2.4
 
 ---
 
@@ -147,12 +184,26 @@ O pipeline completo foi serializado com `joblib` e exposto via API FastAPI.
   "previsao": "Vai continuar",
   "probabilidade": 0.24,
   "nivel_risco": "BAIXO",
-  "recomendacao": "Cliente estável - manutenção padrão",
   "explicabilidade": ["Age", "Balance", "Germany"]
 }
 ```
 
-O contrato pode evoluir conforme ajustes no modelo e nas regras de negócio.
+---
+
+## Documentação API - Swagger
+
+A API do ChurnInsight é documentada utilizando o padrão Swagger / OpenAPI  
+👉 [Data Science - Swagger UI](https://api-ds.duckdns.org/docs)  
+👉 [Backend - Swagger UI](https://api.churninsight.renantech.com.br/swagger-ui/index.html#/)
+
+### 📌 Visão Geral
+
+A interface Swagger UI permite:
+
+- Explorar todos os endpoints disponíveis
+- Testar requisições diretamente pelo navegador
+- Visualizar contratos de entrada e saída (JSON / CSV)
+- Compreender fluxos síncronos e assíncronos da API
 
 ---
 
@@ -164,44 +215,6 @@ A partir desse diagrama, a estrutura do banco de dados foi implementada em Postg
 ---
 
 ## Estrutura do Projeto
-
-### Backend
-
-```plaintext
-.github/workflows/                      # Pipelines de CI/CD: build, testes e validações automatizadas
-docs/
- ├── diagrama-database/                 # Imagem do diagrama Entidade Relacionamento do banco de dados PostgreSQL
- ├── gifs/                              # Conjunto de gifs para gerar a documentação visual Swagger
- ├── boas-praticas-backend.md           # Guia completo de boas práticas em projetos Java/Spring Boot
- ├── DEPLOY_AND_CICD.md                 # Detalhes do Pipelina de CI/CD aplicado no projeto
- ├── documentacao-nocountry.md          # Documentação atualizada semanalmente na plataforma NoCountry
- ├── documentacao-swagger.md            # Documentação visual da API com GIFs demonstrativos
- ├── er-diagrama.md                     # Documentação sobre o diagrama ER do banco de dados PostgreSQL
- └── estrutura-projeto.md               # Estrutura detalhada do projeto e organização dos pacotes
-
-src/main/java/
- └── equipe25/churninsight_backend/
-      ├── application/                  # Camada de aplicação: orquestração dos casos de uso da API
-      ├── config/                       # Configurações e integrações externas
-      ├── exception/                    # Exceções globais e tratamento de erros da aplicação
-      ├── model/                        # Entidades e enums específicas de cada agregado de domínio
-      └── ChurnInsightBackendApplication.java
-
-src/main/resources/
- ├── db/                                # Scripts Flyway (migrations e seeds)
- ├── application-*.properties           # Configurações específicas (prod, dev)
- └── application.properties             # Configuração padrão
-
-src/test/java/
- └── equipe25/churninsight_backend/
-      ├── service/                      # Testes unitários dos services, com alta cobertura por método
-      ├── utils/                        # Fábrica de entidades e mocks reutilizáveis para testes
-      └── ChurninsightBackendApplicationTests.java
-
- src/test/resources/
- ├── application-test.properties        # Configuração do ambiente de testes
- └── payload/                           # Dados auxiliares (JSON / JSONL) usados em testes e validações manuais
-```
 
 ### Data Science
 
@@ -246,15 +259,71 @@ requirements.txt
 stress_test.py
 ```
 
+### Backend
+
+```plaintext
+.github/workflows/                      # Pipelines de CI/CD: build, testes e validações automatizadas
+docs/
+ ├── diagrama-database/                 # Imagem do diagrama Entidade Relacionamento do banco de dados PostgreSQL
+ ├── gifs/                              # Conjunto de gifs para gerar a documentação visual Swagger
+ ├── boas-praticas-backend.md           # Guia completo de boas práticas em projetos Java/Spring Boot
+ ├── DEPLOY_AND_CICD.md                 # Detalhes do Pipelina de CI/CD aplicado no projeto
+ ├── documentacao-nocountry.md          # Documentação atualizada semanalmente na plataforma NoCountry
+ ├── documentacao-swagger.md            # Documentação visual da API com GIFs demonstrativos
+ ├── er-diagrama.md                     # Documentação sobre o diagrama ER do banco de dados PostgreSQL
+ └── estrutura-projeto.md               # Estrutura detalhada do projeto e organização dos pacotes
+
+src/main/java/
+ └── equipe25/churninsight_backend/
+      ├── application/                  # Camada de aplicação: orquestração dos casos de uso da API
+      ├── config/                       # Configurações e integrações externas
+      ├── exception/                    # Exceções globais e tratamento de erros da aplicação
+      ├── model/                        # Entidades e enums específicas de cada agregado de domínio
+      └── ChurnInsightBackendApplication.java
+
+src/main/resources/
+ ├── db/                                # Scripts Flyway (migrations e seeds)
+ ├── application-*.properties           # Configurações específicas (prod, dev)
+ └── application.properties             # Configuração padrão
+
+src/test/java/
+ └── equipe25/churninsight_backend/
+      ├── service/                      # Testes unitários dos services, com alta cobertura por método
+      ├── utils/                        # Fábrica de entidades e mocks reutilizáveis para testes
+      └── ChurninsightBackendApplicationTests.java
+
+ src/test/resources/
+ ├── application-test.properties        # Configuração do ambiente de testes
+ └── payload/                           # Dados auxiliares (JSON / JSONL) usados em testes e validações manuais
+```
+
+### Frontend
+
+```plaintext
+churninsight-frontend/
+ └── src/
+      ├── @types/         # Interfaces
+      ├── assets/         # Imagens e ícones
+      ├── components/     # Componentes reutilizáveis (UI)
+      |     ├── effects/  # Particulas
+      |     ├──  layout/  # Navbar, Footer
+      ├── constants/      # Dados estáticos
+      ├── pages/          # Páginas
+      ├── services/       # Comunicação com a API
+      ├── App.tsx         # Página princípal
+```
+
 ---
 
-## Como Executar o Projeto
+## Como Executar o Projeto Localmente
 
-### API de Data Science
+### Clone os projetos nos rescpectivos repositórios
+
+### Data Science
 
 ```bash
-pip install -r api/requirements.txt
-uvicorn api.main:app --reload
+pip install -r requirements.txt
+uvicorn app.main:app --reload
 ```
 
 A documentação interativa estará disponível em:
@@ -277,34 +346,16 @@ POST http://localhost:8080/predict
 
 ⚠️ A API de Data Science deve estar em execução para previsões reais.
 
----
+### Frontend
 
-## Primeiros Entregáveis
+```bash
+npm install
+```
 
-- Modelo preditivo treinado e validado
-- Pipeline serializado
-- API FastAPI funcional
-- API Backend integrada
-- Contrato JSON definido
-- Documentação unificada do projeto
+```bash
+npx vite
+```
 
----
-
-## Próximos Passos
-
-Como evolução natural da plataforma, são considerados os seguintes aprimoramentos:
-
-- Deploy em ambiente cloud aderente e performático
-- Novos testes unitários no projeto Java/Spring Boot para adequar às novas services
-
----
-
-## Equipe
-
-Projeto desenvolvido durante o Hackathon da Alura, com dois squads integrados:
-
-**Data Science**: análise de dados, modelagem e API Python
-
-**Backend**: API REST, integração e padronização de respostas
+⚠️ A API do Backend e do Data Science devem estar em execução.
 
 ---
