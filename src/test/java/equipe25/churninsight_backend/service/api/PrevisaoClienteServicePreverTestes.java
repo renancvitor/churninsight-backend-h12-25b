@@ -48,7 +48,7 @@ public class PrevisaoClienteServicePreverTestes {
         @Test
         void deveriaChamarApiPythonERetornarResponse() {
             when(restTemplate.postForObject(
-                    eq("https://churn-api-hackathon.duckdns.org/previsao"),
+                    eq("https://api-ds.duckdns.org/previsao"),
                     eq(request),
                     eq(ClienteResponse.class)))
                     .thenReturn(response);
@@ -59,7 +59,7 @@ public class PrevisaoClienteServicePreverTestes {
             assertEquals(response, result);
 
             verify(restTemplate).postForObject(
-                    "https://churn-api-hackathon.duckdns.org/previsao",
+                    "https://api-ds.duckdns.org/previsao",
                     request,
                     ClienteResponse.class);
         }

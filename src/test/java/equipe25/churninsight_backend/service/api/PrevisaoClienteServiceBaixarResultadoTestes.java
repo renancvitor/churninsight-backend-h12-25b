@@ -38,7 +38,7 @@ public class PrevisaoClienteServiceBaixarResultadoTestes {
             Resource csv = mock(Resource.class);
 
             when(restTemplate.getForObject(
-                    eq("https://churn-api-hackathon.duckdns.org/previsao-lote/download/job-123"),
+                    eq("https://api-ds.duckdns.org/previsao-lote/download/job-123"),
                     eq(Resource.class)))
                     .thenReturn(csv);
 
@@ -48,7 +48,7 @@ public class PrevisaoClienteServiceBaixarResultadoTestes {
             assertEquals(csv, result);
 
             verify(restTemplate).getForObject(
-                    "https://churn-api-hackathon.duckdns.org/previsao-lote/download/job-123",
+                    "https://api-ds.duckdns.org/previsao-lote/download/job-123",
                     Resource.class);
         }
     }
