@@ -12,28 +12,29 @@ import org.springframework.web.filter.CorsFilter;
 @Profile("!test")
 public class CorsConfig {
 
-    @Bean
-    public CorsFilter corsFilter() {
-        CorsConfiguration config = new CorsConfiguration();
+        @Bean
+        public CorsFilter corsFilter() {
+                CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(List.of(
-                "http://localhost:5173",
-                "https://churninsight-frontend.vercel.app"));
+                config.setAllowedOrigins(List.of(
+                                "http://localhost:5173",
+                                "http://localhost:8080",
+                                "https://churninsight-frontend.vercel.app"));
 
-        config.setAllowedMethods(List.of(
-                "GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                config.setAllowedMethods(List.of(
+                                "GET", "POST", "PUT", "DELETE", "OPTIONS"));
 
-        config.setAllowedHeaders(List.of(
-                "Content-Type",
-                "Authorization",
-                "X-API-KEY"));
+                config.setAllowedHeaders(List.of(
+                                "Content-Type",
+                                "Authorization",
+                                "X-API-KEY"));
 
-        config.setAllowCredentials(false);
+                config.setAllowCredentials(false);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
+                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                source.registerCorsConfiguration("/**", config);
 
-        return new CorsFilter(source);
-    }
+                return new CorsFilter(source);
+        }
 
 }
